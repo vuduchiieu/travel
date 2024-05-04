@@ -1,5 +1,5 @@
 "use client";
-import icon from "../assets/icon/icon";
+import icon from "@/assets/icon/icon";
 import Image from "next/image";
 
 export default function Home() {
