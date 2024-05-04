@@ -14,6 +14,7 @@ const icon: {
   search: require("./search.svg").default.src,
   user: require("./user.svg").default.src,
   heart: require("./heart.svg").default.src,
+
 };
 
 export default icon;
