@@ -1,3 +1,4 @@
+"use client";
 import image from "@/assets/picture/image";
 import React from "react";
 import Image from "next/image";
