@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import IFromLogin from "./component/IFormLogin/IFromLogin";
+import FromLogin from "./component/IFormLogin/FromLogin";
 import LoginByIns from "./component/byInstagram/LoginByIns";
 
 const Login = () => {
   return (
     <div className="w-96 mx-auto h-screen flex  justify-center  items-center flex-col gap-3 pb-2 ">
       <div>Sign in by account</div>
-      <IFromLogin />
+      <FromLogin />
       <div className="text-[10px]">Forgot password ?</div>
       <div className="w-48 text-center border-b-[1px] border-black leading-[0.1rem] mx-0 mt-[10px] mb-[20px]">
         <span className="text-[14px] bg-[#fff] px-[10px] py-0">or</span>
