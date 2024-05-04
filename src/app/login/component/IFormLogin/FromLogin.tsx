@@ -1,4 +1,4 @@
-import { error } from "console";
+
 import * as React from "react";
 import { useForm } from "react-hook-form";
 
@@ -29,10 +29,10 @@ const IFromLogin = () => {
   ];
 
   const onSubmit = (d: IFormLogin) => {
-    DataError.map(({ type, name, message }) => {
-      setError(name, { type, message });
-      console.log(message);
-    });
+    // DataError.map(({ type, name, message }) => {
+    //   // setError(name, { type, message });
+    //   console.log(message);
+    // });
   };
 
   return (

@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 
-const Icon: {
+const icon: {
   arrow_r: string | StaticImageData;
   logo: string | StaticImageData;
   home: string | StaticImageData;
@@ -18,4 +18,4 @@ const Icon: {
   heart: require("./heart.svg"),
 };
 
-export default Icon;
+export default icon;

@@ -1,5 +1,5 @@
 import { StaticImageData } from "next/image"
-const Picture : {
+const image : {
     instagram : string | StaticImageData,
 } 
 =
@@ -7,4 +7,4 @@ const Picture : {
     instagram : require('./instagramIcon.jpg')
 }
 
-export default Picture;
+export default image;
