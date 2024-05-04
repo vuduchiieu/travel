@@ -1,9 +1,8 @@
+"use client";
 import icon from "@/assets/icon/icon";
 import Image from "next/image";
 
 export default function Home() {
-  console.log(icon.logo);
-
   return (
     <main className="w-screen h-screen">
       <header className="flex items-center justify-between h-[74px] w-[1230px] mx-auto ">
