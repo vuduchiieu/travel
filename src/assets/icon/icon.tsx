@@ -8,6 +8,8 @@ const icon: {
   search: string | StaticImageData;
   user: string | StaticImageData;
   heart: string | StaticImageData;
+  eye: string | StaticImageData;
+  eye_hidden: string | StaticImageData;
 } = {
   arrow_r: require("./arrow-right.svg"),
   logo: require("./logo.svg"),
@@ -16,6 +18,8 @@ const icon: {
   search: require("./search.svg"),
   user: require("./user.svg"),
   heart: require("./heart.svg"),
+  eye: require("./eye.svg"),
+  eye_hidden: require("./eye_hidden.svg"),
 };
 
 export default icon;
