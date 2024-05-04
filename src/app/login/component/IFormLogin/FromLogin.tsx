@@ -7,7 +7,7 @@ interface IFormLogin {
   password: string;
 }
 
-const IFromLogin = () => {
+const FromLogin = () => {
   const {
     register,
     handleSubmit,
@@ -15,18 +15,18 @@ const IFromLogin = () => {
     formState: { errors },
   } = useForm<IFormLogin>();
 
-  const DataError = [
-    {
-      type: "manual",
-      name: "email",
-      message: " Please double check your email ",
-    },
-    {
-      type: "manual",
-      name: "password",
-      message: " Please double check your password ",
-    },
-  ];
+  // const DataError = [
+  //   {
+  //     type: "manual",
+  //     name: "email",
+  //     message: " Please double check your email ",
+  //   },
+  //   {
+  //     type: "manual",
+  //     name: "password",
+  //     message: " Please double check your password ",
+  //   },
+  // ];
 
   const onSubmit = (d: IFormLogin) => {
     // DataError.map(({ type, name, message }) => {
@@ -49,7 +49,7 @@ const IFromLogin = () => {
           required: "Email is required",
           pattern: {
             value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-            message: "Email must be correctly",
+            message: "Invalid email",
           },
         })}
       />
@@ -64,7 +64,7 @@ const IFromLogin = () => {
             value:
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
             message:
-              "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+              "Invalid password",
           },
         })}
       />
@@ -76,4 +76,4 @@ const IFromLogin = () => {
   );
 };
 
-export default IFromLogin;
+export default FromLogin;
