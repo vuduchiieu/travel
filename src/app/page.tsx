@@ -1,4 +1,3 @@
-"use client";
 import icon from "@/assets/icon/icon";
 import Image from "next/image";
 
