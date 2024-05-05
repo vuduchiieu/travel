@@ -20,6 +20,10 @@ const icon: {
   reelsNavBar: string;
   searchNavBar: string;
   heartNavBar: string;
+  more: string;
+  comment: string;
+  repost: string;
+  share: string;
 } = {
   arrow_r: require("./arrow-right.svg").default.src,
   arrow_r_2: require("./arrow-right_2.svg").default.src,
@@ -42,6 +46,10 @@ const icon: {
   reelsNavBar: require("./reelsNavBar.svg").default.src,
   searchNavBar: require("./search_w.svg").default.src,
   heartNavBar: require("./hearNavBar.svg").default.src,
+  more: require("./more.svg").default.src,
+  comment: require("./comment.svg").default.src,
+  repost: require("./repost.svg").default.src,
+  share: require("./share.svg").default.src,
 };
 
 export default icon;

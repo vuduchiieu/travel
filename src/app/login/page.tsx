@@ -5,11 +5,9 @@ import React from "react";
 
 const Login = () => {
   return (
-    <div className="w-100 mx-auto h-screen flex  justify-center  items-center flex-col gap-3 pb-2 bg-[#101010]">
+    <div className="relative z-[0] w-100 mx-auto h-screen flex  justify-center  items-center flex-col gap-3 pb-2 bg-[#101010]">
       <img
-        className="z-0 absolute p-0 top-0 transparent"
-        width="1200"
-        height="300"
+        className="fixed top-0 left-0 z-[-1]"
         src="https://static.cdninstagram.com/rsrc.php/yC/r/jxB9GUOHTf2.webp"
         alt="bg"
       />
