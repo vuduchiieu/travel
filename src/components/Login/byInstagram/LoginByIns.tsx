@@ -4,7 +4,7 @@ import icon from "@/assets/icon/icon";
 
 const LoginByIns = () => {
   return (
-    <div className="flex flex-row items-center gap-x-1.5">
+    <div className="flex items-center gap-x-1.5">
       <img
         className="rounded-lg"
         height="30"
