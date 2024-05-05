@@ -1,6 +1,6 @@
+"use client";
 import * as React from "react";
 import { useForm } from "react-hook-form";
-import Image from "next/image";
 import icon from "@/assets/icon/icon";
 
 interface IFormLogin {
@@ -45,7 +45,7 @@ const FromLogin = () => {
       action=""
     >
       <input
-        className="w-48 outline-double outline-cyan-500 text-xs pl-1.5 rounded-sm"
+        className="w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
         type="text"
         placeholder="Type your account"
         {...register("email", {
@@ -58,7 +58,7 @@ const FromLogin = () => {
       />
       {errors.email && <p>{errors.email.message}</p>}
       <input
-        className="w-48 outline-double outline-cyan-500 text-xs pl-1.5 rounded-sm"
+        className="w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
         type={unmask ? "text" : "password"}
         placeholder="Type your password"
         {...register("password", {
@@ -72,16 +72,16 @@ const FromLogin = () => {
       />
       {errors.password && <p>{errors.password.message}</p>}
       <div className="absolute">
-        <Image
+        <img
           onClick={() => setUnMask(!unmask)}
-          className="relative left-[5.5rem] bottom-[0.2rem]"
+          className="relative left-[7rem] bottom-[0.2rem]"
           width="14"
           height="14"
           src={unmask ? icon.eye : icon.eye_hidden}
           alt={unmask ? "eye" : "eye_hidden"}
         />
       </div>
-      <button className="w-48 h-6 bg-cyan-300 text-xs text-white rounded-2xl">
+      <button className="w-64 h-10 bg-cyan-300 text-xl text-white rounded-2xl">
         Log In
       </button>
     </form>

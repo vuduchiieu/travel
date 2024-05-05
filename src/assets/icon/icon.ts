@@ -1,5 +1,7 @@
 const icon: {
   arrow_r: string;
+  arrow_r_2: string;
+  arrow_r_2_w: string;
   logo: string;
   home: string;
   posts: string;
@@ -10,6 +12,8 @@ const icon: {
   eye_hidden: string;
 } = {
   arrow_r: require("./arrow-right.svg").default.src,
+  arrow_r_2: require("./arrow-right_2.svg").default.src,
+  arrow_r_2_w: require("./arrow-right_2_w.svg").default.src,
   logo: require("./logo.svg").default.src,
   home: require("./home.svg").default.src,
   posts: require("./posts.svg").default.src,

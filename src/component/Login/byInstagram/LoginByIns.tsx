@@ -10,10 +10,10 @@ const LoginByIns = () => {
         height="30"
         width="30"
         src={image.instagram}
-        alt="instaIcon"
+        alt="instagramIcon"
       />
-      <div className="text-xs"> Continues with Instagram </div>
-      <img height="16" width="16" src={icon.arrow_r} alt="arrow-right" />
+      <div className="text-xs text-white"> Continues with Instagram </div>
+      <img height="16" width="16" src={icon.arrow_r_2_w} alt="arrow-right" />
     </div>
   );
 };
