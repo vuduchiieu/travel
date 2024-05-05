@@ -49,8 +49,8 @@ export default function Home() {
         <div>
           {posts.map((item, i) => (
             <div key={i}>
-              <div className="flex justify-between py-[12px] relative before:absolute before:w-[100%] before:h-[1px] before:bg-[#e5e5e5] before:bottom-[0]">
-                <div className="relative before:absolute before:w-[2px] before:h-[85%] before:bg-[#e5e5e5] before:top-[10%] before:left-[50%]">
+              <div className="flex justify-between  py-[12px] relative before:absolute before:w-[100%] before:h-[1px] before:bg-[#e5e5e5] before:bottom-[0]">
+                <div className="relative before:absolute before:w-[2px] before:h-[85%] before:bg-[#e5e5e5] before:top-[10%] before:left-[50%] mt-[2%]">
                   <img
                     className=" w-[36px] h-[36px] rounded-[100%] "
                     src={item.user.avt}
@@ -72,11 +72,11 @@ export default function Home() {
                       <img className="w-[20px]" src={icon.more} alt="" />
                     </div>
                   </div>
-                  <div className="min-h-[30px] mt-[3px] whitespace-pre-wrap">
+                  <div className="min-h-[30px]  whitespace-pre-wrap">
                     <p>{item.title}</p>
                   </div>
                   <img
-                    className="max-h-[430px] object-cover rounded-[8px] "
+                    className="max-h-[430px] object-cover rounded-[8px] mt-[8px] "
                     src={item.image}
                     alt=""
                   />
