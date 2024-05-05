@@ -41,11 +41,11 @@ const FromLogin = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" flex flex-col items-center gap-2 justify-around"
+      className="flex flex-col items-center gap-2 justify-around"
       action=""
     >
       <input
-        className="w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
+        className="z-50 w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
         type="text"
         placeholder="Type your account"
         {...register("email", {
@@ -58,7 +58,7 @@ const FromLogin = () => {
       />
       {errors.email && <p>{errors.email.message}</p>}
       <input
-        className="w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
+        className="z-50 w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
         type={unmask ? "text" : "password"}
         placeholder="Type your password"
         {...register("password", {

@@ -1,12 +1,13 @@
-import FromLogin from "@/component/Login/IFormLogin/FromLogin";
-import LoginByIns from "@/component/Login/byInstagram/LoginByIns";
+import FromLogin from "@/components/Login/IFormLogin/FromLogin";
+import LoginByIns from "@/components/Login/byInstagram/LoginByIns";
+import Link from "next/link";
 import React from "react";
 
 const Login = () => {
   return (
     <div className="w-100 mx-auto h-screen flex  justify-center  items-center flex-col gap-3 pb-2 bg-[#101010]">
       <img
-        className="z-0 absolute p-0 top-0"
+        className="z-0 absolute p-0 top-0 transparent"
         width="1200"
         height="300"
         src="https://static.cdninstagram.com/rsrc.php/yC/r/jxB9GUOHTf2.webp"
@@ -16,14 +17,17 @@ const Login = () => {
         <b className="text-white">Log in with your Instagram account</b>
       </div>
       <FromLogin />
-      <div className="text-[10px] text-white">Forgot password ?</div>
+      <Link href="/acount/password/reset">
+        <div className="text-[10px] text-white">Forgot password ?</div>
+      </Link>
+
       <div className="w-96 text-center border-b-[1px] border-white leading-[0.1rem] mx-0 mt-[10px] mb-[20px]">
         <span className="text-[14px] text-white px-[10px] py-0 bg-[#101010]">
           or
         </span>
       </div>
       <LoginByIns />
-      <div className="text-white text-[8px] w-96 flex flex-row justify-between font-semibold">
+      <div className="fixed bottom-5 text-white text-[8px] w-96 flex flex-row justify-between font-semibold">
         <div> © 2024 </div>
         <div> Threads Terms</div>
         <div> Privacy Policy</div>
