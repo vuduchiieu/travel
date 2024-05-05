@@ -8,7 +8,7 @@ const FP_navBar = () => {
         <div className="flex flex-col gap-10 items-start pl-[20px]">
           {navBarData.map(
             (item: { content: string; icon: string }, index: number) => (
-              <div className="flex items-center gap-2">
+              <div key={index} className="flex items-center gap-2">
                 <img
                   height="20"
                   width="20"
@@ -23,7 +23,7 @@ const FP_navBar = () => {
         <div className="flex flex-col gap-10 items-start pl-[20px]">
           {navBarData_2.map(
             (item: { content: string; icon: string }, index: number) => (
-              <div className="flex items-center gap-2">
+              <div key={index} className="flex items-center gap-2">
                 <img
                   height="20"
                   width="20"
