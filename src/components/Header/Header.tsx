@@ -11,6 +11,8 @@ export default function Header() {
   const { openModelLogin, toggleModelLogin } = useAppContext();
   const pathname = usePathname();
 
+  console.log(pathname);
+
   return (
     <header className="flex items-center justify-between fixed  top-0 left-0 right-0 bg-[#fff] h-[74px] w-[1230px] mx-auto  z-[1]">
       <Link href={"/"} className="ml-[19px] mr-[68px]">
