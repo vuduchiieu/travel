@@ -21,13 +21,13 @@ export default function NavContent() {
         onClick={toggleModelLogin}
         className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]"
       >
-        <img className="w-[22px]" src={icon.comment} alt="" />
+        <img className="w-[20px]" src={icon.comment} alt="" />
       </div>
       <div
         onClick={toggleModelLogin}
         className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]"
       >
-        <img className="w-[22px]" src={icon.repost} alt="" />
+        <img className="w-[20px]" src={icon.repost} alt="" />
       </div>
       <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
         <img className="w-[22px]" src={icon.share} alt="" />
