@@ -10,9 +10,6 @@ const Login = () => {
         src="https://static.cdninstagram.com/rsrc.php/yC/r/jxB9GUOHTf2.webp"
         alt="bg"
       />
-      <div>
-        <b className="text-white">Log in with your Instagram account</b>
-      </div>
       <ModelLogin loginPage={loginPage} />
       <ul className="fixed bottom-5 text-[#999] text-[12px]  w-[522px] flex flex-row justify-between font-normal">
         <li> © 2024 </li>
