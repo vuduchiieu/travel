@@ -1,22 +1,28 @@
 "use client";
 import icon from "@/assets/icon/icon";
-import image from "@/assets/picture/image";
 import Models from "@/components/Models/Models";
-import useModelLogin from "@/hook/useModelLogin";
 import { posts } from "@/data/data";
 import Link from "next/link";
+import CustomAlert from "@/components/CustomAlert/CustomAlert";
+import { useState } from "react";
 
 export default function Home() {
-  const { openModelLogin, setOpenModelLogin, toggleModelLogin } =
-    useModelLogin();
+  const [openModelLogin, setOpenModelLogin] = useState(false);
+  const [contentAler, setContentAler] = useState("");
+
+  const toggleModelLogin = () => {
+    setOpenModelLogin(!openModelLogin);
+  };
   return (
     <>
       {openModelLogin && (
         <Models
           setOpenModelLogin={setOpenModelLogin}
           openModelLogin={openModelLogin}
+          setContentAler={setContentAler}
         />
       )}
+      {contentAler && <CustomAlert content={contentAler} />}
       <main
         style={openModelLogin ? { overflowX: "hidden" } : {}}
         className="w-screen h-screen "
@@ -106,7 +112,10 @@ export default function Home() {
                       alt=""
                     />
                     <div className="flex my-[6px]">
-                      <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+                      <div
+                        onClick={toggleModelLogin}
+                        className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]"
+                      >
                         <img
                           style={{ filter: "var(--filter-black) " }}
                           className="w-[22px]"
@@ -114,10 +123,16 @@ export default function Home() {
                           alt=""
                         />
                       </div>
-                      <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+                      <div
+                        onClick={toggleModelLogin}
+                        className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]"
+                      >
                         <img className="w-[22px]" src={icon.comment} alt="" />
                       </div>
-                      <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+                      <div
+                        onClick={toggleModelLogin}
+                        className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]"
+                      >
                         <img className="w-[22px]" src={icon.repost} alt="" />
                       </div>
                       <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
