@@ -8,10 +8,10 @@ export default function NavContent() {
     <div className="flex my-[6px]">
       <div
         onClick={toggleModelLogin}
-        className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]"
+        className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer   hover:bg-[#f5f5f5]"
       >
         <img
-          style={{ filter: "var(--filter-black) " }}
+          style={{ filter: "var(--filter-black)" }}
           className="w-[22px]"
           src={icon.heart}
           alt=""
