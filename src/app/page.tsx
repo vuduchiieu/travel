@@ -8,7 +8,7 @@ import { posts } from "@/data/data";
 export default function Home() {
   return (
     <main className="w-screen h-screen">
-      <header className="flex items-center justify-between fixed  top-0 left-0 right-0 bg-[#fff] h-[74px] w-[1230px] mx-auto z-[1]">
+      <header className="flex items-center justify-between fixed  top-0 left-0 right-0 bg-[#fff] h-[74px] w-[1230px] mx-auto  z-[1]">
         <Link href={"/"} className="ml-[19px] mr-[68px]">
           <img className="w-[32px]" alt="" src={icon.logo} />
         </Link>

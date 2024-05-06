@@ -77,7 +77,7 @@ export default function ModelLogin({
           <input
             type="text"
             placeholder="Tên người dùng, số điện thoại hoặc email"
-            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px]"
+            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -85,7 +85,7 @@ export default function ModelLogin({
           <input
             type="password"
             placeholder="Mật khẩu"
-            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px]"
+            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]   focus:border-[#00000026]"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
