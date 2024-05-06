@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 import icon from "@/assets/icon/icon";
 import { useAppContext } from "../Context/Context";
@@ -38,7 +40,7 @@ export default function ModelLogin({ loginPage }: any) {
     }
   }, [contentAler]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!newUser.username) {
       setContentAler("vui lòng nhập username");
@@ -48,8 +50,28 @@ export default function ModelLogin({ loginPage }: any) {
       setContentAler("vui lòng nhập password");
       return;
     }
-    if (swapRegister) {
-      console.log("code register");
+    console.log("hello");
+
+    try {
+      const res = await axios.post(
+        `https://be-travel-93253ee5ae8f.herokuapp.com/v1/auth/login`,
+        newUser
+      );
+      const decodedToken = jwtDecode(res.data);
+    } catch (error: any) {
+      setContentAler(error?.response.data);
+    }
+  };
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!newUser.username) {
+      setContentAler("vui lòng nhập username");
+      return;
+    }
+    if (!newUser.password) {
+      setContentAler("vui lòng nhập password");
+      return;
     }
   };
 
@@ -69,45 +91,87 @@ export default function ModelLogin({ loginPage }: any) {
         ) : (
           <h2 className="h-[10%] font-bold text-[16px]">Đăng nhập</h2>
         )}
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center h-[45%] w-[100%]"
-        >
-          <input
-            type="text"
-            placeholder="Tên người dùng, số điện thoại hoặc email"
-            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Mật khẩu"
-            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]   focus:border-[#00000026]"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            style={
-              newUser.username && newUser.password
-                ? { cursor: "pointer" }
-                : { cursor: "no-drop" }
-            }
-            type="submit"
-            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
+        {swapRegister ? (
+          <form
+            onSubmit={handleRegister}
+            className="flex flex-col items-center h-[45%] w-[100%]"
           >
-            <p
+            <input
+              type="text"
+              placeholder="Tên người dùng"
+              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Mật khẩu"
+              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]   focus:border-[#00000026]"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
               style={
                 newUser.username && newUser.password
-                  ? { color: "#fff" }
-                  : { color: "#999999" }
+                  ? { cursor: "pointer" }
+                  : { cursor: "no-drop" }
               }
-              className=" font-semibold"
+              type="submit"
+              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
             >
-              {swapRegister ? <span>Đăng ký</span> : <span>Đăng nhập</span>}
-            </p>
-          </button>
-        </form>
+              <p
+                style={
+                  newUser.username && newUser.password
+                    ? { color: "#fff" }
+                    : { color: "#999999" }
+                }
+                className=" font-semibold"
+              >
+                <span>Đăng ký</span>
+              </p>
+            </button>
+          </form>
+        ) : (
+          <form
+            onSubmit={handleLogin}
+            className="flex flex-col items-center h-[45%] w-[100%]"
+          >
+            <input
+              type="text"
+              placeholder="Tên người dùng, số điện thoại hoặc email"
+              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Mật khẩu"
+              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]   focus:border-[#00000026]"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              style={
+                newUser.username && newUser.password
+                  ? { cursor: "pointer" }
+                  : { cursor: "no-drop" }
+              }
+              type="submit"
+              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
+            >
+              <p
+                style={
+                  newUser.username && newUser.password
+                    ? { color: "#fff" }
+                    : { color: "#999999" }
+                }
+                className=" font-semibold"
+              >
+                <span>Đăng nhập</span>
+              </p>
+            </button>
+          </form>
+        )}
 
         <button onClick={handleSwapregister} className="h-[12%] text-[#999999]">
           {swapRegister ? <p>Đăng nhập</p> : <p>Đăng ký</p>}
