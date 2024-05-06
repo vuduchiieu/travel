@@ -9,7 +9,6 @@ import Link from "next/link";
 export default function Home() {
   const { openModelLogin, setOpenModelLogin, toggleModelLogin } =
     useModelLogin();
-
   return (
     <>
       {openModelLogin && (
@@ -63,7 +62,7 @@ export default function Home() {
           </Link>
         </header>
         <div className="max-w-[620px] min-h-[820px]  mx-auto ">
-          <div className=" flex justify-between items-center  h-[68px] py-[16px] ">
+          {/* <div className=" flex justify-between items-center  h-[68px] py-[16px] ">
             <img className="w-[36px] rounded-[100%]" src={image.acc1} alt="" />
             <div className="w-[80%]">
               <p className="text-[#999] text-[15px]">Bắt đầu thread...</p>
@@ -71,7 +70,7 @@ export default function Home() {
             <button className="h-[36px] w-[68px] rounded-full bg-[#000]">
               <p className="text-[#fff] font-semibold">Đăng</p>
             </button>
-          </div>
+          </div> */}
           <div>
             {posts.map((item, i) => (
               <div key={i}>
