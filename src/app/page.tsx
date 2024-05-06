@@ -36,12 +36,12 @@ export default function Home() {
               <div className="flex justify-between  py-[12px] ">
                 <div>
                   <img
-                    className=" w-[36px] h-[36px] rounded-[100%] "
+                    className=" w-[36px] h-[36px] rounded-[100%] mt-[16px] "
                     src={item.user.avt}
                     alt=""
                   />
                 </div>
-                <div className="h-[100%] w-[calc(92%)]">
+                <div className="h-[100%] w-[92%]">
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold leading-[21px] text-[15px]">
                       {item.user.username}
