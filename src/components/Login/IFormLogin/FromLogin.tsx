@@ -47,7 +47,7 @@ const FromLogin = () => {
       <input
         className="z-50 w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
         type="text"
-        placeholder="Type your account"
+        placeholder="Tên đăng nhập, số điện thoại hoặc email"
         {...register("email", {
           required: "Email is required",
           pattern: {
@@ -60,7 +60,7 @@ const FromLogin = () => {
       <input
         className="z-50 w-64 h-8 outline-double outline-cyan-500 text-xs pl-1.5 rounded-2xl"
         type={unmask ? "text" : "password"}
-        placeholder="Type your password"
+        placeholder="Mật khẩu"
         {...register("password", {
           required: "password is required",
           pattern: {
@@ -82,7 +82,7 @@ const FromLogin = () => {
         />
       </div>
       <button className="w-64 h-10 bg-cyan-300 text-xl text-white rounded-2xl">
-        Log In
+        Đăng nhập
       </button>
     </form>
   );

@@ -12,7 +12,10 @@ const LoginByIns = () => {
         src={image.instagram}
         alt="instagramIcon"
       />
-      <div className="text-xs text-white"> Continues with Instagram </div>
+      <div className="text-xs text-white">
+        {" "}
+        Đăng nhập bằng tài khoản Instagram{" "}
+      </div>
       <img height="16" width="16" src={icon.arrow_r_2_w} alt="arrow-right" />
     </div>
   );
