@@ -12,6 +12,7 @@ interface ModelLoginProps {}
 export default function ModelLogin({ loginPage }: any) {
   const { openModelLogin, setOpenModelLogin, contentAler, setContentAler } =
     useAppContext();
+
   const [swapRegister, setSwapregister] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -62,7 +63,6 @@ export default function ModelLogin({ loginPage }: any) {
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] "
     >
       {contentAler && <CustomAlert content={contentAler} />}
-
       <div
         style={loginPage ? { backgroundColor: "transparent" } : {}}
         className="flex flex-col items-center p-[24px] w-[370px] h-[456px] bg-[#fff] z-[1] rounded-[16px]"
@@ -72,7 +72,6 @@ export default function ModelLogin({ loginPage }: any) {
         ) : (
           <h2 className="h-[10%] font-bold text-[16px]">Đăng nhập</h2>
         )}
-
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center h-[45%] w-[100%]"
@@ -84,7 +83,6 @@ export default function ModelLogin({ loginPage }: any) {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-
           <input
             type="password"
             placeholder="Mật khẩu"

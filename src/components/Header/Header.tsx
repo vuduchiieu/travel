@@ -24,13 +24,12 @@ export default function Header() {
         >
           <img className="w-[26px]" src={icon.home} alt="" />
         </Link>
-        <Link
-          href={"/search"}
-          // onClick={toggleModelLogin}
+        <button
+          onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.search} alt="" />
-        </Link>
+        </button>
         <button
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
