@@ -64,7 +64,7 @@ export default function ModelLogin({ loginPage }: any) {
     >
       {contentAler && <CustomAlert content={contentAler} />}
       <div
-        style={loginPage ? { backgroundColor: "transparent" } : {}}
+        style={loginPage ? { backgroundColor: "transparent", width: 420 } : {}}
         className="flex flex-col items-center p-[24px] w-[370px] h-[456px] bg-[#fff] z-[1] rounded-[16px]"
       >
         {swapRegister ? (
