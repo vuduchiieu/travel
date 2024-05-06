@@ -11,12 +11,22 @@ const Login = () => {
         alt="bg"
       />
       <ModelLogin loginPage={loginPage} />
-      <ul className="fixed bottom-5 text-[#999] text-[12px]  w-[522px] flex flex-row justify-between font-normal">
-        <li> © 2024 </li>
-        <li> Threads Terms</li>
-        <li> Privacy Policy</li>
-        <li> Cookies Policy</li>
-        <li> Report a problem</li>
+      <ul className="fixed bottom-5 w-[522px] flex items-center justify-between">
+        <li className="font-normal text-[#999] text-[12px] cursor-pointer hover:underline">
+          © 2024
+        </li>
+        <li className="font-normal text-[#999] text-[12px] cursor-pointer hover:underline">
+          Threads Terms
+        </li>
+        <li className="font-normal text-[#999] text-[12px] cursor-pointer hover:underline">
+          Privacy Policy
+        </li>
+        <li className="font-normal text-[#999] text-[12px] cursor-pointer hover:underline">
+          Cookies Policy
+        </li>
+        <li className="font-normal text-[#999] text-[12px] cursor-pointer hover:underline">
+          Report a problem
+        </li>
       </ul>
     </div>
   );

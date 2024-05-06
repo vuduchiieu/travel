@@ -3,11 +3,8 @@
 import React, { useEffect, useState } from "react";
 
 import icon from "@/assets/icon/icon";
-import image from "@/assets/picture/image";
 import { useAppContext } from "../Context/Context";
 import CustomAlert from "../CustomAlert/CustomAlert";
-
-interface ModelLoginProps {}
 
 export default function ModelLogin({ loginPage }: any) {
   const { openModelLogin, setOpenModelLogin, contentAler, setContentAler } =
@@ -121,7 +118,7 @@ export default function ModelLogin({ loginPage }: any) {
         <button className="flex border-solid border-[1px] border-[#00000026] rounded-[16px] p-[20px] w-[100%] h-[20%] justify-between items-center">
           <img
             className="w-[45px] rounded-[10px]"
-            src={image.instagram}
+            src={icon.instagram}
             alt=""
           />
           <p className="font-bold text-[16px]">Tiếp tục bằng Instagram</p>
