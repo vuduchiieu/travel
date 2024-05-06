@@ -1,25 +1,12 @@
-import Link from "next/link";
-
 import icon from "@/assets/icon/icon";
 import NavContent from "@/components/Navigation/NavContent";
-import NavHeader from "@/components/Navigation/NavHeader";
 import { posts } from "@/data/data";
+import Header from "@/components/Header/Header";
 
 export default function Home() {
   return (
     <main className="w-screen h-screen">
-      <header className="flex items-center justify-between fixed  top-0 left-0 right-0 bg-[#fff] h-[74px] w-[1230px] mx-auto z-[1]">
-        <Link href={"/"} className="ml-[19px] mr-[68px]">
-          <img className="w-[32px]" alt="" src={icon.logo} />
-        </Link>
-        <NavHeader />
-        <Link
-          href={"/login"}
-          className="flex items-center justify-center w-[106px] h-[34px] bg-[#000] rounded-[10px] text-[15px] mr-[13px]"
-        >
-          <p className="text-[#fff]">Đăng nhập</p>
-        </Link>
-      </header>
+      <Header />
       <div className="max-w-[620px] min-h-[820px] pt-[74px] mx-auto ">
         {/* <div className=" flex justify-between items-center  h-[68px] py-[16px] ">
             <img className="w-[36px] rounded-[100%]" src={image.acc1} alt="" />
@@ -36,12 +23,12 @@ export default function Home() {
               <div className="flex justify-between  py-[12px] ">
                 <div>
                   <img
-                    className=" w-[36px] h-[36px] rounded-[100%] "
+                    className=" w-[36px] h-[36px] rounded-[100%] mt-[16px] "
                     src={item.user.avt}
                     alt=""
                   />
                 </div>
-                <div className="h-[100%] w-[calc(92%)]">
+                <div className="h-[100%] w-[92%]">
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold leading-[21px] text-[15px]">
                       {item.user.username}

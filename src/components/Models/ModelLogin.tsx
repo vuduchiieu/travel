@@ -4,20 +4,14 @@ import React, { useEffect, useState } from "react";
 
 import icon from "@/assets/icon/icon";
 import image from "@/assets/picture/image";
+import { useAppContext } from "../Context/Context";
+import CustomAlert from "../CustomAlert/CustomAlert";
 
-interface ModelLoginProps {
-  setOpenModelLogin: (open: boolean) => void;
-  openModelLogin: boolean;
-  setContentAler: any;
-  contentAler: any;
-}
+interface ModelLoginProps {}
 
-export default function ModelLogin({
-  setOpenModelLogin,
-  openModelLogin,
-  setContentAler,
-  contentAler,
-}: ModelLoginProps) {
+export default function ModelLogin({ loginPage }: any) {
+  const { openModelLogin, setOpenModelLogin, contentAler, setContentAler } =
+    useAppContext();
   const [swapRegister, setSwapregister] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +36,7 @@ export default function ModelLogin({
     if (!!contentAler) {
       setTimeout(() => {
         setContentAler(false);
-      }, 3000);
+      }, 5000);
     }
   }, [contentAler]);
 
@@ -56,14 +50,23 @@ export default function ModelLogin({
       setContentAler("vui lòng nhập password");
       return;
     }
+    if (swapRegister) {
+      console.log("code register");
+    }
   };
 
   return (
     <div
       onClick={handleOpenModelLogin}
+      style={loginPage ? { backgroundColor: "transparent" } : {}}
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] "
     >
-      <div className="flex flex-col items-center p-[24px] w-[370px] h-[456px] bg-[#fff] z-[1] rounded-[16px]">
+      {contentAler && <CustomAlert content={contentAler} />}
+
+      <div
+        style={loginPage ? { backgroundColor: "transparent" } : {}}
+        className="flex flex-col items-center p-[24px] w-[370px] h-[456px] bg-[#fff] z-[1] rounded-[16px]"
+      >
         {swapRegister ? (
           <h2 className="h-[10%] font-bold text-[16px]">Đăng ký</h2>
         ) : (
@@ -77,7 +80,7 @@ export default function ModelLogin({
           <input
             type="text"
             placeholder="Tên người dùng, số điện thoại hoặc email"
-            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px]"
+            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -85,7 +88,7 @@ export default function ModelLogin({
           <input
             type="password"
             placeholder="Mật khẩu"
-            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px]"
+            className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]   focus:border-[#00000026]"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
