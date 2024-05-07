@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
-import InstagramProvider from "next-auth/providers/instagram";
+import GoogleProvider from "next-auth/providers/google";
 
 const handler = NextAuth({
   providers: [
-    InstagramProvider({
+    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
