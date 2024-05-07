@@ -12,27 +12,28 @@ interface UserContextType {
   openModelLogin: boolean;
   setOpenModelLogin: (newState: boolean) => void;
   toggleModelLogin: () => void;
-  contentAler: any;
-  setContentAler: any;
+  contentAler: string;
+  setContentAler: (newState: string) => void;
   imageInsideModel: string;
   openModelImage: boolean;
   setOpenModelImage: (newState: boolean) => void;
   toggleModelImage: (imageUrl: any) => void;
+  user: any;
+  isLogin: boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const { data: user, status } = useSession();
-
-  console.log(user);
-  console.log(status);
+  const isLogin =
+    status === "authenticated" || status === "loading" ? true : false;
 
   const [contentAler, setContentAler] = useState("");
 
   const [openModelLogin, setOpenModelLogin] = useState(false);
   const toggleModelLogin = () => {
-    setOpenModelLogin(!openModelLogin);
+    if (!isLogin) setOpenModelLogin(!openModelLogin);
   };
 
   const [openModelImage, setOpenModelImage] = useState(false);
@@ -41,6 +42,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const toggleModelImage = (i: any) => {
     setImageInsideModel(i);
     setOpenModelImage(!openModelImage);
+    setContentAler("");
   };
 
   useEffect(() => {
@@ -50,6 +52,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       document.body.style.overflow = "auto";
     };
   }, [openModelLogin, openModelImage]);
+
+  useEffect(() => {
+    if (!!contentAler) {
+      setTimeout(() => {
+        setContentAler("");
+      }, 5000);
+    }
+  }, [contentAler]);
 
   return (
     <UserContext.Provider
@@ -63,6 +73,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         imageInsideModel,
         openModelImage,
         setOpenModelImage,
+        user,
+        isLogin,
       }}
     >
       {children}

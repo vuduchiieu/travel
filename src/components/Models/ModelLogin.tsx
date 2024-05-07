@@ -1,10 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-
-import icon from "@/assets/icon/icon";
 import { useAppContext } from "../Context/Context";
 import CustomAlert from "../CustomAlert/CustomAlert";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
@@ -25,7 +21,6 @@ export default function ModelLogin({ loginPage }: any) {
   const handleCloseModelLogin = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setOpenModelLogin(!openModelLogin);
-      setContentAler(false);
     }
   };
 
@@ -33,16 +28,9 @@ export default function ModelLogin({ loginPage }: any) {
     setSwapregister(!swapRegister);
   };
 
-  useEffect(() => {
-    if (!!contentAler) {
-      setTimeout(() => {
-        setContentAler(false);
-      }, 5000);
-    }
-  }, [contentAler]);
-
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!newUser.username) {
       setContentAler("vui lòng nhập tên người dùng, số điện thoại hoặc email");
       return;
@@ -50,17 +38,6 @@ export default function ModelLogin({ loginPage }: any) {
     if (!newUser.password) {
       setContentAler("vui lòng nhập mật khẩu");
       return;
-    }
-    console.log("hello");
-
-    try {
-      const res = await axios.post(
-        `https://be-travel-93253ee5ae8f.herokuapp.com/v1/auth/login`,
-        newUser
-      );
-      const decodedToken = jwtDecode(res.data);
-    } catch (error: any) {
-      setContentAler(error?.response.data);
     }
   };
 
@@ -99,6 +76,7 @@ export default function ModelLogin({ loginPage }: any) {
           >
             <input
               type="text"
+              name="username"
               placeholder="Tên người dùng"
               className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
               value={username}
@@ -106,6 +84,7 @@ export default function ModelLogin({ loginPage }: any) {
             />
             <input
               type="password"
+              name="password"
               placeholder="Mật khẩu"
               className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]   focus:border-[#00000026]"
               value={password}

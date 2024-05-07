@@ -1,16 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import icon from "@/assets/icon/icon";
 import ModelLogin from "../Models/ModelLogin";
 import { useAppContext } from "../Context/Context";
 import ModelImage from "../Models/ModelImage";
-import { signOut } from "next-auth/react";
+import Menu from "../Menu/Menu";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const { openModelLogin, toggleModelLogin, openModelImage } = useAppContext();
+  const { openModelLogin, toggleModelLogin, openModelImage, isLogin } =
+    useAppContext();
 
   const pathname = usePathname();
 
@@ -28,37 +29,65 @@ export default function Header() {
         >
           <img className="w-[26px]" src={icon.home} alt="" />
         </Link>
-        <button
-          onClick={() => signOut()}
+        <Link
+          href={isLogin ? "/search" : ""}
+          onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.search} alt="" />
-        </button>
+          <img
+            style={
+              pathname === "/search" ? { filter: "var(--filter-black)" } : {}
+            }
+            className="w-[26px]"
+            src={icon.search}
+            alt=""
+          />
+        </Link>
         <button
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.posts} alt="" />
         </button>
-        <button
+        <Link
+          href={isLogin ? "/activity" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.heart} alt="" />
-        </button>
-        <button
+          <img
+            style={
+              pathname === "/activity" ? { filter: "var(--filter-black)" } : {}
+            }
+            className="w-[26px]"
+            src={icon.heart}
+            alt=""
+          />
+        </Link>
+        <Link
+          href={isLogin ? "/account" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.user} alt="" />
-        </button>
+          <img
+            style={
+              pathname === "/account" ? { filter: "var(--filter-black)" } : {}
+            }
+            className="w-[26px]"
+            src={icon.user}
+            alt=""
+          />
+        </Link>
       </nav>
-      <Link
-        href={"/login"}
-        className="flex items-center justify-center w-[106px] h-[34px] bg-[#000] rounded-[10px] text-[15px] mr-[13px]"
-      >
-        <p className="text-[#fff]">Đăng nhập</p>
-      </Link>
+      {isLogin ? (
+        <Menu />
+      ) : (
+        <Link
+          href={"/login"}
+          className="flex items-center justify-center w-[106px] h-[34px] bg-[#000] rounded-[10px] text-[15px] mr-[13px]"
+        >
+          <p className="text-[#fff]">Đăng nhập</p>
+        </Link>
+      )}
     </header>
   );
 }

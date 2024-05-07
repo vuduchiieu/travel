@@ -1,7 +1,7 @@
 import ModelLogin from "@/components/Models/ModelLogin";
 import React from "react";
 
-const Login = () => {
+export default function Login() {
   const loginPage = true;
 
   return (
@@ -31,6 +31,4 @@ const Login = () => {
       </ul>
     </div>
   );
-};
-
-export default Login;
+}

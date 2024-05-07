@@ -1,28 +1,20 @@
-"use client";
 import icon from "@/assets/icon/icon";
 import NavContent from "@/components/Navigation/NavContent";
 import { posts } from "@/data/data";
 import Header from "@/components/Header/Header";
 import ImagePost from "@/components/ImagePost/ImagePost";
+import NewPosts from "@/components/NewPosts/NewPosts";
 
 export default function Home() {
   return (
     <main className="w-screen h-screen">
       <Header />
       <div className="max-w-[620px] min-h-[820px] pt-[74px] mx-auto ">
-        {/* <div className=" flex justify-between items-center  h-[68px] py-[16px] ">
-            <img className="w-[36px] rounded-[100%]" src={image.acc1} alt="" />
-            <div className="w-[80%]">
-              <p className="text-[#999] text-[15px]">Bắt đầu thread...</p>
-            </div>
-            <button className="h-[36px] w-[68px] rounded-full bg-[#000]">
-              <p className="text-[#fff] font-semibold">Đăng</p>
-            </button>
-          </div> */}
+        <NewPosts />
         <div>
           {posts.map((item, i) => (
             <div key={i}>
-              <div className="flex justify-between  py-[12px] ">
+              <div className="flex justify-between py-[12px] ">
                 <div>
                   <img
                     className=" w-[36px] h-[36px] rounded-[100%] mt-[16px] "

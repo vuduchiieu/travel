@@ -13,6 +13,7 @@ interface iconType {
   instagram: string;
   google: string;
   close: string;
+  menu: string;
 }
 
 const icon: iconType = {
@@ -30,6 +31,7 @@ const icon: iconType = {
   instagram: require("./instagram.svg").default.src,
   google: require("./google.svg").default.src,
   close: require("./close.svg").default.src,
+  menu: require("./menu.svg").default.src,
 };
 
 export default icon;

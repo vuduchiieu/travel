@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/components/Context/Context";
-import { SessionProvider } from "next-auth/react";
 import Providers from "@/components/LoginGoogle/Providers";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <ProtectedRoute>{children}</ProtectedRoute>
+          </UserProvider>
         </Providers>
       </body>
     </html>

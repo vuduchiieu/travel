@@ -1,3 +1,4 @@
+import axios from "axios";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -18,6 +19,10 @@ const handler = NextAuth({
         provider: account?.provider,
         providerAccountId: account?.providerAccountId,
       };
+      await axios.post(
+        `${process.env.REACT_APP_API}/v1/auth/logingoogle`,
+        userData
+      );
 
       return true;
     },
