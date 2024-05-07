@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import icon from "@/assets/icon/icon";
 import { useAppContext } from "../Context/Context";
 import CustomAlert from "../CustomAlert/CustomAlert";
+import LoginGoogle from "../LoginGoogle/LoginGoogle";
 
 export default function ModelLogin({ loginPage }: any) {
   const { openModelLogin, setOpenModelLogin, contentAler, setContentAler } =
@@ -21,7 +22,7 @@ export default function ModelLogin({ loginPage }: any) {
     password,
   };
 
-  const handleOpenModelLogin = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleCloseModelLogin = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setOpenModelLogin(!openModelLogin);
       setContentAler(false);
@@ -43,11 +44,11 @@ export default function ModelLogin({ loginPage }: any) {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!newUser.username) {
-      setContentAler("vui lòng nhập username");
+      setContentAler("vui lòng nhập tên người dùng, số điện thoại hoặc email");
       return;
     }
     if (!newUser.password) {
-      setContentAler("vui lòng nhập password");
+      setContentAler("vui lòng nhập mật khẩu");
       return;
     }
     console.log("hello");
@@ -77,7 +78,7 @@ export default function ModelLogin({ loginPage }: any) {
 
   return (
     <div
-      onClick={handleOpenModelLogin}
+      onClick={handleCloseModelLogin}
       style={loginPage ? { backgroundColor: "transparent" } : {}}
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] "
     >
@@ -179,20 +180,7 @@ export default function ModelLogin({ loginPage }: any) {
         <p className="relative h-[12%] text-center w-[100%] text-[#999999] after:absolute after:top-[25%] after:left-0 after:h-[1px] after:w-[40%] after:bg-[#00000026] before:absolute before:top-[25%] before:right-0 before:h-[1px] before:w-[40%] before:bg-[#00000026]">
           hoặc
         </p>
-        <button className="flex border-solid border-[1px] border-[#00000026] rounded-[16px] p-[20px] w-[100%] h-[20%] justify-between items-center">
-          <img
-            className="w-[45px] rounded-[10px]"
-            src={icon.instagram}
-            alt=""
-          />
-          <p className="font-bold text-[16px]">Tiếp tục bằng Instagram</p>
-          <img
-            style={{ filter: "var(--filter-grey)" }}
-            className="w-[16px] rounded-[10px]"
-            src={icon.arrow_r}
-            alt=""
-          />
-        </button>
+        <LoginGoogle />
       </div>
     </div>
   );

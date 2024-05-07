@@ -11,6 +11,7 @@ interface iconType {
   repost: string;
   share: string;
   instagram: string;
+  close: string;
 }
 
 const icon: iconType = {
@@ -26,6 +27,7 @@ const icon: iconType = {
   repost: require("./repost.svg").default.src,
   share: require("./share.svg").default.src,
   instagram: require("./instagram.svg").default.src,
+  close: require("./close.svg").default.src,
 };
 
 export default icon;

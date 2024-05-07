@@ -3,6 +3,7 @@ import React from "react";
 
 const Login = () => {
   const loginPage = true;
+
   return (
     <div className="relative z-[0] w-100 mx-auto h-screen flex  justify-center  items-center flex-col gap-3 pb-2 bg-[#fff]">
       <img

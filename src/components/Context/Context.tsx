@@ -1,4 +1,5 @@
 "use client";
+import { useSession } from "next-auth/react";
 import React, {
   createContext,
   useContext,
@@ -13,11 +14,20 @@ interface UserContextType {
   toggleModelLogin: () => void;
   contentAler: any;
   setContentAler: any;
+  imageInsideModel: string;
+  openModelImage: boolean;
+  setOpenModelImage: (newState: boolean) => void;
+  toggleModelImage: (imageUrl: any) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const { data: user, status } = useSession();
+
+  console.log(user);
+  console.log(status);
+
   const [contentAler, setContentAler] = useState("");
 
   const [openModelLogin, setOpenModelLogin] = useState(false);
@@ -25,12 +35,21 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setOpenModelLogin(!openModelLogin);
   };
 
+  const [openModelImage, setOpenModelImage] = useState(false);
+  const [imageInsideModel, setImageInsideModel] = useState("");
+
+  const toggleModelImage = (i: any) => {
+    setImageInsideModel(i);
+    setOpenModelImage(!openModelImage);
+  };
+
   useEffect(() => {
-    if (openModelLogin) document.body.style.overflow = "hidden";
+    if (openModelLogin || openModelImage)
+      document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [openModelLogin]);
+  }, [openModelLogin, openModelImage]);
 
   return (
     <UserContext.Provider
@@ -40,6 +59,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         toggleModelLogin,
         contentAler,
         setContentAler,
+        toggleModelImage,
+        imageInsideModel,
+        openModelImage,
+        setOpenModelImage,
       }}
     >
       {children}
