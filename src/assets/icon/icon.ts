@@ -10,10 +10,10 @@ interface iconType {
   comment: string;
   repost: string;
   share: string;
-  instagram: string;
   google: string;
   close: string;
   menu: string;
+  defaultImage: string;
 }
 
 const icon: iconType = {
@@ -28,10 +28,10 @@ const icon: iconType = {
   comment: require("./comment.svg").default.src,
   repost: require("./repost.svg").default.src,
   share: require("./share.svg").default.src,
-  instagram: require("./instagram.svg").default.src,
   google: require("./google.svg").default.src,
   close: require("./close.svg").default.src,
   menu: require("./menu.svg").default.src,
+  defaultImage: require("./defaultImage.svg").default.src,
 };
 
 export default icon;

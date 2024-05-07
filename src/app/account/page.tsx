@@ -20,7 +20,7 @@ export default function Account() {
             <img
               onClick={() => toggleModelImage(user?.user.image)}
               className="w-[84px] object-cover rounded-[50%]"
-              src={user?.user.image}
+              src={user?.user.image || icon.defaultImage}
               alt=""
             />
           </div>
