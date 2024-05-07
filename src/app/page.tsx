@@ -1,7 +1,9 @@
+"use client";
 import icon from "@/assets/icon/icon";
 import NavContent from "@/components/Navigation/NavContent";
 import { posts } from "@/data/data";
 import Header from "@/components/Header/Header";
+import ImagePost from "@/components/ImagePost/ImagePost";
 
 export default function Home() {
   return (
@@ -46,11 +48,7 @@ export default function Home() {
                   <div className="min-h-[30px]  whitespace-pre-wrap">
                     <p>{item.title}</p>
                   </div>
-                  <img
-                    className="max-h-[430px] object-cover rounded-[8px] mt-[8px] "
-                    src={item.image}
-                    alt=""
-                  />
+                  <ImagePost src={item.image} />
                   <NavContent />
                   <div className="flex">
                     <p className="text-[#999999] font-normal text-[15px]">

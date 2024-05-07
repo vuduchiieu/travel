@@ -6,12 +6,13 @@ import { usePathname } from "next/navigation";
 import icon from "@/assets/icon/icon";
 import ModelLogin from "../Models/ModelLogin";
 import { useAppContext } from "../Context/Context";
+import ModelImage from "../Models/ModelImage";
+import { signOut } from "next-auth/react";
 
 export default function Header() {
-  const { openModelLogin, toggleModelLogin } = useAppContext();
-  const pathname = usePathname();
+  const { openModelLogin, toggleModelLogin, openModelImage } = useAppContext();
 
-  console.log(pathname);
+  const pathname = usePathname();
 
   return (
     <header className="flex items-center justify-between fixed  top-0 left-0 right-0 bg-[#fff] h-[74px] w-[1230px] mx-auto  z-[1]">
@@ -20,6 +21,7 @@ export default function Header() {
       </Link>
       <nav className="flex items-center justify-center max-w-[620px] h-[74px] px-[70px] ">
         {openModelLogin && <ModelLogin />}
+        {openModelImage && <ModelImage />}
         <Link
           href={"/"}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
@@ -27,7 +29,7 @@ export default function Header() {
           <img className="w-[26px]" src={icon.home} alt="" />
         </Link>
         <button
-          onClick={toggleModelLogin}
+          onClick={() => signOut()}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.search} alt="" />
