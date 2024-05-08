@@ -19,7 +19,7 @@ interface UserContextType {
   openModelImage: boolean;
   setOpenModelImage: (newState: boolean) => void;
   toggleModelImage: (imageUrl: string) => void;
-  user?: Session | null | undefined;
+  user?: any;
   isLogin: boolean;
 }
 

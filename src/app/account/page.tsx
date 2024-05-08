@@ -5,7 +5,7 @@ import Header from "@/components/Header/Header";
 import Link from "next/link";
 
 export default function Account() {
-  const { user, toggleModelImage } = useAppContext();
+  const { user } = useAppContext();
 
   return (
     <>
@@ -17,8 +17,8 @@ export default function Account() {
               <h2 className="font-semibold text-[24px]">{user?.user.email}</h2>
               <p className="font-light text-[15px]">{user?.user.name}</p>
             </div>
+
             <img
-              onClick={() => toggleModelImage(user?.user.image)}
               className="w-[84px] object-cover rounded-[50%]"
               src={user?.user.image || icon.defaultImage}
               alt=""
