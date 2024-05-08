@@ -40,7 +40,7 @@ function Search() {
             <img className="w-[16px]" src={icon.close} alt="" />
           </div>
         </div>
-        <div className="flex flex-col h-[500px]">
+        <div className="flex flex-col min-h-[500px]">
           {listUser.map((item, i) => (
             <div key={i} className="flex pt-[16px] min-h-[84px] ">
               <div className="pt-[4px] pb-[2px] pr-[12px]">

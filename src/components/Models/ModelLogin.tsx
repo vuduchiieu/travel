@@ -1,20 +1,26 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppContext } from "../Context/Context";
 import CustomAlert from "../CustomAlert/CustomAlert";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 
-export default function ModelLogin({ loginPage }: any) {
+interface ModelLoginProps {
+  loginPage?: boolean;
+}
+
+export default function ModelLogin({ loginPage }: ModelLoginProps) {
   const { openModelLogin, setOpenModelLogin, contentAler, setContentAler } =
     useAppContext();
 
-  const [swapRegister, setSwapregister] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [swapRegister, setSwapregister] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const newUser = {
-    username,
+    email,
     password,
   };
 
@@ -25,13 +31,12 @@ export default function ModelLogin({ loginPage }: any) {
   };
 
   const handleSwapregister = () => {
-    setSwapregister(!swapRegister);
+    setSwapregister((prev) => !prev);
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!newUser.username) {
+    if (!newUser.email) {
       setContentAler("vui lòng nhập tên người dùng, số điện thoại hoặc email");
       return;
     }
@@ -39,17 +44,29 @@ export default function ModelLogin({ loginPage }: any) {
       setContentAler("vui lòng nhập mật khẩu");
       return;
     }
+    await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: "/",
+    });
   };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!newUser.username) {
-      setContentAler("vui lòng nhập username");
+    if (!newUser.email) {
+      setContentAler("vui lòng nhập email");
       return;
     }
     if (!newUser.password) {
-      setContentAler("vui lòng nhập password");
+      setContentAler("vui lòng nhập mật khẩu");
       return;
+    }
+    try {
+      await axios.post("/api/auth/register", newUser);
+      handleLogin(e);
+    } catch (error: any) {
+      console.log(error);
+      setContentAler(error?.response.data?.error);
     }
   };
 
@@ -75,12 +92,12 @@ export default function ModelLogin({ loginPage }: any) {
             className="flex flex-col items-center h-[45%] w-[100%]"
           >
             <input
-              type="text"
-              name="username"
+              type="email"
+              name="email"
               placeholder="Tên người dùng"
               className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="password"
@@ -92,7 +109,7 @@ export default function ModelLogin({ loginPage }: any) {
             />
             <button
               style={
-                newUser.username && newUser.password
+                newUser.email && newUser.password
                   ? { cursor: "pointer" }
                   : { cursor: "no-drop" }
               }
@@ -101,13 +118,13 @@ export default function ModelLogin({ loginPage }: any) {
             >
               <p
                 style={
-                  newUser.username && newUser.password
+                  newUser.email && newUser.password
                     ? { color: "#fff" }
                     : { color: "#999999" }
                 }
                 className=" font-semibold"
               >
-                <span>Đăng ký</span>
+                Đăng ký
               </p>
             </button>
           </form>
@@ -120,8 +137,8 @@ export default function ModelLogin({ loginPage }: any) {
               type="text"
               placeholder="Tên người dùng, số điện thoại hoặc email"
               className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="password"
@@ -132,7 +149,7 @@ export default function ModelLogin({ loginPage }: any) {
             />
             <button
               style={
-                newUser.username && newUser.password
+                newUser.email && newUser.password
                   ? { cursor: "pointer" }
                   : { cursor: "no-drop" }
               }
@@ -141,13 +158,13 @@ export default function ModelLogin({ loginPage }: any) {
             >
               <p
                 style={
-                  newUser.username && newUser.password
+                  newUser.email && newUser.password
                     ? { color: "#fff" }
                     : { color: "#999999" }
                 }
                 className=" font-semibold"
               >
-                <span>Đăng nhập</span>
+                Đăng nhập
               </p>
             </button>
           </form>

@@ -1,7 +1,10 @@
 "use client";
 import { useAppContext } from "../Context/Context";
+interface ImagePostProps {
+  src: string;
+}
 
-export default function ImagePost({ src }: any) {
+export default function ImagePost({ src }: ImagePostProps) {
   const { toggleModelImage } = useAppContext();
   return (
     <img

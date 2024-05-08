@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useAppContext } from "../Context/Context";
 import icon from "@/assets/icon/icon";
 
@@ -12,8 +11,6 @@ export default function ModelImage() {
       setOpenModelImage(!openModelImage);
     }
   };
-
-  console.log(imageInsideModel);
 
   return (
     <div

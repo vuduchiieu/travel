@@ -8,7 +8,7 @@ import CustomAlert from "../CustomAlert/CustomAlert";
 
 export default function Menu() {
   const { contentAler, setContentAler } = useAppContext();
-  const [openMenu, setOpenNenu] = useState(false);
+  const [openMenu, setOpenNenu] = useState<boolean>(false);
   const handleErr = () => {
     setContentAler("Tính năng đang phát triển");
   };
@@ -58,10 +58,10 @@ export default function Menu() {
           </button>
         </div>
       )}
-      onClickOutside={() => setOpenNenu(!openMenu)}
+      onClickOutside={() => setOpenNenu((prev) => !prev)}
     >
       <button
-        onClick={() => setOpenNenu(!openMenu)}
+        onClick={() => setOpenNenu((prev) => !prev)}
         className="w-[106px] mr-[13px]"
       >
         {contentAler && <CustomAlert content={contentAler} />}

@@ -1,4 +1,5 @@
 "use client";
+import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import React, {
   createContext,
@@ -14,47 +15,46 @@ interface UserContextType {
   toggleModelLogin: () => void;
   contentAler: string;
   setContentAler: (newState: string) => void;
-  imageInsideModel: string;
+  imageInsideModel?: string;
   openModelImage: boolean;
   setOpenModelImage: (newState: boolean) => void;
-  toggleModelImage: (imageUrl: any) => void;
-  user: any;
+  toggleModelImage: (imageUrl: string) => void;
+  user?: Session | null | undefined;
   isLogin: boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const { data: user, status } = useSession();
-  const isLogin =
-    status === "authenticated" || status === "loading" ? true : false;
+  const { data: session, status } = useSession();
+  const isLogin = status === "authenticated" || status === "loading";
 
-  const [contentAler, setContentAler] = useState("");
+  const [contentAler, setContentAler] = useState<string>("");
+  const [openModelLogin, setOpenModelLogin] = useState<boolean>(false);
+  const [openModelImage, setOpenModelImage] = useState<boolean>(false);
+  const [imageInsideModel, setImageInsideModel] = useState<string>("");
 
-  const [openModelLogin, setOpenModelLogin] = useState(false);
   const toggleModelLogin = () => {
-    if (!isLogin) setOpenModelLogin(!openModelLogin);
+    if (!isLogin) setOpenModelLogin((prev) => !prev);
   };
 
-  const [openModelImage, setOpenModelImage] = useState(false);
-  const [imageInsideModel, setImageInsideModel] = useState("");
-
-  const toggleModelImage = (i: any) => {
-    setImageInsideModel(i);
-    setOpenModelImage(!openModelImage);
+  const toggleModelImage = (imageUrl: string) => {
+    setImageInsideModel(imageUrl);
+    setOpenModelImage((prev) => !prev);
     setContentAler("");
   };
 
   useEffect(() => {
-    if (openModelLogin || openModelImage)
+    if (openModelLogin || openModelImage) {
       document.body.style.overflow = "hidden";
+    }
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [openModelLogin, openModelImage]);
 
   useEffect(() => {
-    if (!!contentAler) {
+    if (contentAler) {
       setTimeout(() => {
         setContentAler("");
       }, 5000);
@@ -73,7 +73,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         imageInsideModel,
         openModelImage,
         setOpenModelImage,
-        user,
+        user: session,
         isLogin,
       }}
     >

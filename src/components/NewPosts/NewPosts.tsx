@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useAppContext } from "../Context/Context";
+import icon from "@/assets/icon/icon";
 
 export default function NewPosts() {
   const { isLogin, user } = useAppContext();
@@ -12,7 +13,7 @@ export default function NewPosts() {
           width={36}
           height={36}
           className="w-[36px] rounded-[100%]"
-          src={user?.user.image}
+          src={user?.user?.image ?? icon.defaultImage}
           alt=""
         />
         <div className="w-[80%]">
