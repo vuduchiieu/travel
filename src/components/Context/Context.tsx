@@ -29,6 +29,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const { data: session, status } = useSession();
   const isLogin = status === "authenticated" || status === "loading";
 
+  console.log(session);
+
   const [contentAler, setContentAler] = useState<string>("");
   const [openModelLogin, setOpenModelLogin] = useState<boolean>(false);
   const [openModelImage, setOpenModelImage] = useState<boolean>(false);
