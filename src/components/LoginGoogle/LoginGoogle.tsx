@@ -7,7 +7,7 @@ export default function LoginGoogle() {
   return (
     <button
       onClick={() => {
-        signIn("instagram", {
+        signIn("google", {
           callbackUrl: "/",
         });
       }}

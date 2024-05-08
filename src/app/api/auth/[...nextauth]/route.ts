@@ -26,38 +26,38 @@ const handler = NextAuth({
         return null;
       },
     }),
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-    // }),
-    InstagramProvider({
-      clientId: process.env.INSTAGRAM_CLIENT_ID,
-      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
+    // InstagramProvider({
+    //   clientId: process.env.INSTAGRAM_CLIENT_ID,
+    //   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
+    // }),
   ],
-  // callbacks: {
-  //   async signIn({ user, account, profile }) {
-  //     try {
-  //       const userData = {
-  //         email: user.email,
-  //         name: user.name,
-  //         image: user.image,
-  //         provider: account?.provider,
-  //         providerAccountId: account?.providerAccountId,
-  //       };
-  //       await axios.post(
-  //         `${process.env.REACT_APP_API}/v1/auth/logingoogle`,
-  //         userData
-  //       );
-  //       return true;
-  //     } catch (error) {
-  //       console.log(error);
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      try {
+        const userData = {
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          provider: account?.provider,
+          providerAccountId: account?.providerAccountId,
+        };
+        await axios.post(
+          `${process.env.REACT_APP_API}/v1/auth/logingoogle`,
+          userData
+        );
+        return true;
+      } catch (error) {
+        console.log(error);
 
-  //       console.error("Lỗi khi đăng nhập:", (error as Error).message);
-  //       return false;
-  //     }
-  //   },
-  // },
+        console.error("Lỗi khi đăng nhập:", (error as Error).message);
+        return false;
+      }
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
