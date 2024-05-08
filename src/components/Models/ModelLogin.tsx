@@ -6,6 +6,7 @@ import CustomAlert from "../CustomAlert/CustomAlert";
 import LoginGoogle from "../LoginGoogle/LoginGoogle";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import icon from "@/assets/icon/icon";
 
 interface ModelLoginProps {
   loginPage?: boolean;
@@ -18,6 +19,8 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
   const [swapRegister, setSwapregister] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isLoadingLogin, setIsLoadingLogin] = useState<boolean>(false);
+  const [isLoadingRegister, setIsLoadingRegister] = useState<boolean>(false);
 
   const newUser = {
     email,
@@ -36,6 +39,7 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!newUser.email) {
       setContentAler("vui lòng nhập tên người dùng, số điện thoại hoặc email");
       return;
@@ -44,11 +48,19 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
       setContentAler("vui lòng nhập mật khẩu");
       return;
     }
-    await signIn("credentials", {
-      email,
-      password,
-      callbackUrl: "/",
-    });
+    setIsLoadingLogin(true);
+    try {
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: "/",
+      });
+      setIsLoadingLogin(false);
+    } catch (error: any) {
+      setIsLoadingLogin(false);
+      console.log(error);
+      setContentAler(error?.response.data?.error);
+    }
   };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,10 +73,14 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
       setContentAler("vui lòng nhập mật khẩu");
       return;
     }
+    setIsLoadingRegister(true);
+
     try {
       await axios.post("/api/auth/register", newUser);
-      handleLogin(e);
+      await handleLogin(e);
+      setIsLoadingRegister(false);
     } catch (error: any) {
+      setIsLoadingRegister(false);
       console.log(error);
       setContentAler(error?.response.data?.error);
     }
@@ -114,18 +130,26 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
                   : { cursor: "no-drop" }
               }
               type="submit"
-              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
+              className="flex justify-center items-center w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
             >
-              <p
-                style={
-                  newUser.email && newUser.password
-                    ? { color: "#fff" }
-                    : { color: "#999999" }
-                }
-                className=" font-semibold"
-              >
-                Đăng ký
-              </p>
+              {isLoadingRegister ? (
+                <img
+                  className="animate-spin w-[24px]"
+                  src={icon.loading}
+                  alt=""
+                />
+              ) : (
+                <p
+                  style={
+                    newUser.email && newUser.password
+                      ? { color: "#fff" }
+                      : { color: "#999999" }
+                  }
+                  className=" font-semibold"
+                >
+                  Đăng ký
+                </p>
+              )}
             </button>
           </form>
         ) : (
@@ -154,18 +178,26 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
                   : { cursor: "no-drop" }
               }
               type="submit"
-              className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
+              className="flex justify-center items-center w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
             >
-              <p
-                style={
-                  newUser.email && newUser.password
-                    ? { color: "#fff" }
-                    : { color: "#999999" }
-                }
-                className=" font-semibold"
-              >
-                Đăng nhập
-              </p>
+              {isLoadingLogin ? (
+                <img
+                  className="animate-spin w-[24px] h-[24px] rounded-[50%]"
+                  src={icon.loading}
+                  alt=""
+                />
+              ) : (
+                <p
+                  style={
+                    newUser.email && newUser.password
+                      ? { color: "#fff" }
+                      : { color: "#999999" }
+                  }
+                  className=" font-semibold"
+                >
+                  Đăng nhập
+                </p>
+              )}
             </button>
           </form>
         )}
