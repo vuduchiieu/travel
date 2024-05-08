@@ -17,7 +17,7 @@ function Search() {
   useEffect(() => {
     const handleCallListUser = async () => {
       const res = await axios.get(
-        "https://be-travel-93253ee5ae8f.herokuapp.com/v1/user?page=1&pageSize=10"
+        `${process.env.REACT_APP_API}/v1/user?page=1&pageSize=10`
       );
 
       setListUser(res.data.data);
