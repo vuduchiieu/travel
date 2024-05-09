@@ -3,10 +3,10 @@ import React from "react";
 import Link from "next/link";
 
 import icon from "@/assets/icon/icon";
-import ModelLogin from "../Models/ModelLogin";
+import ModelLogin from "../ModelLogin/ModelLogin";
 import { useAppContext } from "../Context/Context";
-import ModelImage from "../Models/ModelImage";
-import Menu from "../Menu/Menu";
+import ModelImage from "./ModelImage";
+import Menu from "./Menu";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
@@ -34,14 +34,7 @@ export default function Header() {
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img
-            style={
-              pathname === "/search" ? { filter: "var(--filter-black)" } : {}
-            }
-            className="w-[26px]"
-            src={icon.search}
-            alt=""
-          />
+          <img className="w-[26px]" src={icon.search} alt="" />
         </Link>
         <button
           onClick={toggleModelLogin}
@@ -54,28 +47,14 @@ export default function Header() {
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img
-            style={
-              pathname === "/activity" ? { filter: "var(--filter-black)" } : {}
-            }
-            className="w-[26px]"
-            src={icon.heart}
-            alt=""
-          />
+          <img className="w-[26px]" src={icon.heart} alt="" />
         </Link>
         <Link
           href={isLogin ? "/account" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img
-            style={
-              pathname === "/account" ? { filter: "var(--filter-black)" } : {}
-            }
-            className="w-[26px]"
-            src={icon.user}
-            alt=""
-          />
+          <img className="w-[26px]" src={icon.user} alt="" />
         </Link>
       </nav>
       {isLogin ? (

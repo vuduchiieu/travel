@@ -1,6 +1,5 @@
 "use client";
-import Image from "next/image";
-import { useAppContext } from "../Context/Context";
+import { useAppContext } from "../../components/Context/Context";
 import icon from "@/assets/icon/icon";
 
 export default function NewPosts() {
@@ -8,10 +7,8 @@ export default function NewPosts() {
 
   return (
     isLogin && (
-      <div className=" flex justify-between items-center  h-[68px] py-[16px] ">
-        <Image
-          width={36}
-          height={36}
+      <div className=" flex justify-between items-center h-[68px] py-[16px] border-b-[1px] border-b-solid boder-b-[#00000066]">
+        <img
           className="w-[36px] rounded-[100%]"
           src={user?.user?.image ?? icon.defaultImage}
           alt=""

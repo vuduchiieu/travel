@@ -1,9 +1,8 @@
 "use client";
-
 import React, { useState } from "react";
 import { useAppContext } from "../Context/Context";
 import CustomAlert from "../CustomAlert/CustomAlert";
-import LoginGoogle from "../LoginGoogle/LoginGoogle";
+import LoginGoogle from "./LoginGoogle";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import icon from "@/assets/icon/icon";
