@@ -50,15 +50,19 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
     }
     setIsLoadingLogin(true);
     try {
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/",
+        redirect: false,
       });
       setIsLoadingLogin(false);
+      if (res?.error) {
+        setContentAler("Thông tin đăng nhập không hợp lệ");
+      } else {
+        window.location.href = "/";
+      }
     } catch (error: any) {
       setIsLoadingLogin(false);
-      console.log(error);
       setContentAler(error?.response.data?.error);
     }
   };
@@ -81,7 +85,6 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
       setIsLoadingRegister(false);
     } catch (error: any) {
       setIsLoadingRegister(false);
-      console.log(error);
       setContentAler(error?.response.data?.error);
     }
   };

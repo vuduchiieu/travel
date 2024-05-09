@@ -17,7 +17,7 @@ function Search() {
   useEffect(() => {
     const handleCallListUser = async () => {
       const res = await axios.get(
-        `${process.env.REACT_APP_API}/v1/user?page=1&pageSize=10`
+        `https://be-travel.vercel.app/v1/user?page=1&pageSize=10`
       );
 
       setListUser(res.data.data);
