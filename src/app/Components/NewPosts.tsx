@@ -3,11 +3,14 @@ import { useAppContext } from "../../components/Context/Context";
 import icon from "@/assets/icon/icon";
 
 export default function NewPosts() {
-  const { isLogin, user } = useAppContext();
+  const { isLogin, user, toggleModelPost } = useAppContext();
 
   return (
     isLogin && (
-      <div className=" flex justify-between items-center h-[68px] py-[16px] border-b-[1px] border-b-solid boder-b-[#00000066]">
+      <div
+        onClick={toggleModelPost}
+        className=" flex justify-between items-center h-[68px] py-[16px] border-b-[1px] border-b-solid boder-b-[#00000066]"
+      >
         <img
           className="w-[36px] rounded-[100%]"
           src={user?.user?.image ?? icon.defaultImage}

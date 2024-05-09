@@ -10,6 +10,9 @@ import React, {
 } from "react";
 
 interface UserContextType {
+  openModelPosts: boolean;
+  setOpenModelPosts: (newState: boolean) => void;
+  toggleModelPost: () => void;
   openModelLogin: boolean;
   setOpenModelLogin: (newState: boolean) => void;
   toggleModelLogin: () => void;
@@ -30,9 +33,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const isLogin = status === "authenticated" || status === "loading";
 
   const [contentAler, setContentAler] = useState<string>("");
+  const [openModelPosts, setOpenModelPosts] = useState<boolean>(false);
   const [openModelLogin, setOpenModelLogin] = useState<boolean>(false);
   const [openModelImage, setOpenModelImage] = useState<boolean>(false);
   const [imageInsideModel, setImageInsideModel] = useState<string>("");
+
+  const toggleModelPost = () => {
+    setOpenModelPosts((prev) => !prev);
+  };
 
   const toggleModelLogin = () => {
     if (!isLogin) setOpenModelLogin((prev) => !prev);
@@ -45,13 +53,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (openModelLogin || openModelImage) {
+    if (openModelLogin || openModelImage || openModelPosts) {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [openModelLogin, openModelImage]);
+  }, [openModelLogin, openModelImage, openModelPosts]);
 
   useEffect(() => {
     if (contentAler) {
@@ -64,6 +72,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   return (
     <UserContext.Provider
       value={{
+        toggleModelPost,
+        openModelPosts,
+        setOpenModelPosts,
         openModelLogin,
         setOpenModelLogin,
         toggleModelLogin,

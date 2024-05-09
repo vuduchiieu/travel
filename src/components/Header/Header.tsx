@@ -8,10 +8,17 @@ import { useAppContext } from "../Context/Context";
 import ModelImage from "./ModelImage";
 import Menu from "./Menu";
 import { usePathname } from "next/navigation";
+import ModelPosts from "../ModelPosts/ModelPosts";
 
 export default function Header() {
-  const { openModelLogin, toggleModelLogin, openModelImage, isLogin } =
-    useAppContext();
+  const {
+    toggleModelPost,
+    openModelPosts,
+    openModelLogin,
+    toggleModelLogin,
+    openModelImage,
+    isLogin,
+  } = useAppContext();
 
   const pathname = usePathname();
 
@@ -23,6 +30,7 @@ export default function Header() {
       <nav className="flex items-center justify-center max-w-[620px] h-[74px] px-[70px] ">
         {openModelLogin && <ModelLogin />}
         {openModelImage && <ModelImage />}
+        {openModelPosts && <ModelPosts />}
         <Link
           href={"/"}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
@@ -37,7 +45,7 @@ export default function Header() {
           <img className="w-[26px]" src={icon.search} alt="" />
         </Link>
         <button
-          onClick={toggleModelLogin}
+          onClick={isLogin ? toggleModelPost : toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.posts} alt="" />

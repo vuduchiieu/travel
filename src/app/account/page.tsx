@@ -1,5 +1,6 @@
 import Header from "@/components/Header/Header";
 import Profile from "./Profile";
+import FirstPost from "./FirstPost";
 
 export default function Account() {
   return (
@@ -21,13 +22,7 @@ export default function Account() {
             <p className="text-[#999999]">Đăng lại</p>
           </button>
         </div>
-        <div className="flex justify-center items-center min-h-[270px]">
-          <button className="flex justify-center items-center h-[34px] min-w-[50%] py-[12px] border border-solid border-[#00000026] rounded-[10px]">
-            <p className="font-medium text-[15px]">
-              Bắt đầu tạo bài đăng đầu tiên
-            </p>
-          </button>
-        </div>
+        <FirstPost />
       </div>
     </>
   );

@@ -15,6 +15,7 @@ interface iconType {
   menu: string;
   defaultImage: string;
   loading: string;
+  photo: string;
 }
 
 const icon: iconType = {
@@ -34,6 +35,7 @@ const icon: iconType = {
   menu: require("./menu.svg").default.src,
   defaultImage: require("./defaultImage.svg").default.src,
   loading: require("./loading.svg").default.src,
+  photo: require("./photo.svg").default.src,
 };
 
 export default icon;
