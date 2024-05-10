@@ -19,16 +19,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   useEffect(() => {
     if (
       (status === "unauthenticated" && pathname === "/search") ||
-      (status === "loading" && pathname === "/search") ||
-      (status === "unauthenticated" && pathname === "/account") ||
-      (status === "loading" && pathname === "/account")
+      (status === "unauthenticated" && pathname === "/account")
     ) {
       router.push("/login");
     }
-    if (
-      (status === "authenticated" && pathname === "/login") ||
-      (status === "loading" && pathname === "/login")
-    ) {
+    if (status === "authenticated" && pathname === "/login") {
       router.push("/");
     }
   }, [status, router]);

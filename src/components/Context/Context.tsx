@@ -10,6 +10,8 @@ import React, {
 } from "react";
 
 interface UserContextType {
+  openModelUpdateUser: boolean;
+  setOpenModelUpdateUser: (newState: boolean) => void;
   openModelPosts: boolean;
   setOpenModelPosts: (newState: boolean) => void;
   toggleModelPost: () => void;
@@ -31,6 +33,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const { data: session, status } = useSession();
 
   const [contentAler, setContentAler] = useState<string>("");
+  const [openModelUpdateUser, setOpenModelUpdateUser] =
+    useState<boolean>(false);
   const [openModelPosts, setOpenModelPosts] = useState<boolean>(false);
   const [openModelLogin, setOpenModelLogin] = useState<boolean>(false);
   const [openModelImage, setOpenModelImage] = useState<boolean>(false);
@@ -51,13 +55,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (openModelLogin || openModelImage || openModelPosts) {
+    if (
+      openModelLogin ||
+      openModelImage ||
+      openModelPosts ||
+      openModelUpdateUser
+    ) {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [openModelLogin, openModelImage, openModelPosts]);
+  }, [openModelLogin, openModelImage, openModelPosts, openModelUpdateUser]);
 
   useEffect(() => {
     if (contentAler) {
@@ -70,6 +79,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   return (
     <UserContext.Provider
       value={{
+        openModelUpdateUser,
+        setOpenModelUpdateUser,
         toggleModelPost,
         openModelPosts,
         setOpenModelPosts,

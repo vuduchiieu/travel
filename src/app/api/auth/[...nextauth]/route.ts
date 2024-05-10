@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import InstagramProvider from "next-auth/providers/instagram";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { sql } from "@vercel/postgres";
@@ -36,7 +35,7 @@ const handler = NextAuth({
     // }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       try {
         const userData = {
           email: user.email,
@@ -51,11 +50,24 @@ const handler = NextAuth({
         );
         return true;
       } catch (error) {
-        console.log(error);
-
         console.error("Lỗi khi đăng nhập:", (error as Error).message);
         return false;
       }
+    },
+    async jwt({ token, user }) {
+      if (token) {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API}/v1/user/${
+            token.sub || token.providerAccountId
+          }`
+        );
+        token = res.data;
+      }
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      session.user = token as any;
+      return session;
     },
   },
 });

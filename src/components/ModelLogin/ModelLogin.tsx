@@ -54,6 +54,7 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
         password,
         redirect: false,
       });
+
       setIsLoadingLogin(false);
       if (res?.error) {
         setContentAler("Thông tin đăng nhập không hợp lệ");
@@ -112,7 +113,7 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
             <input
               type="email"
               name="email"
-              placeholder="Tên người dùng"
+              placeholder="Email"
               className="w-[100%] rounded-[12px] p-[16px] outline-none bg-[#f5f5f5] mb-[8px] text-[15px] border-[1px] border-[#f5f5f5]  focus:border-[#00000026]"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

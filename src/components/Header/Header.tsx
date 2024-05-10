@@ -9,9 +9,11 @@ import ModelImage from "./ModelImage";
 import Menu from "./Menu";
 import ModelPosts from "../ModelPosts/ModelPosts";
 import { useSession } from "next-auth/react";
+import ModelUpdateUser from "@/app/account/ModelUpdateUser";
 
 export default function Header() {
   const {
+    openModelUpdateUser,
     toggleModelPost,
     openModelPosts,
     openModelLogin,
@@ -27,6 +29,7 @@ export default function Header() {
         <img className="w-[32px]" alt="" src={icon.logo} />
       </Link>
       <nav className="flex items-center justify-center max-w-[620px] h-[74px] px-[70px] ">
+        {openModelUpdateUser && <ModelUpdateUser />}
         {openModelLogin && <ModelLogin />}
         {openModelImage && <ModelImage />}
         {openModelPosts && <ModelPosts />}
