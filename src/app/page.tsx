@@ -12,7 +12,7 @@ export default function Home() {
   const [posts, setPosts] = useState<any>([]);
 
   const handleGetPost = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API}/v1/post/`);
+    const res = await axios.get(`https://be-travel.vercel.app/v1/post`);
     setPosts(res.data.data);
   };
   useEffect(() => {
