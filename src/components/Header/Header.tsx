@@ -7,8 +7,8 @@ import ModelLogin from "../ModelLogin/ModelLogin";
 import { useAppContext } from "../Context/Context";
 import ModelImage from "./ModelImage";
 import Menu from "./Menu";
-import { usePathname } from "next/navigation";
 import ModelPosts from "../ModelPosts/ModelPosts";
+import { useSession } from "next-auth/react";
 
 export default function Header() {
   const {
@@ -17,10 +17,9 @@ export default function Header() {
     openModelLogin,
     toggleModelLogin,
     openModelImage,
-    isLogin,
   } = useAppContext();
 
-  const pathname = usePathname();
+  const { status } = useSession();
 
   return (
     <header className="flex items-center justify-between fixed  top-0 left-0 right-0 bg-[#fff] h-[74px] w-[1230px] mx-auto  z-[1]">
@@ -38,34 +37,36 @@ export default function Header() {
           <img className="w-[26px]" src={icon.home} alt="" />
         </Link>
         <Link
-          href={isLogin ? "/search" : ""}
+          href={status === "authenticated" ? "/search" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.search} alt="" />
         </Link>
         <button
-          onClick={isLogin ? toggleModelPost : toggleModelLogin}
+          onClick={
+            status === "authenticated" ? toggleModelPost : toggleModelLogin
+          }
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.posts} alt="" />
         </button>
         <Link
-          href={isLogin ? "/activity" : ""}
+          href={status === "authenticated" ? "/activity" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.heart} alt="" />
         </Link>
         <Link
-          href={isLogin ? "/account" : ""}
+          href={status === "authenticated" ? "/account" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <img className="w-[26px]" src={icon.user} alt="" />
         </Link>
       </nav>
-      {isLogin ? (
+      {status === "authenticated" ? (
         <Menu />
       ) : (
         <Link

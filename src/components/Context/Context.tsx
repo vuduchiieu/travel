@@ -23,14 +23,12 @@ interface UserContextType {
   setOpenModelImage: (newState: boolean) => void;
   toggleModelImage: (imageUrl: string) => void;
   user?: any;
-  isLogin: boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const { data: session, status } = useSession();
-  const isLogin = status === "authenticated" || status === "loading";
 
   const [contentAler, setContentAler] = useState<string>("");
   const [openModelPosts, setOpenModelPosts] = useState<boolean>(false);
@@ -43,7 +41,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const toggleModelLogin = () => {
-    if (!isLogin) setOpenModelLogin((prev) => !prev);
+    if (status === "unauthenticated") setOpenModelLogin((prev) => !prev);
   };
 
   const toggleModelImage = (imageUrl: string) => {
@@ -85,7 +83,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         openModelImage,
         setOpenModelImage,
         user: session,
-        isLogin,
       }}
     >
       {children}

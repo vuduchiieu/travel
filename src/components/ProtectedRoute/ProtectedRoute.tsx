@@ -3,29 +3,43 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
-import { useAppContext } from "../Context/Context";
+import { useSession } from "next-auth/react";
+import icon from "@/assets/icon/icon";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
 };
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isLogin } = useAppContext();
   const router = useRouter();
   const pathname = usePathname();
 
+  const { status } = useSession();
+
   useEffect(() => {
     if (
-      (!isLogin && pathname === "/search") ||
-      (!isLogin && pathname === "/account")
+      (status === "unauthenticated" && pathname === "/search") ||
+      (status === "loading" && pathname === "/search") ||
+      (status === "unauthenticated" && pathname === "/account") ||
+      (status === "loading" && pathname === "/account")
     ) {
       router.push("/login");
-    } else if (isLogin && pathname === "/login") {
+    }
+    if (
+      (status === "authenticated" && pathname === "/login") ||
+      (status === "loading" && pathname === "/login")
+    ) {
       router.push("/");
     }
-  }, [isLogin, router]);
+  }, [status, router]);
 
-  return <>{children}</>;
+  return status === "loading" ? (
+    <div className="w-screen h-screen flex justify-center items-center">
+      <img className="animate-spin w-[30px]" src={icon.loading} alt="" />
+    </div>
+  ) : (
+    <>{children}</>
+  );
 };
 
 export default ProtectedRoute;

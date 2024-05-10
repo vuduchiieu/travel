@@ -83,7 +83,7 @@ function Search() {
             ))
           ) : (
             <img
-              className="absolute w-[50px] top-[25%] left-[50%] right-[50%] animate-spin "
+              className="absolute w-[30px] top-[25%] left-[50%] right-[50%] animate-spin "
               src={icon.loading}
               alt=""
             />

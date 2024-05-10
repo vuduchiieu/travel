@@ -1,12 +1,15 @@
 "use client";
+import { useSession } from "next-auth/react";
 import { useAppContext } from "../../components/Context/Context";
 import icon from "@/assets/icon/icon";
 
 export default function NewPosts() {
-  const { isLogin, user, toggleModelPost } = useAppContext();
+  const { user, toggleModelPost } = useAppContext();
+
+  const { status } = useSession();
 
   return (
-    isLogin && (
+    status === "authenticated" && (
       <div
         onClick={toggleModelPost}
         className=" flex justify-between items-center h-[68px] py-[16px] border-b-[1px] border-b-solid boder-b-[#00000066]"

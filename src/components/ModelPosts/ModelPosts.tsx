@@ -71,9 +71,9 @@ export default function ModelPosts() {
                 />
               </div>
               {imagePreView && (
-                <div className="relative min-h w-[430px] mt-[12px] p-[12px] border-[1px] border-solid boder-[#00000066] rounded-[16px]">
+                <div className="relative h-[430px] min-w mt-[12px]">
                   <img
-                    className="object-cover pt-[12px] w-[100%]"
+                    className="w-[100%] h-[100%] object-cover  p-[1px] border-[1px] border-solid boder-[#00000066] rounded-[16px]"
                     src={imagePreView}
                     alt=""
                   />
