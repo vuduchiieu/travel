@@ -128,9 +128,9 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
             />
             <button
               style={
-                newUser.email && newUser.password
-                  ? { cursor: "pointer" }
-                  : { cursor: "no-drop" }
+                isLoadingRegister
+                  ? { pointerEvents: "none" }
+                  : { pointerEvents: "auto" }
               }
               type="submit"
               className="flex justify-center items-center w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
@@ -176,9 +176,9 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
             />
             <button
               style={
-                newUser.email && newUser.password
-                  ? { cursor: "pointer" }
-                  : { cursor: "no-drop" }
+                isLoadingLogin
+                  ? { pointerEvents: "none" }
+                  : { pointerEvents: "auto" }
               }
               type="submit"
               className="flex justify-center items-center w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
