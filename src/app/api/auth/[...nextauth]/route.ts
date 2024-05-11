@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
-import { sql } from "@vercel/postgres";
 import axios from "axios";
 
 const handler = NextAuth({
@@ -14,25 +12,24 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials: any, req) {
-        const response = await sql`
-        SELECT * FROM users WHERE email=${credentials?.email}`;
-        const user = response.rows[0];
-        const comparePassword = await bcrypt.compare(
-          credentials?.password,
-          user.password
-        );
-        if (comparePassword) return user as any;
-        return null;
+        try {
+          const res = await axios.post(
+            `https://be-travel.vercel.app/v1/auth/login`,
+            {
+              email: credentials.email,
+              password: credentials.password,
+            }
+          );
+          return res.data;
+        } catch (error) {
+          console.error("Lỗi khi đăng nhập:", (error as Error).message);
+        }
       },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
-    // InstagramProvider({
-    //   clientId: process.env.INSTAGRAM_CLIENT_ID,
-    //   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
-    // }),
   ],
   callbacks: {
     async signIn({ user, account }) {
@@ -41,8 +38,8 @@ const handler = NextAuth({
           email: user.email,
           name: user.name,
           image: user.image,
+          providerAccountId: user.id,
           provider: account?.provider,
-          providerAccountId: account?.providerAccountId,
         };
         await axios.post(
           `${process.env.API_URL}/v1/auth/logingoogle`,
@@ -55,17 +52,16 @@ const handler = NextAuth({
       }
     },
     async jwt({ token, user, trigger, session }) {
-      if (token) {
+      if (token.sub || token.providerAccountId) {
         const res = await axios.get(
           `${process.env.API_URL}/v1/user/${
             token.sub || token.providerAccountId
           }`
         );
-
         token = res.data;
       }
-      if (trigger === "update" && session?.name) {
-        token = session;
+      if (trigger === "update" && session?.data) {
+        token = session.data;
       }
       return { ...token, ...user };
     },

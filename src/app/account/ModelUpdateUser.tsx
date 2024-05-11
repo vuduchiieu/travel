@@ -40,11 +40,11 @@ export default function ModelUpdateUser() {
       if (email) {
         newUser.append("email", email);
       }
-      await axios.put(
+      const res = await axios.put(
         `${process.env.API_URL}/v1/user/${user.user._id}`,
         newUser
       );
-      update({ newUser });
+      update(res);
       setOpenModelUpdateUser(false);
       setIsloadingSubmit(false);
     } catch (error) {

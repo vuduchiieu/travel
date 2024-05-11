@@ -56,14 +56,13 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
       });
 
       setIsLoadingLogin(false);
-      if (res?.error) {
-        setContentAler("Thông tin đăng nhập không hợp lệ");
+      if (!res?.ok) {
+        setContentAler("Thông tin không hợp lệ");
       } else {
         window.location.href = "/";
       }
     } catch (error: any) {
       setIsLoadingLogin(false);
-      setContentAler(error?.response.data?.error);
     }
   };
 
@@ -78,14 +77,12 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
       return;
     }
     setIsLoadingRegister(true);
-
     try {
       await axios.post("/api/auth/register", newUser);
       await handleLogin(e);
       setIsLoadingRegister(false);
     } catch (error: any) {
       setIsLoadingRegister(false);
-      setContentAler(error?.response.data?.error);
     }
   };
 

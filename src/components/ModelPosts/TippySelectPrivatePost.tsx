@@ -55,7 +55,7 @@ export default function TippySelectPrivatePost(Props: SelectType) {
           </button>
         </div>
       )}
-      onClickOutside={() => setOpenSelect(false)}
+      onClickOutside={() => setOpenSelect((prev) => !prev)}
     >
       <button onClick={() => setOpenSelect((prev) => !prev)}>
         <p className="text-[#999] text-[15px] font-normal">{Props.select}</p>
