@@ -45,7 +45,7 @@ const handler = NextAuth({
           providerAccountId: account?.providerAccountId,
         };
         await axios.post(
-          `${process.env.REACT_APP_API}/v1/auth/logingoogle`,
+          `${process.env.API_URL}/v1/auth/logingoogle`,
           userData
         );
         return true;
@@ -54,14 +54,18 @@ const handler = NextAuth({
         return false;
       }
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (token) {
         const res = await axios.get(
-          `${process.env.REACT_APP_API}/v1/user/${
+          `${process.env.API_URL}/v1/user/${
             token.sub || token.providerAccountId
           }`
         );
+
         token = res.data;
+      }
+      if (trigger === "update" && session?.name) {
+        token = session;
       }
       return { ...token, ...user };
     },

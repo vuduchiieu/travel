@@ -9,7 +9,7 @@ export default function ImagePost({ src }: ImagePostProps) {
   return (
     <img
       onClick={() => toggleModelImage(src)}
-      className="max-h-[430px] object-cover rounded-[8px] mt-[8px] cursor-pointer "
+      className="h-[430px] min-w-[240px] object-cover rounded-[8px] mt-[8px] cursor-pointer "
       src={src}
       alt=""
     />

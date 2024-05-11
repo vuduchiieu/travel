@@ -12,7 +12,7 @@ export default function Home() {
   const [posts, setPosts] = useState<any>([]);
 
   const handleGetPost = async () => {
-    const res = await axios.get(`https://be-travel.vercel.app/v1/post`);
+    const res = await axios.get(`${process.env.API_URL}/v1/post`);
     setPosts(res.data.data);
   };
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Home() {
         <NewPosts />
         {posts.length > 0 ? (
           posts.map((item: any) => (
-            <div key={item.post._id}>
+            <div key={item._id}>
               <div className="flex justify-between py-[12px] border-b-[1px] border-b-solid boder-b-[#00000066] ">
                 <div>
                   <img
@@ -41,7 +41,7 @@ export default function Home() {
                       {item.author.name || item.author.email}
                     </h3>
                     <p className="flex-[0.95] leading-[21px] font-normal text-[#999999] text-[15px]">
-                      {item.post.milestone}
+                      {item.milestone}
                     </p>
                     <div
                       style={{ transition: "all 0.5s ease-in-out" }}
@@ -51,9 +51,9 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="min-h-[30px]  whitespace-pre-wrap">
-                    <p>{item.post.title}</p>
+                    <p>{item.title}</p>
                   </div>
-                  <ImagePost src={item.post.image[0].url} />
+                  <ImagePost src={item.image[0].url} />
                   <NavContent />
                   <div className="flex">
                     <p className="text-[#999999] font-normal text-[15px]">

@@ -15,8 +15,8 @@ export default function NewPosts() {
         className=" flex justify-between items-center h-[68px] py-[16px] border-b-[1px] border-b-solid boder-b-[#00000066]"
       >
         <img
-          className="w-[36px] rounded-[100%]"
-          src={user?.user?.image ?? icon.defaultImage}
+          className="w-[36px] h-[36px] rounded-[50%]"
+          src={user.user.image || icon.defaultImage}
           alt=""
         />
         <div className="w-[80%]">

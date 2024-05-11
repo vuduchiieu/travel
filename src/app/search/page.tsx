@@ -10,7 +10,7 @@ type User = {
   username?: string;
   email?: string;
   name?: string;
-  image?: string;
+  image?: any;
 };
 
 function Search() {
@@ -18,7 +18,7 @@ function Search() {
   const [valueSearch, setValueSearch] = useState<string>("");
   const handleCallListUser = async () => {
     const res = await axios.get(
-      `https://be-travel.vercel.app/v1/user?page=1&pageSize=10`
+      `${process.env.API_URL}/v1/user?page=1&pageSize=10`
     );
 
     setListUser(res.data.data);
@@ -26,6 +26,7 @@ function Search() {
   useEffect(() => {
     handleCallListUser();
   }, []);
+
   return (
     <>
       <Header />
@@ -56,7 +57,7 @@ function Search() {
               <div key={i} className="flex pt-[16px] min-h-[84px] ">
                 <div className="pt-[4px] pb-[2px] pr-[12px]">
                   <img
-                    className="w-[36px] rounded-[100%]"
+                    className="w-[36px] h-[36px] rounded-[100%]"
                     src={item.image || icon.defaultImage}
                     alt=""
                   />
