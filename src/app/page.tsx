@@ -24,7 +24,7 @@ export default function Home() {
       <Header />
       <div className="max-w-[620px] min-h-[820px] pt-[74px] mx-auto ">
         <NewPosts />
-        {posts.length > 0 ? (
+        {true ? (
           posts.map((item: any) => (
             <div key={item._id}>
               <div className="flex justify-between py-[12px] border-b-[1px] border-b-solid boder-b-[#00000066] ">
@@ -38,7 +38,7 @@ export default function Home() {
                 <div className="h-[100%] w-[92%]">
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold leading-[21px] text-[15px]">
-                      {item.author.name || item.author.email}
+                      {item.author.name}
                     </h3>
                     <p className="flex-[0.95] leading-[21px] font-normal text-[#999999] text-[15px]">
                       {item.milestone}
@@ -49,18 +49,19 @@ export default function Home() {
                     >
                       <img className="w-[20px]" src={icon.more} alt="" />
                     </div>
+                    `{" "}
                   </div>
-                  <div className="min-h-[30px]  whitespace-pre-wrap">
+                  <div className="min-h-[30px] whitespace-pre-wrap">
                     <p>{item.title}</p>
                   </div>
                   <ImagePost src={item.image[0].url} />
                   <NavContent />
                   <div className="flex">
                     <p className="text-[#999999] font-normal text-[15px]">
-                      <span>{item.comment}bình luận</span>
+                      <span>9 bình luận</span>
                     </p>
                     <p className="text-[#999999] font-normal text-[15px] ml-[10px]">
-                      <span>{item.like} lượt thích</span>
+                      <span> lượt thích</span>
                     </p>
                   </div>
                 </div>
