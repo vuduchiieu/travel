@@ -5,6 +5,7 @@ import Tippy from "@tippyjs/react/headless";
 import icon from "@/assets/icon/icon";
 import { useAppContext } from "../Context/Context";
 import CustomAlert from "../CustomAlert/CustomAlert";
+import Image from "next/image";
 
 export default function Menu() {
   const { contentAler, setContentAler } = useAppContext();
@@ -65,7 +66,13 @@ export default function Menu() {
         className="w-[106px] mr-[13px]"
       >
         {contentAler && <CustomAlert content={contentAler} />}
-        <img className="w-[24px] " src={icon.menu} alt="" />
+        <Image
+          width={24}
+          height={24}
+          className="w-[24px] "
+          src={icon.menu}
+          alt=""
+        />
       </button>
     </Tippy>
   );

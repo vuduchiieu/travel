@@ -4,6 +4,7 @@ import icon from "@/assets/icon/icon";
 import { useAppContext } from "../Context/Context";
 import { useEffect, useState } from "react";
 import TippySelectPrivatePost from "./TippySelectPrivatePost";
+import Image from "next/image";
 
 export default function ModelPosts() {
   const { user, setOpenModelPosts, setContentAler } = useAppContext();
@@ -53,7 +54,9 @@ export default function ModelPosts() {
         </div>
         <div className="flex flex-col mt-[8px] p-[24px] w-[620px] min-h bg-[#fff] rounded-[16px]">
           <div className="flex justify-between mb-[24px]">
-            <img
+            <Image
+              width={48}
+              height={48}
               className="object-cover w-[48px] h-[48px] rounded-[50%]"
               src={user?.user.image || icon.defaultImage}
               alt=""
@@ -71,9 +74,11 @@ export default function ModelPosts() {
                 />
               </div>
               {imagePreView && (
-                <div className="relative h-[430px] min-w mt-[12px]">
-                  <img
-                    className="w-[100%] h-[100%] object-cover  p-[1px] border-[1px] border-solid boder-[#00000066] rounded-[16px]"
+                <div className="relative inline-block mt-[12px]">
+                  <Image
+                    width={0}
+                    height={0}
+                    className="w-auto h-[430px] object-cover p-[1px] border-[1px] border-solid boder-[#00000066] rounded-[16px]"
                     src={imagePreView}
                     alt=""
                   />
@@ -82,9 +87,15 @@ export default function ModelPosts() {
                       setImagePreview("");
                       setImage(null);
                     }}
-                    className="flex justify-center items-center  absolute top-[2%] right-[2%] w-[24px] h-[24px] rounded-[50%] bg-[#00000066]"
+                    className="flex justify-center items-center absolute top-[2%] right-[2%] w-[24px] h-[24px] rounded-[50%] bg-[#00000066]"
                   >
-                    <img className="w-[12px]" src={icon.close} alt="" />
+                    <Image
+                      width={12}
+                      height={12}
+                      style={{ filter: "var(--filter-wite)" }}
+                      src={icon.close}
+                      alt=""
+                    />
                   </button>
                 </div>
               )}
@@ -97,7 +108,13 @@ export default function ModelPosts() {
                     onChange={handleAddImage}
                   />
                   <label className="cursor-pointer" htmlFor="file">
-                    <img className="w-[20px]" src={icon.photo} alt="" />
+                    <Image
+                      width={20}
+                      height={20}
+                      className="w-[20px]"
+                      src={icon.photo}
+                      alt=""
+                    />
                   </label>
                 </button>
               </div>

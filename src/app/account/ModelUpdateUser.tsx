@@ -4,6 +4,7 @@ import icon from "@/assets/icon/icon";
 import { useAppContext } from "@/components/Context/Context";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function ModelUpdateUser() {
@@ -82,7 +83,7 @@ export default function ModelUpdateUser() {
                   }
                   className="flex items-center pb-[14px] text-[15px] border-b-[1px] border-b-solid boder-b-[#00000066] cursor-not-allowed"
                 >
-                  <img width={14} src={icon.lock} alt="" />
+                  <Image width={14} height={14} src={icon.lock} alt="" />
                   <p className="">{user?.user.name}</p>
                 </div>
               ) : (
@@ -109,8 +110,10 @@ export default function ModelUpdateUser() {
               }}
             />
             <label htmlFor="avatart">
-              <img
-                className="w-[52px] h-[52px] rounded-[50%]"
+              <Image
+                width={52}
+                height={52}
+                className="rounded-[50%]"
                 src={avatarPreview || user?.user.image || icon.defaultImage}
                 alt=""
               />
@@ -127,7 +130,7 @@ export default function ModelUpdateUser() {
                 }
                 className="flex items-center pb-[14px] text-[15px] border-b-[1px] border-b-solid boder-b-[#00000066] cursor-not-allowed"
               >
-                <img width={14} src={icon.lock} alt="" />
+                <Image width={14} height={14} src={icon.lock} alt="" />
                 <p className="">{user?.user.email}</p>
               </div>
             ) : (
@@ -164,8 +167,10 @@ export default function ModelUpdateUser() {
             type="submit"
           >
             {isLoadingSubmit ? (
-              <img
-                className="animate-spin w-[24px]"
+              <Image
+                width={24}
+                height={24}
+                className="animate-spin"
                 src={icon.loading}
                 alt=""
               />
