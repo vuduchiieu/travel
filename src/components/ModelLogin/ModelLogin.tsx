@@ -139,6 +139,7 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
                   height={24}
                   className="animate-spin w-[24px]"
                   src={icon.loading}
+                  priority
                   alt=""
                 />
               ) : (
@@ -189,6 +190,7 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
                   height={24}
                   className="animate-spin w-[24px] h-[24px] rounded-[50%]"
                   src={icon.loading}
+                  priority
                   alt=""
                 />
               ) : (

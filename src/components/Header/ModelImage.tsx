@@ -30,10 +30,10 @@ export default function ModelImage() {
           alt=""
         />
       </button>
-      <img
+      <Image
         width={1440}
         height={1920}
-        className="h-[100vh] w-auto"
+        className="h-[100%] w-auto"
         src={imageInsideModel || icon.defaultImage}
         alt=""
       />

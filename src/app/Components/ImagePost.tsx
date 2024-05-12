@@ -11,6 +11,7 @@ export default function ImagePost({ src }: ImagePostProps) {
     <Image
       width={1440}
       height={1920}
+      priority
       onClick={() => toggleModelImage(src)}
       className="h-[430px] w-auto object-cover rounded-[8px] mt-[8px] cursor-pointer "
       src={src}

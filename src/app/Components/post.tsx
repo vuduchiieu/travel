@@ -1,24 +1,24 @@
+"use client";
 import icon from "@/assets/icon/icon";
 import axios from "axios";
 import Image from "next/image";
 import ImagePost from "./ImagePost";
 import NavContent from "./NavContent";
+import { useEffect, useState } from "react";
 
-export const getStaticProps = async () => {
-  const response = await axios.get(`${process.env.API_URL}/v1/post`);
-  const data = await response.data.data;
+export default function Posts() {
+  const [posts, setPosts] = useState([]);
 
-  return {
-    data,
-    revalidate: 5,
+  const fetData = async () => {
+    const response = await axios.get(`${process.env.API_URL}/v1/post`);
+    setPosts(response.data.data);
   };
-};
 
-export default async function Posts() {
-  const data = await getStaticProps();
-  const posts = data.data;
+  useEffect(() => {
+    fetData();
+  }, []);
 
-  return posts ? (
+  return posts.length > 0 ? (
     posts.map((item: any) => (
       <div key={item._id}>
         <div className="flex justify-between py-[12px] border-b-[1px] border-b-solid boder-b-[#00000066] ">

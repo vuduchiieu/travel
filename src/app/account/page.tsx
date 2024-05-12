@@ -2,7 +2,7 @@ import Header from "@/components/Header/Header";
 import Profile from "./Profile";
 import FirstPost from "./FirstPost";
 import UpdateUser from "./UpdateUser";
-import { MainLayout } from "@/layout";
+import { MainLayout } from "@/layout/MainLayout";
 
 export default function Account() {
   return (

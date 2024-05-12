@@ -170,6 +170,7 @@ export default function ModelUpdateUser() {
               <Image
                 width={24}
                 height={24}
+                priority
                 className="animate-spin"
                 src={icon.loading}
                 alt=""

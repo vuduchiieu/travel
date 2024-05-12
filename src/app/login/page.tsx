@@ -1,7 +1,6 @@
-import image from "@/assets/picture/image";
+import icon from "@/assets/icon/icon";
 import ModelLogin from "@/components/ModelLogin/ModelLogin";
 import Image from "next/image";
-import React from "react";
 
 export default function Login() {
   const loginPage: boolean = true;
@@ -12,7 +11,7 @@ export default function Login() {
         width={1785}
         height={510}
         className="fixed top-0 left-[50%] translate-x-[-50%] z-[-1]"
-        src={image.background}
+        src={icon.background}
         alt="bg"
       />
       <ModelLogin loginPage={loginPage} />
