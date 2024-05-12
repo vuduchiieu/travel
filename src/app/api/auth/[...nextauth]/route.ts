@@ -13,13 +13,10 @@ const handler = NextAuth({
       },
       async authorize(credentials: any, req) {
         try {
-          const res = await axios.post(
-            `https://be-travel.vercel.app/v1/auth/login`,
-            {
-              email: credentials.email,
-              password: credentials.password,
-            }
-          );
+          const res = await axios.post(`${process.env.API_URL}/v1/auth/login`, {
+            email: credentials.email,
+            password: credentials.password,
+          });
           return res.data;
         } catch (error) {
           console.error("Lỗi khi đăng nhập:", (error as Error).message);
@@ -60,6 +57,7 @@ const handler = NextAuth({
         );
         token = res.data;
       }
+
       if (trigger === "update" && session?.data) {
         token = session.data;
       }
