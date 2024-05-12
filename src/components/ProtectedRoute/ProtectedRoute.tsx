@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { useSession } from "next-auth/react";
 import icon from "@/assets/icon/icon";
+import Image from "next/image";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -30,7 +31,13 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   return status === "loading" ? (
     <div className="w-screen h-screen flex justify-center items-center">
-      <img className="animate-spin w-[30px]" src={icon.loading} alt="" />
+      <Image
+        width={30}
+        height={30}
+        className="animate-spin w-[30px]"
+        src={icon.loading}
+        alt=""
+      />
     </div>
   ) : (
     <>{children}</>

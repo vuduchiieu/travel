@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useAppContext } from "../Context/Context";
 import icon from "@/assets/icon/icon";
 
@@ -21,14 +22,21 @@ export default function ModelImage() {
         onClick={() => setOpenModelImage(!openModelImage)}
         className="absolute top-[2%] left-[2%] flex items-center justify-center h-[44px] w-[44px] rounded-[50%] bg-[#1e1e1e]  hover:scale-[1.07]"
       >
-        <img
+        <Image
+          width={18}
+          height={18}
           style={{ filter: "var(--filter-grey)" }}
-          className="w-[18px]"
           src={icon.close}
           alt=""
         />
       </button>
-      <img className="max-h-screen" src={imageInsideModel} alt="" />
+      <img
+        width={1440}
+        height={1920}
+        className="h-[100vh] w-auto"
+        src={imageInsideModel || icon.defaultImage}
+        alt=""
+      />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import Menu from "./Menu";
 import ModelPosts from "../ModelPosts/ModelPosts";
 import { useSession } from "next-auth/react";
 import ModelUpdateUser from "@/app/account/ModelUpdateUser";
+import Image from "next/image";
 
 export default function Header() {
   const {
@@ -26,7 +27,13 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between fixed  top-0 left-0 right-0 bg-[#fff] h-[74px] w-[1230px] mx-auto  z-[1]">
       <Link href={"/"} className="ml-[19px] mr-[68px]">
-        <img className="w-[32px]" alt="" src={icon.logo} />
+        <Image
+          width={32}
+          height={32}
+          className="w-[32px]"
+          alt=""
+          src={icon.logo}
+        />
       </Link>
       <nav className="flex items-center justify-center max-w-[620px] h-[74px] px-[70px] ">
         {openModelUpdateUser && <ModelUpdateUser />}
@@ -37,14 +44,26 @@ export default function Header() {
           href={"/"}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.home} alt="" />
+          <Image
+            width={26}
+            height={26}
+            className="w-[26px]"
+            src={icon.home}
+            alt=""
+          />
         </Link>
         <Link
           href={status === "authenticated" ? "/search" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.search} alt="" />
+          <Image
+            width={26}
+            height={26}
+            className="w-[26px]"
+            src={icon.search}
+            alt=""
+          />
         </Link>
         <button
           onClick={
@@ -52,21 +71,39 @@ export default function Header() {
           }
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.posts} alt="" />
+          <Image
+            width={26}
+            height={26}
+            className="w-[26px]"
+            src={icon.posts}
+            alt=""
+          />
         </button>
         <Link
           href={status === "authenticated" ? "/activity" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.heart} alt="" />
+          <Image
+            width={26}
+            height={26}
+            className="w-[26px]"
+            src={icon.heart}
+            alt=""
+          />
         </Link>
         <Link
           href={status === "authenticated" ? "/account" : ""}
           onClick={toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
-          <img className="w-[26px]" src={icon.user} alt="" />
+          <Image
+            width={26}
+            height={26}
+            className="w-[26px]"
+            src={icon.user}
+            alt=""
+          />
         </Link>
       </nav>
       {status === "authenticated" ? (

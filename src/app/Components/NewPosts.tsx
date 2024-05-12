@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import { useAppContext } from "../../components/Context/Context";
 import icon from "@/assets/icon/icon";
+import Image from "next/image";
 
 export default function NewPosts() {
   const { user, toggleModelPost } = useAppContext();
@@ -14,7 +15,9 @@ export default function NewPosts() {
         onClick={toggleModelPost}
         className=" flex justify-between items-center h-[68px] py-[16px] border-b-[1px] border-b-solid boder-b-[#00000066]"
       >
-        <img
+        <Image
+          width={36}
+          height={36}
           className="w-[36px] h-[36px] rounded-[50%]"
           src={user.user.image || icon.defaultImage}
           alt=""

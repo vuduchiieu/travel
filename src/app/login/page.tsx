@@ -1,5 +1,6 @@
 import image from "@/assets/picture/image";
 import ModelLogin from "@/components/ModelLogin/ModelLogin";
+import Image from "next/image";
 import React from "react";
 
 export default function Login() {
@@ -7,7 +8,9 @@ export default function Login() {
 
   return (
     <div className="relative z-[0] w-screen mx-auto min-h-screen flex  justify-center  items-center flex-col gap-3 pb-2 bg-[#fff]">
-      <img
+      <Image
+        width={1785}
+        height={510}
         className="fixed top-0 left-[50%] translate-x-[-50%] z-[-1]"
         src={image.background}
         alt="bg"

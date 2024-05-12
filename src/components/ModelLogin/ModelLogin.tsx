@@ -6,6 +6,7 @@ import LoginGoogle from "./LoginGoogle";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import icon from "@/assets/icon/icon";
+import Image from "next/image";
 
 interface ModelLoginProps {
   loginPage?: boolean;
@@ -133,7 +134,9 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
               className="flex justify-center items-center w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
             >
               {isLoadingRegister ? (
-                <img
+                <Image
+                  width={24}
+                  height={24}
                   className="animate-spin w-[24px]"
                   src={icon.loading}
                   alt=""
@@ -181,7 +184,9 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
               className="flex justify-center items-center w-[100%] rounded-[12px] p-[16px] outline-none bg-[#000] mb-[8px] "
             >
               {isLoadingLogin ? (
-                <img
+                <Image
+                  width={24}
+                  height={24}
                   className="animate-spin w-[24px] h-[24px] rounded-[50%]"
                   src={icon.loading}
                   alt=""

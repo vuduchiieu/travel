@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Lexend } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/components/Context/Context";
 import Providers from "@/components/ModelLogin/Providers";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 
-const inter = Inter({ subsets: ["latin"] });
+const lexend = Lexend({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Travel",
@@ -19,7 +19,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={lexend.className}>
         <Providers>
           <UserProvider>
             <ProtectedRoute>{children}</ProtectedRoute>
