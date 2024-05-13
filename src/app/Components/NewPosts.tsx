@@ -5,14 +5,14 @@ import icon from "@/assets/icon/icon";
 import Image from "next/image";
 
 export default function NewPosts() {
-  const { user, toggleModelPost } = useAppContext();
+  const { user, toggleModelNewPost } = useAppContext();
 
   const { status } = useSession();
 
   return (
     status === "authenticated" && (
       <div
-        onClick={toggleModelPost}
+        onClick={toggleModelNewPost}
         className=" flex justify-between items-center h-[68px] py-[16px] border-b-[1px] border-b-solid boder-b-[#00000066]"
       >
         <Image

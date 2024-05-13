@@ -5,21 +5,21 @@ import Link from "next/link";
 import icon from "@/assets/icon/icon";
 import ModelLogin from "../ModelLogin/ModelLogin";
 import { useAppContext } from "../Context/Context";
-import ModelImage from "./ModelImage";
 import Menu from "./Menu";
-import ModelPosts from "../ModelPosts/ModelPosts";
+import ModelNewPosts from "../ModelNewPosts/ModelNewPosts";
 import { useSession } from "next-auth/react";
 import ModelUpdateUser from "@/app/account/ModelUpdateUser";
 import Image from "next/image";
+import ModelPost from "../ListPosts/ModelPost";
 
 export default function Header() {
   const {
     openModelUpdateUser,
-    toggleModelPost,
     openModelPosts,
+    toggleModelNewPost,
+    openModelNewPosts,
     openModelLogin,
     toggleModelLogin,
-    openModelImage,
   } = useAppContext();
 
   const { status } = useSession();
@@ -38,8 +38,8 @@ export default function Header() {
       <nav className="flex items-center justify-center max-w-[620px] h-[74px] px-[70px] ">
         {openModelUpdateUser && <ModelUpdateUser />}
         {openModelLogin && <ModelLogin />}
-        {openModelImage && <ModelImage />}
-        {openModelPosts && <ModelPosts />}
+        {openModelNewPosts && <ModelNewPosts />}
+        {openModelPosts && <ModelPost />}
         <Link
           href={"/"}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
@@ -67,7 +67,7 @@ export default function Header() {
         </Link>
         <button
           onClick={
-            status === "authenticated" ? toggleModelPost : toggleModelLogin
+            status === "authenticated" ? toggleModelNewPost : toggleModelLogin
           }
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >

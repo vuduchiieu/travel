@@ -1,19 +1,13 @@
 "use client";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import ListPosts from "@/components/ListPosts/ListPosts";
+import { useAppContext } from "@/components/Context/Context";
+import { useEffect } from "react";
 
 export default function Posts() {
-  const [posts, setPosts] = useState([]);
-
-  const fetData = async () => {
-    const response = await axios.get(`${process.env.API_URL}/v1/post`);
-    setPosts(response.data.data);
-  };
+  const { posts, fetData } = useAppContext();
   useEffect(() => {
     fetData();
   }, []);
-
   return posts.length > 0 ? (
     <ListPosts posts={posts} />
   ) : (

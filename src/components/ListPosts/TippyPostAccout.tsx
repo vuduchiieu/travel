@@ -9,7 +9,8 @@ export default function TippyPostAccout({
   postId,
   author,
   setContentAler,
-  setIsRefetch,
+  fetData,
+  fetDataUserId,
 }: any) {
   const [openMore, setOpenMore] = useState<boolean>(false);
 
@@ -20,7 +21,8 @@ export default function TippyPostAccout({
       );
       setContentAler(res.data);
       setOpenMore(false);
-      setIsRefetch(true);
+      fetData();
+      fetDataUserId(userId);
     } catch (error) {
       console.log(error);
     }
