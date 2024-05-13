@@ -8,8 +8,9 @@ export default function Login() {
   return (
     <div className="relative z-[0] w-screen mx-auto min-h-screen flex  justify-center  items-center flex-col gap-3 pb-2 bg-[#fff]">
       <Image
-        width={1785}
-        height={510}
+        unoptimized
+        width={0}
+        height={0}
         className="fixed top-0 left-[50%] translate-x-[-50%] z-[-1]"
         src={icon.background}
         alt="bg"

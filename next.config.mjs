@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: "http",
         hostname: "res.cloudinary.com",
         pathname: "**",
       },

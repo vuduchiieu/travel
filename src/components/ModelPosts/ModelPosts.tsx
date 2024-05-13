@@ -76,6 +76,7 @@ export default function ModelPosts() {
               {imagePreView && (
                 <div className="relative inline-block mt-[12px]">
                   <Image
+                    unoptimized
                     width={0}
                     height={0}
                     className="w-auto h-[430px] object-cover p-[1px] border-[1px] border-solid boder-[#00000066] rounded-[16px]"

@@ -31,8 +31,9 @@ export default function ModelImage() {
         />
       </button>
       <Image
-        width={1440}
-        height={1920}
+        unoptimized
+        width={0}
+        height={0}
         className="h-[100%] w-auto"
         src={imageInsideModel || icon.defaultImage}
         alt=""
