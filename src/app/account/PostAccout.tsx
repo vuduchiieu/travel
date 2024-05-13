@@ -10,7 +10,7 @@ export default function PostAccout() {
   const [posts, setPosts] = useState([]);
   const fetData = async () => {
     const response = await axios.get(
-      `http://localhost:3001/v1/post/${user.user._id}`
+      `${process.env.API_URL}/v1/post/${user.user._id}`
     );
     setPosts(response.data.data);
   };

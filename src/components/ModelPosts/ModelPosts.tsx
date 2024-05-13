@@ -50,7 +50,7 @@ export default function ModelPosts() {
       }
 
       await axios.post(
-        `http://localhost:3001/v1/post/${user.user._id}`,
+        `${process.env.API_URL}/v1/post/${user.user._id}`,
         newPost
       );
       setIsloadingSubmit(false);

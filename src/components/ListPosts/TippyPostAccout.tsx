@@ -16,7 +16,7 @@ export default function TippyPostAccout({
   const handleDeletePost = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3001/v1/post/${postId}/${userId}`
+        `${process.env.API_URL}/v1/post/${postId}/${userId}`
       );
       setContentAler(res.data);
       setOpenMore(false);
