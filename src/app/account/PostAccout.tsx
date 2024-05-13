@@ -9,7 +9,7 @@ export default function PostAccout() {
 
   useEffect(() => {
     fetDataUserId(user.user._id);
-  }, []);
+  }, [fetDataUserId, user.user._id]);
 
   return postsId.length > 0 ? (
     <ListPosts posts={postsId} />

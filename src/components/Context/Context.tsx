@@ -19,19 +19,19 @@ interface UserContextType {
   toggleModelNewPost: () => void;
   openModelLogin: boolean;
   setOpenModelLogin: (newState: boolean) => void;
-  toggleModelLogin: (action: string, iteam: any) => void;
+  toggleModelLogin: (event: any, iteam: any) => void;
   contentAler: string;
   setContentAler: (newState: string) => void;
-  insideModel: string;
-  setInsideModel: (newState: string) => void;
+  insideModel: any;
+  setInsideModel: (newState: any) => void;
   user?: any;
-  getTimeAgo: any;
-  posts: any;
-  setPosts: (newState: any) => void;
+  getTimeAgo: (createdAt: string) => string;
+  posts: any[];
+  setPosts: (newState: any[]) => void;
   fetData: () => Promise<void>;
   fetDataUserId: (id: string) => Promise<void>;
-  postsId: any;
-  setPostsId: (newState: any) => void;
+  postsId: any[];
+  setPostsId: (newState: any[]) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -98,12 +98,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const fetData = async () => {
     const response = await axios.get(`${process.env.API_URL}/v1/post/`);
     setPosts(response.data.data);
   };
-  const [postsId, setPostsId] = useState([]);
+  const [postsId, setPostsId] = useState<any[]>([]);
 
   const fetDataUserId = async (id: string) => {
     const response = await axios.get(`${process.env.API_URL}/v1/post/${id}`);

@@ -7,7 +7,7 @@ export default function Posts() {
   const { posts, fetData } = useAppContext();
   useEffect(() => {
     fetData();
-  }, []);
+  }, [fetData]);
   return posts.length > 0 ? (
     <ListPosts posts={posts} />
   ) : (
