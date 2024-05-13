@@ -54,7 +54,7 @@ export default function Header() {
         </Link>
         <Link
           href={status === "authenticated" ? "/search" : ""}
-          onClick={toggleModelLogin}
+          onClick={() => toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <Image
@@ -66,7 +66,7 @@ export default function Header() {
           />
         </Link>
         <button
-          onClick={
+          onClick={() =>
             status === "authenticated" ? toggleModelNewPost : toggleModelLogin
           }
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
@@ -81,7 +81,7 @@ export default function Header() {
         </button>
         <Link
           href={status === "authenticated" ? "/activity" : ""}
-          onClick={toggleModelLogin}
+          onClick={() => toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <Image
@@ -94,7 +94,7 @@ export default function Header() {
         </Link>
         <Link
           href={status === "authenticated" ? "/account" : ""}
-          onClick={toggleModelLogin}
+          onClick={() => toggleModelLogin}
           className="flex items-center justify-center w-[96px] h-[74px] rounded-[8px] hover:bg-[#0000000a]"
         >
           <Image

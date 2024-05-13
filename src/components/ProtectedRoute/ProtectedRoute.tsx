@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     if (status === "authenticated" && pathname === "/login") {
       router.push("/");
     }
-  }, [status, router]);
+  }, [status, router, pathname]);
 
   return status === "loading" ? (
     <div className="w-screen h-screen flex justify-center items-center">
