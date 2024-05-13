@@ -1,12 +1,18 @@
-import ImagePost from "@/app/Components/ImagePost";
-import NavContent from "@/app/Components/NavContent";
 import icon from "@/assets/icon/icon";
 import Image from "next/image";
 import { useAppContext } from "../Context/Context";
 import TippyPostAccout from "./TippyPostAccout";
+import NavContent from "./NavContent";
 
 export default function ListPosts({ posts }: any) {
-  const { user, getTimeAgo, setContentAler, setIsRefetch } = useAppContext();
+  const {
+    user,
+    getTimeAgo,
+    setContentAler,
+    fetData,
+    fetDataUserId,
+    toggleModelLogin,
+  } = useAppContext();
 
   return posts.map((item: any) => (
     <div key={item._id}>
@@ -33,13 +39,24 @@ export default function ListPosts({ posts }: any) {
               postId={item._id}
               author={item.author._id}
               setContentAler={setContentAler}
-              setIsRefetch={setIsRefetch}
+              fetData={fetData}
+              fetDataUserId={fetDataUserId}
             />
           </div>
           <div className="min-h-[30px] whitespace-pre-wrap">
             <p>{item.title}</p>
           </div>
-          <ImagePost src={item.image} />
+          {item.image[0]?.url && (
+            <Image
+              width={0}
+              height={0}
+              priority
+              onClick={() => toggleModelLogin("comment", item)}
+              className="h-[430px] w-auto object-cover rounded-[8px] mt-[8px] cursor-pointer "
+              src={item.image[0]?.url}
+              alt=""
+            />
+          )}
           <NavContent />
           <div className="flex">
             <p className="text-[#999999] font-normal text-[15px]">

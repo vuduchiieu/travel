@@ -7,13 +7,13 @@ import TippySelectPrivatePost from "./TippySelectPrivatePost";
 import Image from "next/image";
 import axios from "axios";
 
-export default function ModelPosts() {
-  const { user, setOpenModelPosts, setContentAler, setIsRefetch } =
+export default function ModelNewPosts() {
+  const { user, setOpenModelNewPosts, setContentAler, fetData, fetDataUserId } =
     useAppContext();
 
   const handleCloseModelLogin = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      setOpenModelPosts(false);
+      setOpenModelNewPosts(false);
     }
   };
 
@@ -54,8 +54,9 @@ export default function ModelPosts() {
         newPost
       );
       setIsloadingSubmit(false);
-      setOpenModelPosts(false);
-      setIsRefetch(true);
+      setOpenModelNewPosts(false);
+      fetData();
+      fetDataUserId(user.user._id);
     } catch (error: any) {
       setContentAler(error.response?.data.message);
       setIsloadingSubmit(false);

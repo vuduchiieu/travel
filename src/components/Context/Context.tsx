@@ -1,5 +1,5 @@
 "use client";
-import { Session } from "next-auth";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, {
   createContext,
@@ -14,20 +14,24 @@ interface UserContextType {
   setOpenModelUpdateUser: (newState: boolean) => void;
   openModelPosts: boolean;
   setOpenModelPosts: (newState: boolean) => void;
-  toggleModelPost: () => void;
+  openModelNewPosts: boolean;
+  setOpenModelNewPosts: (newState: boolean) => void;
+  toggleModelNewPost: () => void;
   openModelLogin: boolean;
   setOpenModelLogin: (newState: boolean) => void;
-  toggleModelLogin: () => void;
+  toggleModelLogin: (action: string, iteam: any) => void;
   contentAler: string;
   setContentAler: (newState: string) => void;
-  imageInsideModel?: string;
-  openModelImage: boolean;
-  setOpenModelImage: (newState: boolean) => void;
-  toggleModelImage: (imageUrl: string) => void;
+  insideModel: string;
+  setInsideModel: (newState: string) => void;
   user?: any;
   getTimeAgo: any;
-  isRefetch: boolean;
-  setIsRefetch: (newState: boolean) => void;
+  posts: any;
+  setPosts: (newState: any) => void;
+  fetData: () => Promise<void>;
+  fetDataUserId: (id: string) => Promise<void>;
+  postsId: any;
+  setPostsId: (newState: any) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -39,37 +43,32 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [openModelUpdateUser, setOpenModelUpdateUser] =
     useState<boolean>(false);
   const [openModelPosts, setOpenModelPosts] = useState<boolean>(false);
+  const [openModelNewPosts, setOpenModelNewPosts] = useState<boolean>(false);
   const [openModelLogin, setOpenModelLogin] = useState<boolean>(false);
-  const [openModelImage, setOpenModelImage] = useState<boolean>(false);
-  const [imageInsideModel, setImageInsideModel] = useState<string>("");
 
-  const toggleModelPost = () => {
-    setOpenModelPosts((prev) => !prev);
+  const [insideModel, setInsideModel] = useState<string>("");
+
+  const toggleModelNewPost = () => {
+    setOpenModelNewPosts((prev) => !prev);
   };
 
-  const toggleModelLogin = () => {
-    if (status === "unauthenticated") setOpenModelLogin((prev) => !prev);
-  };
-
-  const toggleModelImage = (imageUrl: string) => {
-    setImageInsideModel(imageUrl);
-    setOpenModelImage((prev) => !prev);
-    setContentAler("");
+  const toggleModelLogin = (action: string, iteam: any) => {
+    if (status === "unauthenticated") {
+      setOpenModelLogin((prev) => !prev);
+    } else if (status === "authenticated" && action === "comment") {
+      setOpenModelPosts(true);
+      if (iteam) setInsideModel(iteam);
+    }
   };
 
   useEffect(() => {
-    if (
-      openModelLogin ||
-      openModelImage ||
-      openModelPosts ||
-      openModelUpdateUser
-    ) {
+    if (openModelLogin || openModelPosts || openModelUpdateUser) {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [openModelLogin, openModelImage, openModelPosts, openModelUpdateUser]);
+  }, [openModelLogin, openModelPosts, openModelUpdateUser]);
 
   useEffect(() => {
     if (contentAler) {
@@ -99,29 +98,43 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  const [isRefetch, setIsRefetch] = useState(true);
+  const [posts, setPosts] = useState([]);
+  const fetData = async () => {
+    const response = await axios.get(`${process.env.API_URL}/v1/post/`);
+    setPosts(response.data.data);
+  };
+  const [postsId, setPostsId] = useState([]);
+
+  const fetDataUserId = async (id: string) => {
+    const response = await axios.get(`${process.env.API_URL}/v1/post/${id}`);
+    setPostsId(response.data.data);
+  };
 
   return (
     <UserContext.Provider
       value={{
         openModelUpdateUser,
         setOpenModelUpdateUser,
-        toggleModelPost,
+        toggleModelNewPost,
         openModelPosts,
         setOpenModelPosts,
+        openModelNewPosts,
+        setOpenModelNewPosts,
+        toggleModelLogin,
         openModelLogin,
         setOpenModelLogin,
-        toggleModelLogin,
         contentAler,
         setContentAler,
-        toggleModelImage,
-        imageInsideModel,
-        openModelImage,
-        setOpenModelImage,
+        insideModel,
+        setInsideModel,
         user: session,
         getTimeAgo,
-        isRefetch,
-        setIsRefetch,
+        posts,
+        setPosts,
+        fetData,
+        fetDataUserId,
+        postsId,
+        setPostsId,
       }}
     >
       {children}
