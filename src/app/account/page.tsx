@@ -1,8 +1,7 @@
-import Header from "@/components/Header/Header";
 import Profile from "./Profile";
-import FirstPost from "./FirstPost";
 import UpdateUser from "./UpdateUser";
 import { MainLayout } from "@/layout/MainLayout";
+import PostAccout from "./PostAccout";
 
 export default function Account() {
   return (
@@ -20,7 +19,7 @@ export default function Account() {
           <p className="text-[#999999]">Đăng lại</p>
         </button>
       </div>
-      <FirstPost />
+      <PostAccout />
     </MainLayout>
   );
 }

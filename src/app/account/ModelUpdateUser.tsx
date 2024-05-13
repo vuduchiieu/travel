@@ -49,7 +49,6 @@ export default function ModelUpdateUser() {
       setOpenModelUpdateUser(false);
       setIsloadingSubmit(false);
     } catch (error) {
-      console.log(error);
       setIsloadingSubmit(false);
     }
   };
