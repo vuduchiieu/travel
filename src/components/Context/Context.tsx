@@ -25,6 +25,9 @@ interface UserContextType {
   setOpenModelImage: (newState: boolean) => void;
   toggleModelImage: (imageUrl: string) => void;
   user?: any;
+  getTimeAgo: any;
+  isRefetch: boolean;
+  setIsRefetch: (newState: boolean) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -76,6 +79,28 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [contentAler]);
 
+  function getTimeAgo(createdAt: string) {
+    const createdDate = new Date(createdAt);
+
+    if (isNaN(createdDate.getTime())) {
+      return "Ngày đăng không hợp lệ";
+    }
+
+    const currentDate = new Date();
+    const timeDiff = currentDate.getTime() - createdDate.getTime();
+    const hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60));
+
+    if (hoursDiff <= 24) {
+      return hoursDiff === 0 ? "vài phút trước" : `${hoursDiff} giờ trước`;
+    } else {
+      return `${createdDate.getDate()}/${
+        createdDate.getMonth() + 1
+      }/${createdDate.getFullYear()}`;
+    }
+  }
+
+  const [isRefetch, setIsRefetch] = useState(true);
+
   return (
     <UserContext.Provider
       value={{
@@ -94,6 +119,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         openModelImage,
         setOpenModelImage,
         user: session,
+        getTimeAgo,
+        isRefetch,
+        setIsRefetch,
       }}
     >
       {children}

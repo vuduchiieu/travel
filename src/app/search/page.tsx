@@ -2,9 +2,8 @@
 import React, { useEffect, useState } from "react";
 
 import icon from "@/assets/icon/icon";
-import Header from "@/components/Header/Header";
 import axios from "axios";
-import { MainLayout } from "@/layout";
+import { MainLayout } from "@/layout/MainLayout";
 import Image from "next/image";
 
 type User = {
@@ -97,6 +96,7 @@ function Search() {
               height={30}
               className="absolute w-[30px] top-[25%] left-[50%] right-[50%] animate-spin "
               src={icon.loading}
+              priority
               alt=""
             />
           )}

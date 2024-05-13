@@ -16,26 +16,29 @@ import defaultImage from "./defaultImage.svg";
 import loading from "./loading.svg";
 import photo from "./photo.svg";
 import lock from "./lock.svg";
+import background from "./background.png";
+import { StaticImageData } from "next/image";
 
 interface iconType {
-  arrow_r: string;
-  logo: string;
-  home: string;
-  posts: string;
-  search: string;
-  user: string;
-  heart: string;
-  more: string;
-  comment: string;
-  repost: string;
-  share: string;
-  google: string;
-  close: string;
-  menu: string;
-  defaultImage: string;
-  loading: string;
-  photo: string;
-  lock: string;
+  arrow_r: StaticImageData;
+  logo: StaticImageData;
+  home: StaticImageData;
+  posts: StaticImageData;
+  search: StaticImageData;
+  user: StaticImageData;
+  heart: StaticImageData;
+  more: StaticImageData;
+  comment: StaticImageData;
+  repost: StaticImageData;
+  share: StaticImageData;
+  google: StaticImageData;
+  close: StaticImageData;
+  menu: StaticImageData;
+  defaultImage: StaticImageData;
+  loading: StaticImageData;
+  photo: StaticImageData;
+  lock: StaticImageData;
+  background: StaticImageData;
 }
 
 const icon: iconType = {
@@ -57,6 +60,7 @@ const icon: iconType = {
   loading,
   photo,
   lock,
+  background,
 };
 
 export default icon;

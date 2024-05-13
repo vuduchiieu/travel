@@ -36,6 +36,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         height={30}
         className="animate-spin w-[30px]"
         src={icon.loading}
+        priority
         alt=""
       />
     </div>

@@ -1,4 +1,4 @@
-import { MainLayout } from "@/layout";
+import { MainLayout } from "@/layout/MainLayout";
 
 function Activity() {
   return (
