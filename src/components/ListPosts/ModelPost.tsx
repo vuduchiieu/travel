@@ -112,7 +112,7 @@ export default function ModelPost() {
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
       onClick={handleCloseModelLogin}
     >
-      <div className="relative flex justify-center items-center w-[90%] h-[90%] bg-[#fff] rounded-[16px] overflow-hidden">
+      <div className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px] overflow-hidden">
         <button
           onClick={() => {
             setOpenModelPosts(false);
@@ -261,7 +261,7 @@ export default function ModelPost() {
                 </div>
               ))}
             </div>
-            <div className="flex absolute bottom-0 justify-between h-[78px] w-[100%] bg-[#fff]">
+            <div className="flex absolute bottom-[-2%] justify-between h-[78px] w-[100%] bg-[#fff] ">
               <Image
                 width={32}
                 height={32}
