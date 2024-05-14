@@ -12,6 +12,7 @@ export default function ListPosts({ posts }: any) {
     fetData,
     fetDataUserId,
     toggleModelLogin,
+    isMobile,
   } = useAppContext();
 
   return posts.map((item: any) => (
@@ -21,12 +22,16 @@ export default function ListPosts({ posts }: any) {
           <Image
             width={36}
             height={36}
+            style={isMobile ? { marginLeft: 6 } : {}}
             className="rounded-[100%] mt-[6px] "
             src={item.author.image || icon.defaultImage}
             alt=""
           />
         </Link>
-        <div className="h-[100%] w-[92%]">
+        <div
+          style={isMobile ? { width: "85%" } : {}}
+          className="h-[100%] w-[92%]"
+        >
           <div className="flex justify-between items-center">
             <Link href={`/${item.author.email}`}>
               <h3 className="font-semibold leading-[21px] text-[15px]">
@@ -64,13 +69,7 @@ export default function ListPosts({ posts }: any) {
           )}
           <div className="flex my-[6px]">
             <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer   hover:bg-[#f5f5f5]">
-              <Image
-                width={24}
-                height={24}
-                style={{ filter: "var(--filter-black)" }}
-                src={icon.heart}
-                alt=""
-              />
+              <Image width={22} height={22} src={icon.heart} alt="" />
             </div>
             <button
               onClick={() => toggleModelLogin(item)}

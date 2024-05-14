@@ -11,7 +11,7 @@ export function MainLayout({ children }: MainType) {
       <Header />
       <div
         style={{ paddingTop: 74 }}
-        className="max-w-[620px] min-h-[820px]  mx-auto "
+        className="max-w-[620px] min-h-[820px] mx-auto"
       >
         {children}
       </div>

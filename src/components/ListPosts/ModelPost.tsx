@@ -32,6 +32,7 @@ export default function ModelPost() {
     user,
     setContentAler,
     fetData,
+    isMobile,
   } = useAppContext();
 
   const handleCloseModelLogin = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -112,7 +113,19 @@ export default function ModelPost() {
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
       onClick={handleCloseModelLogin}
     >
-      <div className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px] overflow-hidden">
+      <div
+        style={
+          isMobile
+            ? {
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                width: "100%",
+                height: "100%",
+              }
+            : {}
+        }
+        className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px] overflow-hidden"
+      >
         <button
           onClick={() => {
             setOpenModelPosts(false);
@@ -129,7 +142,20 @@ export default function ModelPost() {
           />
         </button>
         {insideModel && (
-          <div className="w-[77%] h-[100%] bg-[#000]">
+          <div
+            style={
+              isMobile
+                ? {
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    width: "100%",
+                  }
+                : {}
+            }
+            className="w-[77%] h-[100%] bg-[#000]"
+          >
             <Image
               width={0}
               height={0}
@@ -139,182 +165,179 @@ export default function ModelPost() {
             />
           </div>
         )}
-        <div className="w-[23%] h-[100%] p-[20px]">
-          <div className=" relative w-[100%] h-[100%]">
-            <div className="flex  items-center h-[72px] mb-[6px]">
-              <Link
-                href={`/${insideModel.author.email}`}
-                onClick={() => setOpenModelPosts(false)}
-              >
-                <Image
-                  width={50}
-                  height={50}
-                  className="rounded-[50%]"
-                  src={insideModel.author.image}
-                  alt=""
-                />
-              </Link>
-              <div className="ml-[10px]">
+
+        {!isMobile && (
+          <div className="w-[23%] h-[100%] p-[20px]">
+            <div className=" relative w-[100%] h-[100%]">
+              <div className="flex  items-center h-[72px] mb-[6px]">
                 <Link
                   href={`/${insideModel.author.email}`}
                   onClick={() => setOpenModelPosts(false)}
                 >
-                  <h3 className="font-semibold leading-[21px] text-[15px]">
-                    {insideModel.author.name}
-                  </h3>
+                  <Image
+                    width={50}
+                    height={50}
+                    className="rounded-[50%]"
+                    src={insideModel.author.image}
+                    alt=""
+                  />
                 </Link>
-                <p className="flex-[0.95] leading-[21px] font-normal text-[#999999] text-[15px]">
-                  {getTimeAgo(insideModel.createdAt)}
+                <div className="ml-[10px]">
+                  <Link
+                    href={`/${insideModel.author.email}`}
+                    onClick={() => setOpenModelPosts(false)}
+                  >
+                    <h3 className="font-semibold leading-[21px] text-[15px]">
+                      {insideModel.author.name}
+                    </h3>
+                  </Link>
+                  <p className="flex-[0.95] leading-[21px] font-normal text-[#999999] text-[15px]">
+                    {getTimeAgo(insideModel.createdAt)}
+                  </p>
+                </div>
+              </div>
+              <div className="min-h-[30px] whitespace-pre-wrap mb-[6px]">
+                <p>{insideModel.title}</p>
+              </div>
+              <div className="flex mb-[16px]">
+                <p className="text-[#999999] font-normal text-[15px]">
+                  <span>{comments.length} bình luận</span>
+                </p>
+                <p className="text-[#999999] font-normal text-[15px] ml-[10px]">
+                  <span>{insideModel.like.length} lượt thích</span>
                 </p>
               </div>
-            </div>
-            <div className="min-h-[30px] whitespace-pre-wrap mb-[6px]">
-              <p>{insideModel.title}</p>
-            </div>
-            <div className="flex mb-[16px]">
-              <p className="text-[#999999] font-normal text-[15px]">
-                <span>{comments.length} bình luận</span>
-              </p>
-              <p className="text-[#999999] font-normal text-[15px] ml-[10px]">
-                <span>{insideModel.like.length} lượt thích</span>
-              </p>
-            </div>
-            <nav className="flex justify-around mb-[16px] border-y-[1px] border-y-solid boder-y-[#00000066]">
-              <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer   hover:bg-[#f5f5f5]">
-                <Image
-                  width={24}
-                  height={24}
-                  style={{ filter: "var(--filter-black)" }}
-                  src={icon.heart}
-                  alt=""
-                />
-              </button>
-              <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
-                <Image width={22} height={22} src={icon.comment} alt="" />
-              </button>
-              <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
-                <Image width={22} height={22} src={icon.repost} alt="" />
-              </button>
-              <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
-                <Image width={22} height={22} src={icon.share} alt="" />
-              </button>
-            </nav>
-            <div className="mb-[16px] overflow-y-auto h-[63%]">
-              {comments.map((item: any) => (
-                <div
-                  key={item._id}
-                  className=" flex items-start min-w mb-[12px]"
-                >
-                  <Link
-                    href={`/${item.user.email}`}
-                    onClick={() => setOpenModelPosts(false)}
-                    className="min-w-[32px] h-[32px]"
+              <nav className="flex justify-around mb-[16px] border-y-[1px] border-y-solid boder-y-[#00000066]">
+                <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer   hover:bg-[#f5f5f5]">
+                  <Image width={24} height={24} src={icon.heart} alt="" />
+                </button>
+                <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+                  <Image width={22} height={22} src={icon.comment} alt="" />
+                </button>
+                <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+                  <Image width={22} height={22} src={icon.repost} alt="" />
+                </button>
+                <button className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+                  <Image width={22} height={22} src={icon.share} alt="" />
+                </button>
+              </nav>
+              <div className="mb-[16px] overflow-y-auto h-[63%]">
+                {comments.map((item: any) => (
+                  <div
+                    key={item._id}
+                    className=" flex items-start min-w mb-[12px]"
                   >
-                    <Image
-                      width={32}
-                      height={32}
-                      className="rounded-[50%] "
-                      src={item.user.image}
-                      alt=""
-                    />
-                  </Link>
-                  <div className="relative min-w-[90px] px-[16px] py-[4px] min-h-[60px] bg-[#eee] ml-[6px] rounded-[12px]">
                     <Link
                       href={`/${item.user.email}`}
                       onClick={() => setOpenModelPosts(false)}
+                      className="min-w-[32px] h-[32px]"
                     >
-                      <h3 className="font-semibold">
-                        {item.user.name || item.user.email}
-                      </h3>
+                      <Image
+                        width={32}
+                        height={32}
+                        className="rounded-[50%] "
+                        src={item.user.image}
+                        alt=""
+                      />
                     </Link>
-                    <p>{item.content}</p>
-                    {(user.user._id === item.user._id ||
-                      user.user._id === item.post.author) && (
-                      <button
-                        style={
-                          isLoadingDelete[item._id]
-                            ? { pointerEvents: "none" }
-                            : { pointerEvents: "all" }
-                        }
-                        onClick={() => handleDeleTeComment(item)}
-                        className="absolute right-[3%] top-[3%] ml-[6px]"
+                    <div className="relative min-w-[90px] px-[16px] py-[4px] min-h-[60px] bg-[#eee] ml-[6px] rounded-[12px]">
+                      <Link
+                        href={`/${item.user.email}`}
+                        onClick={() => setOpenModelPosts(false)}
                       >
-                        {isLoadingDelete[item._id] ? (
-                          <Image
-                            width={18}
-                            height={18}
-                            className="animate-spin"
-                            src={icon.loading}
-                            alt=""
-                          />
-                        ) : (
-                          <Image
-                            width={16}
-                            height={16}
-                            src={icon.iconDelete}
-                            alt=""
-                          />
-                        )}
-                      </button>
-                    )}
+                        <h3 className="font-semibold">
+                          {item.user.name || item.user.email}
+                        </h3>
+                      </Link>
+                      <p>{item.content}</p>
+                      {(user.user._id === item.user._id ||
+                        user.user._id === item.post.author) && (
+                        <button
+                          style={
+                            isLoadingDelete[item._id]
+                              ? { pointerEvents: "none" }
+                              : { pointerEvents: "all" }
+                          }
+                          onClick={() => handleDeleTeComment(item)}
+                          className="absolute right-[3%] top-[3%] ml-[6px]"
+                        >
+                          {isLoadingDelete[item._id] ? (
+                            <Image
+                              width={18}
+                              height={18}
+                              className="animate-spin"
+                              src={icon.loading}
+                              alt=""
+                            />
+                          ) : (
+                            <Image
+                              width={16}
+                              height={16}
+                              src={icon.close}
+                              alt=""
+                            />
+                          )}
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex absolute bottom-[-2%] justify-between h-[78px] w-[100%] bg-[#fff] ">
-              <Image
-                width={32}
-                height={32}
-                className="h-[32px] rounded-[50%]"
-                src={user.user.image}
-                alt=""
-              />
-              <form
-                onSubmit={handleSendComment}
-                className="relative bg-[#eee] w-[88%] overflow-hidden rounded-[16px] "
-              >
-                <input
-                  style={{ outline: "none", backgroundColor: "transparent" }}
-                  type="text"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  className="h-[60%] w-[100%] px-[10px]"
-                  placeholder={`Bình luận với vai trò: ${
-                    user.user.name || user.user.email
-                  }`}
+                ))}
+              </div>
+              <div className="flex absolute bottom-[-2%] justify-between h-[78px] w-[100%] bg-[#fff] ">
+                <Image
+                  width={32}
+                  height={32}
+                  className="h-[32px] rounded-[50%]"
+                  src={user.user.image}
+                  alt=""
                 />
-                <button
-                  className="absolute bottom-[10%] right-[5%]"
-                  type="submit"
-                  style={
-                    isLoadingSendComment
-                      ? { pointerEvents: "none" }
-                      : { pointerEvents: "all" }
-                  }
+                <form
+                  onSubmit={handleSendComment}
+                  className="relative bg-[#eee] w-[88%] overflow-hidden rounded-[16px] "
                 >
-                  {isLoadingSendComment ? (
-                    <Image
-                      width={24}
-                      height={24}
-                      priority
-                      className="animate-spin"
-                      src={icon.loading}
-                      alt=""
-                    />
-                  ) : (
-                    <Image
-                      width={28}
-                      height={28}
-                      priority
-                      src={icon.send}
-                      alt=""
-                    />
-                  )}
-                </button>
-              </form>
+                  <input
+                    style={{ outline: "none", backgroundColor: "transparent" }}
+                    type="text"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    className="h-[60%] w-[100%] px-[10px]"
+                    placeholder={`Bình luận với vai trò: ${
+                      user.user.name || user.user.email
+                    }`}
+                  />
+                  <button
+                    className="absolute bottom-[10%] right-[5%]"
+                    type="submit"
+                    style={
+                      isLoadingSendComment
+                        ? { pointerEvents: "none" }
+                        : { pointerEvents: "all" }
+                    }
+                  >
+                    {isLoadingSendComment ? (
+                      <Image
+                        width={24}
+                        height={24}
+                        priority
+                        className="animate-spin"
+                        src={icon.loading}
+                        alt=""
+                      />
+                    ) : (
+                      <Image
+                        width={28}
+                        height={28}
+                        priority
+                        src={icon.send}
+                        alt=""
+                      />
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

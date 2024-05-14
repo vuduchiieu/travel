@@ -5,7 +5,7 @@ import icon from "@/assets/icon/icon";
 import Image from "next/image";
 
 export default function NewPosts() {
-  const { user, toggleModelNewPost } = useAppContext();
+  const { user, toggleModelNewPost, isMobile } = useAppContext();
 
   const { status } = useSession();
 
@@ -18,14 +18,21 @@ export default function NewPosts() {
         <Image
           width={36}
           height={36}
+          style={isMobile ? { marginLeft: 6 } : {}}
           className="w-[36px] h-[36px] rounded-[50%]"
           src={user.user.image || icon.defaultImage}
           alt=""
         />
-        <div className="w-[80%]">
+        <div
+          style={isMobile ? { marginLeft: 6, width: "65%" } : {}}
+          className="w-[80%]"
+        >
           <p className="text-[#999] text-[15px]">Bắt đầu thread...</p>
         </div>
-        <button className="h-[36px] w-[68px] rounded-full bg-[#000]">
+        <button
+          style={isMobile ? { marginRight: 6 } : {}}
+          className="h-[36px] w-[68px] rounded-full bg-[#000]"
+        >
           <p className="text-[#fff] font-semibold">Đăng</p>
         </button>
       </div>
