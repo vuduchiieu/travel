@@ -190,7 +190,10 @@ export default function ModelPost() {
             </nav>
             <div className="mb-[16px] overflow-y-auto h-[63%]">
               {comments.map((item: any) => (
-                <div key={item._id} className="flex items-start mb-[12px]">
+                <div
+                  key={item._id}
+                  className="relative flex items-start min-w  mb-[12px]"
+                >
                   <Image
                     className="rounded-[50%]"
                     width={28}
@@ -198,7 +201,7 @@ export default function ModelPost() {
                     src={item.user.image}
                     alt=""
                   />
-                  <div className="max-w-[280px] px-[16px] py-[4px] min-h bg-[#eee] ml-[6px] rounded-[12px]">
+                  <div className="w-[280px] px-[16px] py-[4px] min-h bg-[#eee] ml-[6px] rounded-[12px]">
                     <h3 className="font-semibold">
                       {item.user.name || item.user.email}
                     </h3>
@@ -213,7 +216,7 @@ export default function ModelPost() {
                           : { pointerEvents: "all" }
                       }
                       onClick={() => handleDeleTeComment(item)}
-                      className="my-auto ml-[6px]"
+                      className="absolute right-0 top-[50%] bottom-[50%] ml-[6px]"
                     >
                       {isLoadingDelete[item._id] ? (
                         <Image
