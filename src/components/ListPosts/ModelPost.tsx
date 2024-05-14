@@ -132,15 +132,15 @@ export default function ModelPost() {
             <Image
               width={0}
               height={0}
-              className="mx-auto h-[100%] w-auto"
+              className="mx-auto max-h-[100%] w-auto"
               src={insideModel?.image[0]?.url}
               alt=""
             />
           </div>
         )}
         <div className="w-[25%] h-[100%] p-[20px]">
-          <div className=" w-[100%] h-[100%]">
-            <div className="flex items-center h-[72px] mb-[6px]">
+          <div className=" relative w-[100%] h-[100%]">
+            <div className="flex  items-center h-[72px] mb-[6px]">
               <Image
                 width={50}
                 height={50}
@@ -188,7 +188,7 @@ export default function ModelPost() {
                 <Image width={22} height={22} src={icon.share} alt="" />
               </button>
             </nav>
-            <div className="mb-[16px] overflow-y-auto h-[500px]">
+            <div className="mb-[16px] overflow-y-auto h-[63%]">
               {comments.map((item: any) => (
                 <div key={item._id} className="flex items-start mb-[12px]">
                   <Image
@@ -204,7 +204,6 @@ export default function ModelPost() {
                     </h3>
                     <p>{item.content}</p>
                   </div>
-
                   {(user.user._id === item.user._id ||
                     user.user._id === item.post.author) && (
                     <button
@@ -237,7 +236,7 @@ export default function ModelPost() {
                 </div>
               ))}
             </div>
-            <div className="flex justify-between h-[78px]">
+            <div className="flex absolute bottom-0 justify-between h-[78px] w-[100%] bg-[#fff]">
               <Image
                 width={32}
                 height={32}
