@@ -17,7 +17,7 @@ export default function ListPosts({ posts }: any) {
   return posts.map((item: any) => (
     <div key={item._id}>
       <div className="flex justify-between py-[12px] border-b-[1px] border-b-solid boder-b-[#00000066] ">
-        <Link href={`/${item.author._id}`}>
+        <Link href={`/${item.author.email}`}>
           <Image
             width={36}
             height={36}
@@ -28,7 +28,7 @@ export default function ListPosts({ posts }: any) {
         </Link>
         <div className="h-[100%] w-[92%]">
           <div className="flex justify-between items-center">
-            <Link href={`/${item.author._id}`}>
+            <Link href={`/${item.author.email}`}>
               <h3 className="font-semibold leading-[21px] text-[15px]">
                 {item.author.name}
               </h3>

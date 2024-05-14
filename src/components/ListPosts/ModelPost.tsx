@@ -143,7 +143,7 @@ export default function ModelPost() {
           <div className=" relative w-[100%] h-[100%]">
             <div className="flex  items-center h-[72px] mb-[6px]">
               <Link
-                href={`/${insideModel.author._id}`}
+                href={`/${insideModel.author.email}`}
                 onClick={() => setOpenModelPosts(false)}
               >
                 <Image
@@ -156,7 +156,7 @@ export default function ModelPost() {
               </Link>
               <div className="ml-[10px]">
                 <Link
-                  href={`/${insideModel.author._id}`}
+                  href={`/${insideModel.author.email}`}
                   onClick={() => setOpenModelPosts(false)}
                 >
                   <h3 className="font-semibold leading-[21px] text-[15px]">
@@ -206,7 +206,7 @@ export default function ModelPost() {
                   className=" flex items-start min-w mb-[12px]"
                 >
                   <Link
-                    href={`/${item.user._id}`}
+                    href={`/${item.user.email}`}
                     onClick={() => setOpenModelPosts(false)}
                     className="min-w-[32px] h-[32px]"
                   >
@@ -220,7 +220,7 @@ export default function ModelPost() {
                   </Link>
                   <div className="relative min-w-[90px] px-[16px] py-[4px] min-h-[60px] bg-[#eee] ml-[6px] rounded-[12px]">
                     <Link
-                      href={`/${item.user._id}`}
+                      href={`/${item.user.email}`}
                       onClick={() => setOpenModelPosts(false)}
                     >
                       <h3 className="font-semibold">

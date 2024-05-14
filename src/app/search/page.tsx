@@ -63,7 +63,7 @@ function Search() {
             listUser.map((item, i) => (
               <div key={i} className="flex pt-[16px] min-h-[84px] ">
                 <Link
-                  href={`/${item._id}`}
+                  href={`/${item.email}`}
                   className="pt-[4px] pb-[2px] pr-[12px]"
                 >
                   <Image
@@ -76,7 +76,7 @@ function Search() {
                 </Link>
                 <div className=" w-[90%] border-b-[1px] border-b-solid border-b-[#00000026]">
                   <div className="flex justify-between pb-[8px]">
-                    <Link href={`/${item._id}`}>
+                    <Link href={`/${item.email}`}>
                       <h2 className="font-semibold text-[15px]">
                         {item.username || item.email}
                       </h2>
