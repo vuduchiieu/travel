@@ -4,6 +4,7 @@ import { useAppContext } from "../Context/Context";
 import icon from "@/assets/icon/icon";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 interface User {
   _id: string;
@@ -111,7 +112,7 @@ export default function ModelPost() {
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
       onClick={handleCloseModelLogin}
     >
-      <div className="relative flex justify-center items-center min-w-[80%] h-[90%] bg-[#fff] rounded-[16px] overflow-hidden">
+      <div className="relative flex justify-center items-center w-[90%] h-[90%] bg-[#fff] rounded-[16px] overflow-hidden">
         <button
           onClick={() => {
             setOpenModelPosts(false);
@@ -128,7 +129,7 @@ export default function ModelPost() {
           />
         </button>
         {insideModel && (
-          <div className="w-[75%] h-[100%] bg-[#000]">
+          <div className="w-[77%] h-[100%] bg-[#000]">
             <Image
               width={0}
               height={0}
@@ -138,20 +139,30 @@ export default function ModelPost() {
             />
           </div>
         )}
-        <div className="w-[25%] h-[100%] p-[20px]">
+        <div className="w-[23%] h-[100%] p-[20px]">
           <div className=" relative w-[100%] h-[100%]">
             <div className="flex  items-center h-[72px] mb-[6px]">
-              <Image
-                width={50}
-                height={50}
-                className="rounded-[50%]"
-                src={insideModel.author.image}
-                alt=""
-              />
+              <Link
+                href={`/${insideModel.author._id}`}
+                onClick={() => setOpenModelPosts(false)}
+              >
+                <Image
+                  width={50}
+                  height={50}
+                  className="rounded-[50%]"
+                  src={insideModel.author.image}
+                  alt=""
+                />
+              </Link>
               <div className="ml-[10px]">
-                <h3 className="font-semibold leading-[21px] text-[15px]">
-                  {insideModel.author.name}
-                </h3>
+                <Link
+                  href={`/${insideModel.author._id}`}
+                  onClick={() => setOpenModelPosts(false)}
+                >
+                  <h3 className="font-semibold leading-[21px] text-[15px]">
+                    {insideModel.author.name}
+                  </h3>
+                </Link>
                 <p className="flex-[0.95] leading-[21px] font-normal text-[#999999] text-[15px]">
                   {getTimeAgo(insideModel.createdAt)}
                 </p>
@@ -192,50 +203,61 @@ export default function ModelPost() {
               {comments.map((item: any) => (
                 <div
                   key={item._id}
-                  className="relative flex items-start min-w  mb-[12px]"
+                  className=" flex items-start min-w mb-[12px]"
                 >
-                  <Image
-                    className="rounded-[50%]"
-                    width={28}
-                    height={28}
-                    src={item.user.image}
-                    alt=""
-                  />
-                  <div className="w-[280px] px-[16px] py-[4px] min-h bg-[#eee] ml-[6px] rounded-[12px]">
-                    <h3 className="font-semibold">
-                      {item.user.name || item.user.email}
-                    </h3>
-                    <p>{item.content}</p>
-                  </div>
-                  {(user.user._id === item.user._id ||
-                    user.user._id === item.post.author) && (
-                    <button
-                      style={
-                        isLoadingDelete[item._id]
-                          ? { pointerEvents: "none" }
-                          : { pointerEvents: "all" }
-                      }
-                      onClick={() => handleDeleTeComment(item)}
-                      className="absolute right-0 top-[50%] bottom-[50%] ml-[6px]"
+                  <Link
+                    href={`/${item.user._id}`}
+                    onClick={() => setOpenModelPosts(false)}
+                    className="min-w-[32px] h-[32px]"
+                  >
+                    <Image
+                      width={32}
+                      height={32}
+                      className="rounded-[50%] "
+                      src={item.user.image}
+                      alt=""
+                    />
+                  </Link>
+                  <div className="relative min-w-[90px] px-[16px] py-[4px] min-h-[60px] bg-[#eee] ml-[6px] rounded-[12px]">
+                    <Link
+                      href={`/${item.user._id}`}
+                      onClick={() => setOpenModelPosts(false)}
                     >
-                      {isLoadingDelete[item._id] ? (
-                        <Image
-                          width={18}
-                          height={18}
-                          className="animate-spin"
-                          src={icon.loading}
-                          alt=""
-                        />
-                      ) : (
-                        <Image
-                          width={18}
-                          height={18}
-                          src={icon.iconDelete}
-                          alt=""
-                        />
-                      )}
-                    </button>
-                  )}
+                      <h3 className="font-semibold">
+                        {item.user.name || item.user.email}
+                      </h3>
+                    </Link>
+                    <p>{item.content}</p>
+                    {(user.user._id === item.user._id ||
+                      user.user._id === item.post.author) && (
+                      <button
+                        style={
+                          isLoadingDelete[item._id]
+                            ? { pointerEvents: "none" }
+                            : { pointerEvents: "all" }
+                        }
+                        onClick={() => handleDeleTeComment(item)}
+                        className="absolute right-[3%] top-[3%] ml-[6px]"
+                      >
+                        {isLoadingDelete[item._id] ? (
+                          <Image
+                            width={18}
+                            height={18}
+                            className="animate-spin"
+                            src={icon.loading}
+                            alt=""
+                          />
+                        ) : (
+                          <Image
+                            width={16}
+                            height={16}
+                            src={icon.iconDelete}
+                            alt=""
+                          />
+                        )}
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
