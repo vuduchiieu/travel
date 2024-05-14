@@ -23,8 +23,55 @@ export default function PostAccout({ userId }: any) {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[270px]">
-        <p>Đang tải dữ liệu...</p>
+      <div className="max-w-[620px] min-h mx-auto ">
+        <div className="py-4 mt-[22px] w-[100%]">
+          <div className="animate-pulse flex space-x-4">
+            <div className="rounded-full bg-[#e5e7eb] h-10 w-10"></div>
+            <div className="flex-1 space-y-6 py-1">
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="h-4 bg-[#e5e7eb] rounded-full col-span-1"></div>
+                </div>
+              </div>
+              <div className="h-4 bg-[#e5e7eb] rounded-full"></div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="h-4 bg-[#e5e7eb] rounded-full col-span-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="py-4 mt-[22px] w-[100%]">
+          <div className="animate-pulse flex space-x-4">
+            <div className="rounded-full bg-[#e5e7eb] h-10 w-10"></div>
+            <div className="flex-1 space-y-6 py-1">
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="h-4 bg-[#e5e7eb] rounded-full col-span-1"></div>
+                </div>
+              </div>
+              <div className="h-4 bg-[#e5e7eb] rounded-full"></div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="h-4 bg-[#e5e7eb] rounded-full col-span-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="py-4 mt-[22px] w-[100%]">
+          <div className="animate-pulse flex space-x-4">
+            <div className="rounded-full bg-[#e5e7eb] h-10 w-10"></div>
+            <div className="flex-1 space-y-6 py-1">
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="h-4 bg-[#e5e7eb] rounded-full col-span-1"></div>
+                </div>
+              </div>
+              <div className="h-4 bg-[#e5e7eb] rounded-full"></div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="h-4 bg-[#e5e7eb] rounded-full col-span-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
