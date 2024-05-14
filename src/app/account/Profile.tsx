@@ -12,8 +12,8 @@ export default function Profile() {
     <div className="min-h pt-[16px] pb-[10px] ">
       <div className="flex justify-between items-center h-[84px]">
         <div className="w-[472px] h-[56px] ">
-          <h2 className="font-semibold text-[24px]">{user?.user.email}</h2>
-          <p className="font-light text-[15px]">{user?.user.name}</p>
+          <h2 className="font-bold text-[24px]">{user?.user.email}</h2>
+          <p className="font-normal text-[15px]">{user?.user.name}</p>
         </div>
         <button>
           <Image

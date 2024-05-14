@@ -11,7 +11,7 @@ export default function UpdateUser() {
         onClick={() => setOpenModelUpdateUser(!openModelUpdateUser)}
         className="flex justify-center items-center h-[34px] w-[100%] py-[12px] border border-solid border-[#00000026] rounded-[10px]"
       >
-        <p className="font-medium text-[15px]">Chỉnh sửa trang cá nhân</p>
+        <p className="font-semibold text-[15px]">Chỉnh sửa trang cá nhân</p>
       </button>
     </>
   );
