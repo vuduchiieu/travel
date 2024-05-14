@@ -19,7 +19,7 @@ interface UserContextType {
   toggleModelNewPost: () => void;
   openModelLogin: boolean;
   setOpenModelLogin: (newState: boolean) => void;
-  toggleModelLogin: (event: any, iteam: any) => void;
+  toggleModelLogin: (item: any) => void;
   contentAler: string;
   setContentAler: (newState: string) => void;
   insideModel: any;
@@ -37,6 +37,18 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const [posts, setPosts] = useState<any[]>([]);
+  const fetData = async () => {
+    const response = await axios.get(`${process.env.API_URL}/v1/post/`);
+    setPosts(response.data.data);
+  };
+  const [postsId, setPostsId] = useState<any[]>([]);
+
+  const fetDataUserId = async (id: string) => {
+    const response = await axios.get(`${process.env.API_URL}/v1/post/${id}`);
+    setPostsId(response.data.data);
+  };
+
   const { data: session, status } = useSession();
 
   const [contentAler, setContentAler] = useState<string>("");
@@ -52,12 +64,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setOpenModelNewPosts((prev) => !prev);
   };
 
-  const toggleModelLogin = (action: string, iteam: any) => {
+  const toggleModelLogin = (item: any) => {
     if (status === "unauthenticated") {
       setOpenModelLogin((prev) => !prev);
-    } else if (status === "authenticated" && action === "comment") {
+    } else if (status === "authenticated") {
       setOpenModelPosts(true);
-      if (iteam) setInsideModel(iteam);
+      if (item) setInsideModel(item);
     }
   };
 
@@ -97,18 +109,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       }/${createdDate.getFullYear()}`;
     }
   }
-
-  const [posts, setPosts] = useState<any[]>([]);
-  const fetData = async () => {
-    const response = await axios.get(`${process.env.API_URL}/v1/post/`);
-    setPosts(response.data.data);
-  };
-  const [postsId, setPostsId] = useState<any[]>([]);
-
-  const fetDataUserId = async (id: string) => {
-    const response = await axios.get(`${process.env.API_URL}/v1/post/${id}`);
-    setPostsId(response.data.data);
-  };
 
   return (
     <UserContext.Provider

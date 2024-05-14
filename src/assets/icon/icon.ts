@@ -16,7 +16,10 @@ import defaultImage from "./defaultImage.svg";
 import loading from "./loading.svg";
 import photo from "./photo.svg";
 import lock from "./lock.svg";
+import iconDelete from "./delete.svg";
 import background from "./background.png";
+import send from "./send.svg";
+import heartnav from "./heartnav.svg";
 import { StaticImageData } from "next/image";
 
 interface iconType {
@@ -27,6 +30,7 @@ interface iconType {
   search: StaticImageData;
   user: StaticImageData;
   heart: StaticImageData;
+  heartnav: StaticImageData;
   more: StaticImageData;
   comment: StaticImageData;
   repost: StaticImageData;
@@ -39,6 +43,8 @@ interface iconType {
   photo: StaticImageData;
   lock: StaticImageData;
   background: StaticImageData;
+  iconDelete: StaticImageData;
+  send: StaticImageData;
 }
 
 const icon: iconType = {
@@ -49,6 +55,7 @@ const icon: iconType = {
   search,
   user,
   heart,
+  heartnav,
   more,
   comment,
   repost,
@@ -61,6 +68,8 @@ const icon: iconType = {
   photo,
   lock,
   background,
+  iconDelete,
+  send,
 };
 
 export default icon;

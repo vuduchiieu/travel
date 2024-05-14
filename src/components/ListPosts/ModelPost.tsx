@@ -2,18 +2,109 @@
 import Image from "next/image";
 import { useAppContext } from "../Context/Context";
 import icon from "@/assets/icon/icon";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface User {
+  _id: string;
+  name: string;
+  image: string;
+  email: string;
+}
+
+interface Comment {
+  _id: string;
+  content: string;
+  user: User;
+  post: {
+    _id: string;
+    author: string;
+  };
+}
 
 export default function ModelPost() {
-  const { setOpenModelPosts, insideModel, setInsideModel, getTimeAgo, user } =
-    useAppContext();
+  const {
+    setOpenModelPosts,
+    insideModel,
+    setInsideModel,
+    getTimeAgo,
+    user,
+    setContentAler,
+    fetData,
+  } = useAppContext();
+
   const handleCloseModelLogin = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setOpenModelPosts(false);
       setInsideModel("");
     }
   };
+  const [content, setContent] = useState<string>("");
+  const [isLoadingSendComment, setIsLoadingSendComment] =
+    useState<boolean>(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [comments, setComments] = useState<Comment[]>(insideModel.comment);
 
-  console.log(insideModel);
+  useEffect(() => {
+    setComments(insideModel.comment);
+  }, [insideModel]);
+
+  const handleSendComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!content) {
+      return setContentAler("Bạn chưa nhập bình luận");
+    }
+    setIsLoadingSendComment(true);
+    try {
+      const newComment = {
+        content,
+      };
+      const res = await axios.post(
+        `${process.env.API_URL}/v1/comment/${insideModel._id}/${user.user._id}`,
+        newComment
+      );
+      const comment = {
+        ...res.data,
+        user: {
+          _id: user.user._id,
+          name: user.user.name,
+          image: user.user.image,
+          email: user.user.email,
+        },
+      };
+      setComments((prevComments: Comment[]) => [...prevComments, comment]);
+      setContent("");
+      await fetData();
+      setIsLoadingSendComment(false);
+    } catch (error) {
+      setIsLoadingSendComment(false);
+      console.error(error);
+    }
+  };
+
+  const handleDeleTeComment = async (item: Comment) => {
+    setIsLoadingDelete((prev) => ({ ...prev, [item._id]: true }));
+    try {
+      if (
+        user.user._id === item.user._id ||
+        user.user._id === item.post?.author
+      ) {
+        await axios.delete(
+          `${process.env.API_URL}/v1/comment/${item.post._id}/${item.user._id}/${item._id}`
+        );
+        await fetData();
+        setComments((prev) =>
+          prev.filter((comment) => comment._id !== item._id)
+        );
+        setIsLoadingDelete((prev) => ({ ...prev, [item._id]: false }));
+      }
+    } catch (error) {
+      setIsLoadingDelete((prev) => ({ ...prev, [item._id]: false }));
+      console.error(error);
+    }
+  };
 
   return (
     <div
@@ -71,10 +162,10 @@ export default function ModelPost() {
             </div>
             <div className="flex mb-[16px]">
               <p className="text-[#999999] font-normal text-[15px]">
-                <span>9 bình luận</span>
+                <span>{comments.length} bình luận</span>
               </p>
               <p className="text-[#999999] font-normal text-[15px] ml-[10px]">
-                <span> lượt thích</span>
+                <span>{insideModel.like.length} lượt thích</span>
               </p>
             </div>
             <nav className="flex justify-around mb-[16px] border-y-[1px] border-y-solid boder-y-[#00000066]">
@@ -98,27 +189,53 @@ export default function ModelPost() {
               </button>
             </nav>
             <div className="mb-[16px] overflow-y-auto h-[500px]">
-              <div className="flex items-start mb-[12px]">
-                <Image width={28} height={28} src={icon.defaultImage} alt="" />
-                <div className="max-w-[280px] px-[16px] py-[4px] min-h bg-[#eee] ml-[6px] rounded-[12px]">
-                  <h3 className="font-semibold">user</h3>
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Blanditiis animi fuga ullam labore sunt adipisci? Alias ut
-                    delectus soluta perspiciatis sint hic? Labore ratione vero
-                    libero nihil obcaecati rerum saepe at, repellat doloremque
-                    minima architecto quae magnam enim commodi eaque amet
-                    inventore veniam, cum facilis? Maxime quia veniam est nisi,
-                    sit blanditiis id expedita iure odio officiis omnis
-                    delectus! Minus quod, nostrum odio eaque aut exercitationem
-                    sint impedit id voluptas repellat sunt? Harum, amet?
-                    Corrupti quasi saepe labore porro, consectetur ratione! In
-                    fuga repudiandae saepe ratione architecto libero, placeat
-                    porro consequatur modi non fugit voluptatum vero ea! Qui,
-                    alias numquam?
-                  </p>
+              {comments.map((item: any) => (
+                <div key={item._id} className="flex items-start mb-[12px]">
+                  <Image
+                    className="rounded-[50%]"
+                    width={28}
+                    height={28}
+                    src={item.user.image}
+                    alt=""
+                  />
+                  <div className="max-w-[280px] px-[16px] py-[4px] min-h bg-[#eee] ml-[6px] rounded-[12px]">
+                    <h3 className="font-semibold">
+                      {item.user.name || item.user.email}
+                    </h3>
+                    <p>{item.content}</p>
+                  </div>
+
+                  {(user.user._id === item.user._id ||
+                    user.user._id === item.post.author) && (
+                    <button
+                      style={
+                        isLoadingDelete[item._id]
+                          ? { pointerEvents: "none" }
+                          : { pointerEvents: "all" }
+                      }
+                      onClick={() => handleDeleTeComment(item)}
+                      className="my-auto ml-[6px]"
+                    >
+                      {isLoadingDelete[item._id] ? (
+                        <Image
+                          width={18}
+                          height={18}
+                          className="animate-spin"
+                          src={icon.loading}
+                          alt=""
+                        />
+                      ) : (
+                        <Image
+                          width={18}
+                          height={18}
+                          src={icon.iconDelete}
+                          alt=""
+                        />
+                      )}
+                    </button>
+                  )}
                 </div>
-              </div>
+              ))}
             </div>
             <div className="flex justify-between h-[78px]">
               <Image
@@ -128,10 +245,15 @@ export default function ModelPost() {
                 src={user.user.image}
                 alt=""
               />
-              <form className="relative bg-[#eee] w-[88%] overflow-hidden rounded-[16px] ">
+              <form
+                onSubmit={handleSendComment}
+                className="relative bg-[#eee] w-[88%] overflow-hidden rounded-[16px] "
+              >
                 <input
                   style={{ outline: "none", backgroundColor: "transparent" }}
                   type="text"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
                   className="h-[60%] w-[100%] px-[10px]"
                   placeholder={`Bình luận với vai trò: ${
                     user.user.name || user.user.email
@@ -140,15 +262,30 @@ export default function ModelPost() {
                 <button
                   className="absolute bottom-[10%] right-[5%]"
                   type="submit"
+                  style={
+                    isLoadingSendComment
+                      ? { pointerEvents: "none" }
+                      : { pointerEvents: "all" }
+                  }
                 >
-                  <Image
-                    width={24}
-                    height={24}
-                    priority
-                    className="animate-spin"
-                    src={icon.loading}
-                    alt=""
-                  />
+                  {isLoadingSendComment ? (
+                    <Image
+                      width={24}
+                      height={24}
+                      priority
+                      className="animate-spin"
+                      src={icon.loading}
+                      alt=""
+                    />
+                  ) : (
+                    <Image
+                      width={28}
+                      height={28}
+                      priority
+                      src={icon.send}
+                      alt=""
+                    />
+                  )}
                 </button>
               </form>
             </div>

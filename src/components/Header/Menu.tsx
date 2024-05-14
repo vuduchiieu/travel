@@ -22,7 +22,7 @@ export default function Menu() {
         <div
           tabIndex={-1}
           {...attrs}
-          className="relative left-[-45%] overflow-hidden w-[174px] h-[281px]  rounded-[16px] outline-[0.5px] outline-[#00000026] outline shadow-md"
+          className="relative left-[-45%] overflow-hidden w-[174px] h-[281px] rounded-[16px] outline-[0.5px] outline-[#00000026] outline shadow-md"
         >
           <button
             onClick={handleErr}

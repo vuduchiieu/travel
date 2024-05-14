@@ -10,7 +10,7 @@ export async function POST(request: Request) {
       password,
     });
   } catch (error: any) {
-    console.log(error.response.data.error);
+    console.error(error.response.data.error);
   }
   return NextResponse.json({ message: "Thành công" });
 }

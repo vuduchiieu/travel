@@ -8,8 +8,10 @@ export default function PostAccout() {
   const { user, toggleModelNewPost, postsId, fetDataUserId } = useAppContext();
 
   useEffect(() => {
-    fetDataUserId(user.user._id);
-  }, [fetDataUserId, user.user._id]);
+    if (user?.user._id) {
+      fetDataUserId(user?.user._id);
+    }
+  }, [user?.user._id]);
 
   return postsId.length > 0 ? (
     <ListPosts posts={postsId} />
