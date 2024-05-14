@@ -8,6 +8,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
+import { useMediaQuery } from "react-responsive";
 
 interface UserContextType {
   openModelUpdateUser: boolean;
@@ -32,11 +33,14 @@ interface UserContextType {
   fetDataUserId: (id: string) => Promise<void>;
   postsId: any[];
   setPostsId: (newState: any[]) => void;
+  isMobile: boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   const [posts, setPosts] = useState<any[]>([]);
   const fetData = async () => {
     const response = await axios.get(`${process.env.API_URL}/v1/post/`);
@@ -135,6 +139,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         fetDataUserId,
         postsId,
         setPostsId,
+        isMobile,
       }}
     >
       {children}

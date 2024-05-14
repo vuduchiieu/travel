@@ -22,7 +22,7 @@ export default function Menu() {
         <div
           tabIndex={-1}
           {...attrs}
-          className="relative left-[-45%] overflow-hidden w-[174px] h-[281px] rounded-[16px] outline-[0.5px] outline-[#00000026] outline shadow-md"
+          className="relative left-0 overflow-hidden w-[174px] h-[281px] bg-[#fff] rounded-[16px] outline-[0.5px] outline-[#00000026] outline shadow-md"
         >
           <button
             onClick={handleErr}
@@ -63,7 +63,7 @@ export default function Menu() {
     >
       <button
         onClick={() => setOpenNenu((prev) => !prev)}
-        className="w-[106px] mr-[13px]"
+        className=" mr-[13px]"
       >
         {contentAler && <CustomAlert content={contentAler} />}
         <Image

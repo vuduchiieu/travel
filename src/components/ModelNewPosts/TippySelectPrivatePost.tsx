@@ -2,6 +2,7 @@ import Tippy from "@tippyjs/react/headless";
 import { useState } from "react";
 
 interface SelectType {
+  isMobile: boolean;
   select: boolean;
   SetSelect: (newState: boolean) => void;
 }
@@ -42,13 +43,16 @@ export default function TippySelectPrivatePost(Props: SelectType) {
       )}
       onClickOutside={() => setOpenSelect((prev) => !prev)}
     >
-      <button onClick={() => setOpenSelect((prev) => !prev)}>
+      <div
+        className="cursor-pointer"
+        onClick={() => setOpenSelect((prev) => !prev)}
+      >
         <p className="text-[#999] text-[15px] font-normal">
           {Props.select
             ? "Bất kỳ ai cũng có thể xem và bình luận bài viết"
             : "Chỉ mình tôi có thể xem và bình luận bài viết"}
         </p>
-      </button>
+      </div>
     </Tippy>
   );
 }

@@ -8,8 +8,14 @@ import Image from "next/image";
 import axios from "axios";
 
 export default function ModelNewPosts() {
-  const { user, setOpenModelNewPosts, setContentAler, fetData, fetDataUserId } =
-    useAppContext();
+  const {
+    isMobile,
+    user,
+    setOpenModelNewPosts,
+    setContentAler,
+    fetData,
+    fetDataUserId,
+  } = useAppContext();
 
   const handleCloseModelLogin = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -73,6 +79,7 @@ export default function ModelNewPosts() {
           <h3 className="text-[#fff] text-[16px] font-bold">Bài viết mới</h3>
         </div>
         <form
+          style={isMobile ? { maxWidth: "95vw" } : {}}
           onSubmit={handleSubmit}
           className="flex flex-col mt-[8px] p-[24px] w-[620px] min-h bg-[#fff] rounded-[16px]"
         >
@@ -84,7 +91,10 @@ export default function ModelNewPosts() {
               src={user?.user.image || icon.defaultImage}
               alt=""
             />
-            <div className=" w-[512px]">
+            <div
+              style={isMobile ? { minWidth: 312 } : {}}
+              className="w-[512px]"
+            >
               <h2 className="font-semibold text-[15px]">
                 {user?.user.name || user?.user.email}
               </h2>
@@ -143,7 +153,11 @@ export default function ModelNewPosts() {
             </div>
           </div>
           <div className="flex justify-between h-[44px] ">
-            <TippySelectPrivatePost select={select} SetSelect={SetSelect} />
+            <TippySelectPrivatePost
+              select={select}
+              SetSelect={SetSelect}
+              isMobile={isMobile}
+            />
             <button
               type="submit"
               className="flex justify-center items-center px-[16px] h-[36px] w-[76px] rounded-full  bg-[#000]"
