@@ -42,7 +42,7 @@ export default function ModelUpdateUser() {
         newUser.append("email", email);
       }
       const res = await axios.put(
-        `${process.env.API_URL}/v1/user/${user.user._id}`,
+        `${process.env.API_URL}/v1/user/${user?.user._id}`,
         newUser
       );
       update(res);
@@ -90,7 +90,7 @@ export default function ModelUpdateUser() {
                   <input
                     type="text"
                     style={{ outline: "none" }}
-                    placeholder={user.user.name || "Chưa được đặt tên"}
+                    placeholder={user?.user.name || "Chưa được đặt tên"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="text-[15px] w-[100%]  pb-[14px] border-b-[1px] border-b-solid boder-b-[#00000066]"
