@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import debounce from "lodash/debounce";
 
 import icon from "@/assets/icon/icon";
 import axios from "axios";
@@ -18,16 +19,29 @@ type User = {
 function Search() {
   const [listUser, setListUser] = useState<User[]>([]);
   const [valueSearch, setValueSearch] = useState<string>("");
-  const handleCallListUser = async () => {
-    const res = await axios.get(
-      `${process.env.API_URL}/v1/user?page=1&pageSize=10`
-    );
 
-    setListUser(res.data.data);
+  const handleSearch = async (query: string) => {
+    try {
+      const res = await axios.get(
+        `${process.env.API_URL}/v1/search?q=${query}`
+      );
+      setListUser(res.data.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const debouncedSearch = useCallback(
+    debounce(async (query) => await handleSearch(query), 800),
+    []
+  );
+
   useEffect(() => {
-    handleCallListUser();
-  }, []);
+    debouncedSearch(valueSearch);
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [valueSearch, debouncedSearch]);
 
   return (
     <MainLayout>
