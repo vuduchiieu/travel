@@ -5,9 +5,10 @@ import icon from "@/assets/icon/icon";
 import axios from "axios";
 import { MainLayout } from "@/layout/MainLayout";
 import Image from "next/image";
+import Link from "next/link";
 
 type User = {
-  id: string;
+  _id: string;
   username?: string;
   email?: string;
   name?: string;
@@ -61,7 +62,10 @@ function Search() {
           {listUser.length > 0 ? (
             listUser.map((item, i) => (
               <div key={i} className="flex pt-[16px] min-h-[84px] ">
-                <div className="pt-[4px] pb-[2px] pr-[12px]">
+                <Link
+                  href={`/${item._id}`}
+                  className="pt-[4px] pb-[2px] pr-[12px]"
+                >
                   <Image
                     width={36}
                     height={36}
@@ -69,17 +73,17 @@ function Search() {
                     src={item.image || icon.defaultImage}
                     alt=""
                   />
-                </div>
+                </Link>
                 <div className=" w-[90%] border-b-[1px] border-b-solid border-b-[#00000026]">
                   <div className="flex justify-between pb-[8px]">
-                    <div>
+                    <Link href={`/${item._id}`}>
                       <h2 className="font-semibold text-[15px]">
                         {item.username || item.email}
                       </h2>
                       <h3 className="font-normal text-[15[px] text-[#999999]">
                         {item.name}
                       </h3>
-                    </div>
+                    </Link>
                     <button className="border-solid border-[1px] border-[#00000026] rounded-[10px] min-w-[104px] h-[34px] px-[16px]">
                       <p className="font-semibold text-[15px]">Theo dõi</p>
                     </button>

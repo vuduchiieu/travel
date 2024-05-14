@@ -8,7 +8,7 @@ import { useAppContext } from "../Context/Context";
 import Menu from "./Menu";
 import ModelNewPosts from "../ModelNewPosts/ModelNewPosts";
 import { useSession } from "next-auth/react";
-import ModelUpdateUser from "@/app/account/ModelUpdateUser";
+import ModelUpdateUser from "@/app/[id]/ModelUpdateUser";
 import Image, { StaticImageData } from "next/image";
 import ModelPost from "../ListPosts/ModelPost";
 
@@ -20,6 +20,7 @@ export default function Header() {
     openModelNewPosts,
     openModelLogin,
     toggleModelLogin,
+    user,
   } = useAppContext();
 
   const { status } = useSession();
@@ -124,7 +125,7 @@ export default function Header() {
         />
 
         <NavItem
-          href={"/account"}
+          href={`/${user?.user._id}`}
           iconSrc={icon.user}
           alt={"Account"}
           onClick={() => toggleModelLogin(null)}
