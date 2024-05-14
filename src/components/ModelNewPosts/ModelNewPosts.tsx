@@ -53,10 +53,10 @@ export default function ModelNewPosts() {
         `${process.env.API_URL}/v1/post/${user.user._id}`,
         newPost
       );
-      setIsloadingSubmit(false);
+      await fetData();
+      await fetDataUserId(user.user._id);
       setOpenModelNewPosts(false);
-      fetData();
-      fetDataUserId(user.user._id);
+      setIsloadingSubmit(false);
     } catch (error: any) {
       setContentAler(error.response?.data.message);
       setIsloadingSubmit(false);

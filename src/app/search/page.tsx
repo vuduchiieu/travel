@@ -11,7 +11,7 @@ type User = {
   username?: string;
   email?: string;
   name?: string;
-  image?: any;
+  image?: string;
 };
 
 function Search() {

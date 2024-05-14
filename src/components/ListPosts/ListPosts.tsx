@@ -2,7 +2,6 @@ import icon from "@/assets/icon/icon";
 import Image from "next/image";
 import { useAppContext } from "../Context/Context";
 import TippyPostAccout from "./TippyPostAccout";
-import NavContent from "./NavContent";
 
 export default function ListPosts({ posts }: any) {
   const {
@@ -43,29 +42,54 @@ export default function ListPosts({ posts }: any) {
               fetDataUserId={fetDataUserId}
             />
           </div>
-          <div className="min-h-[30px] whitespace-pre-wrap">
+          <button
+            onClick={() => toggleModelLogin(item)}
+            className="min-h-[30px] whitespace-pre-wrap"
+          >
             <p>{item.title}</p>
-          </div>
+          </button>
           {item.image[0]?.url && (
             <Image
               width={0}
               height={0}
               priority
-              onClick={() => toggleModelLogin("comment", item)}
+              onClick={() => toggleModelLogin(item)}
               className="h-[430px] w-auto object-cover rounded-[8px] mt-[8px] cursor-pointer "
               src={item.image[0]?.url}
               alt=""
             />
           )}
-          <NavContent />
-          <div className="flex">
-            <p className="text-[#999999] font-normal text-[15px]">
-              <span>9 bình luận</span>
-            </p>
-            <p className="text-[#999999] font-normal text-[15px] ml-[10px]">
-              <span> lượt thích</span>
-            </p>
+          <div className="flex my-[6px]">
+            <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer   hover:bg-[#f5f5f5]">
+              <Image
+                width={24}
+                height={24}
+                style={{ filter: "var(--filter-black)" }}
+                src={icon.heart}
+                alt=""
+              />
+            </div>
+            <button
+              onClick={() => toggleModelLogin(item)}
+              className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]"
+            >
+              <Image width={22} height={22} src={icon.comment} alt="" />
+            </button>
+            <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+              <Image width={22} height={22} src={icon.repost} alt="" />
+            </div>
+            <div className="flex justify-center items-center h-[36px] w-[36px] ml-[3px] rounded-full cursor-pointer  hover:bg-[#f5f5f5]">
+              <Image width={22} height={22} src={icon.share} alt="" />
+            </div>
           </div>
+          <button className="flex" onClick={() => toggleModelLogin(item)}>
+            <p className="text-[#999999] font-normal text-[15px] ">
+              <span>{item.comment.length} bình luận</span>
+            </p>
+            <p className="text-[#999999] font-normal text-[15px] ml-[10px] ">
+              <span>{item.like.length} lượt thích</span>
+            </p>
+          </button>
         </div>
       </div>
     </div>

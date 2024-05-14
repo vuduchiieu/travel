@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function Profile() {
   const { user, setOpenModelUpdateUser } = useAppContext();
+
   return (
     <div className="min-h pt-[16px] pb-[10px] ">
       <div className="flex justify-between items-center h-[84px]">
@@ -32,9 +33,11 @@ export default function Profile() {
         <p className="font-normal text-[15px] text-[#999999]">
           4 người theo dõi
         </p>
-        <Link href={"https://myaccount.google.com"} target="_blank">
-          <Image width={24} height={24} src={icon.google} alt="" />
-        </Link>
+        {user?.user.provider === "google" && (
+          <Link href={"https://myaccount.google.com"} target="_blank">
+            <Image width={24} height={24} src={icon.google} alt="" />
+          </Link>
+        )}
       </div>
     </div>
   );
