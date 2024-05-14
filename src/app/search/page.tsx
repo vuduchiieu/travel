@@ -1,12 +1,12 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import debounce from "lodash/debounce";
-
-import icon from "@/assets/icon/icon";
 import axios from "axios";
 import { MainLayout } from "@/layout/MainLayout";
 import Image from "next/image";
 import Link from "next/link";
+
+import icon from "@/assets/icon/icon";
 
 type User = {
   _id: string;
@@ -16,27 +16,32 @@ type User = {
   image?: string;
 };
 
-function Search() {
+export default function Search() {
   const [listUser, setListUser] = useState<User[]>([]);
   const [valueSearch, setValueSearch] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = async (query: string) => {
     try {
       const res = await axios.get(
         `${process.env.API_URL}/v1/search?q=${query}`
       );
+      setIsLoading(false);
       setListUser(res.data.data);
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
     }
   };
-
   const debouncedSearch = useCallback(
-    debounce(async (query) => await handleSearch(query), 800),
+    debounce(async (query) => {
+      await handleSearch(query);
+    }, 800),
     []
   );
 
   useEffect(() => {
+    setIsLoading(true);
     debouncedSearch(valueSearch);
     return () => {
       debouncedSearch.cancel();
@@ -46,7 +51,10 @@ function Search() {
   return (
     <MainLayout>
       <div className="max-w-[620px] min-h-[820px] pt-[6px] mx-auto ">
-        <div className="flex justify-center items-center outline outline-[0.5px] outline-[#00000026] w-[100%] h-[60px] p-[12px] rounded-[16px] bg-[#fff]">
+        <label
+          htmlFor="search"
+          className="flex justify-center items-center outline outline-[0.5px] outline-[#00000026] w-[100%] h-[60px] p-[12px] rounded-[16px] bg-[#fff] shadow-md mb-[12px]"
+        >
           <Image
             width={32}
             height={32}
@@ -54,28 +62,43 @@ function Search() {
             className="w-[32px] p-[8px]"
             alt=""
           />
+
           <input
             value={valueSearch}
+            id="search"
             onChange={(e) => setValueSearch(e.target.value)}
-            className="w-[90%] outline-none"
+            className=" w-[90%] h-[100%] outline-none"
             type="text"
             placeholder="Tìm kiếm"
           />
           {valueSearch ? (
             <button
               onClick={() => setValueSearch("")}
-              className="w-[22px] h-[22px] p-[6px] rounded-[50%] bg-[#b8b8b8]"
+              className="w-[22px] h-[22px] p-[6px] rounded-[50%] bg-[#b8b8b8] "
             >
               <Image width={16} height={16} src={icon.close} alt="" />
             </button>
           ) : (
             <span className="w-[22px]"></span>
           )}
-        </div>
-        <div className="flex flex-col min-h-[500px]">
-          {listUser.length > 0 ? (
+        </label>
+        <div className="flex flex-col h-[80vh] overflow-y-auto">
+          {isLoading ? (
+            <Image
+              width={30}
+              height={30}
+              className="absolute w-[30px] top-[25%] left-[50%] right-[50%] animate-spin "
+              src={icon.loading}
+              priority
+              alt=""
+            />
+          ) : listUser.length === 0 ? (
+            <div className="flex justify-center items-center w-[100%] h-[300px]">
+              <p className="text-[#999] font-normal">Không tìm thấy ai cả</p>
+            </div>
+          ) : (
             listUser.map((item, i) => (
-              <div key={i} className="flex pt-[16px] min-h-[84px] ">
+              <div key={i} className="flex pt-[16px] min-h ">
                 <Link
                   href={`/${item.email}`}
                   className="pt-[4px] pb-[2px] pr-[12px]"
@@ -108,20 +131,9 @@ function Search() {
                 </div>
               </div>
             ))
-          ) : (
-            <Image
-              width={30}
-              height={30}
-              className="absolute w-[30px] top-[25%] left-[50%] right-[50%] animate-spin "
-              src={icon.loading}
-              priority
-              alt=""
-            />
           )}
         </div>
       </div>
     </MainLayout>
   );
 }
-
-export default Search;
