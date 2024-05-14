@@ -33,7 +33,7 @@ export default function PostAccout({ userId }: any) {
     <ListPosts posts={postsId} />
   ) : (
     <div className="flex justify-center items-center min-h-[270px]">
-      {userId._id !== user?.user._id ? (
+      {userId.email !== user?.user.email ? (
         <div className="flex justify-center items-center h-[34px] min-w-[50%] py-[12px] ">
           <p className="font-normal text-[#999] text-[15px]">
             Chưa có bài viết nào

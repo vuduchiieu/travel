@@ -8,6 +8,7 @@ import axios from "axios";
 const fetchUser = async (id: string) => {
   try {
     const res = await axios.get(`${process.env.API_URL}/v1/user/account/${id}`);
+
     return res.data;
   } catch (error) {
     return null;

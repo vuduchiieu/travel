@@ -125,7 +125,7 @@ export default function Header() {
         />
 
         <NavItem
-          href={`/${user?.user._id}`}
+          href={`/${user?.user.email}`}
           iconSrc={icon.user}
           alt={"Account"}
           onClick={() => toggleModelLogin(null)}
