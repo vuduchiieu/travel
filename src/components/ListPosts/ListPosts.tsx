@@ -20,7 +20,7 @@ export default function ListPosts({ posts }: any) {
           <Image
             width={36}
             height={36}
-            className="rounded-[100%] mt-[16px] "
+            className="rounded-[100%] mt-[6px] "
             src={item.author.image || icon.defaultImage}
             alt=""
           />
