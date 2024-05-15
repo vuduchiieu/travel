@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useAppContext } from "../Context/Context";
 import icon from "@/assets/icon/icon";
 import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import Link from "next/link";
 
@@ -63,12 +64,13 @@ export default function ModelPost() {
       const newComment = {
         content,
       };
-      const res = await axios.post(
+      const response = await axios.post(
         `${process.env.API_URL}/v1/comment/${insideModel._id}/${user.user._id}`,
         newComment
       );
+      const decodedToken: any = jwtDecode(response.data);
       const comment = {
-        ...res.data,
+        ...decodedToken.comment,
         user: {
           _id: user.user._id,
           name: user.user.name,

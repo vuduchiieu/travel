@@ -1,5 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import debounce from "lodash/debounce";
 import axios from "axios";
 import { MainLayout } from "@/layout/MainLayout";
@@ -23,11 +24,12 @@ export default function Search() {
 
   const handleSearch = async (query: string) => {
     try {
-      const res = await axios.get(
+      const response = await axios.get(
         `${process.env.API_URL}/v1/search?q=${query}`
       );
+      const decodedToken: any = jwtDecode(response.data);
       setIsLoading(false);
-      setListUser(res.data.data);
+      setListUser(decodedToken.data);
     } catch (error) {
       setIsLoading(false);
       console.error(error);
@@ -92,7 +94,7 @@ export default function Search() {
               priority
               alt=""
             />
-          ) : listUser.length === 0 ? (
+          ) : !listUser ? (
             <div className="flex justify-center items-center w-[100%] h-[300px]">
               <p className="text-[#999] font-normal">Không tìm thấy ai cả</p>
             </div>

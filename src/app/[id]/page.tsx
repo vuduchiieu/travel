@@ -4,12 +4,15 @@ import { MainLayout } from "@/layout/MainLayout";
 import PostAccout from "./PostAccout";
 import { notFound } from "next/navigation";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const fetchUser = async (id: string) => {
   try {
-    const res = await axios.get(`${process.env.API_URL}/v1/user/account/${id}`);
-
-    return res.data;
+    const response = await axios.get(
+      `${process.env.API_URL}/v1/user/account/${id}`
+    );
+    const decodedToken: any = jwtDecode(response.data);
+    return decodedToken.user;
   } catch (error) {
     return null;
   }
