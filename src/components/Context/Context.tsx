@@ -9,6 +9,7 @@ import React, {
   useEffect,
 } from "react";
 import { useMediaQuery } from "react-responsive";
+import { jwtDecode } from "jwt-decode";
 
 interface UserContextType {
   openModelUpdateUser: boolean;
@@ -43,14 +44,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const [posts, setPosts] = useState<any[]>([]);
   const fetData = async () => {
-    const response = await axios.get(`${process.env.API_URL}/v1/post/`);
-    setPosts(response.data.data);
+    const response = await axios.get(`${process.env.API_URL}/v1/post`);
+    const decodedToken: any = jwtDecode(response.data);
+    setPosts(decodedToken.data);
   };
   const [postsId, setPostsId] = useState<any[]>([]);
 
   const fetDataUserId = async (id: string) => {
     const response = await axios.get(`${process.env.API_URL}/v1/post/${id}`);
-    setPostsId(response.data.data);
+    const decodedToken: any = jwtDecode(response.data);
+    setPostsId(decodedToken.data);
   };
 
   const { data: session, status } = useSession();

@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
@@ -13,11 +14,15 @@ const handler = NextAuth({
       },
       async authorize(credentials: any, req) {
         try {
-          const res = await axios.post(`${process.env.API_URL}/v1/auth/login`, {
-            email: credentials.email,
-            password: credentials.password,
-          });
-          return res.data;
+          const response = await axios.post(
+            `${process.env.API_URL}/v1/auth/login`,
+            {
+              email: credentials.email,
+              password: credentials.password,
+            }
+          );
+          const decodedToken: any = jwtDecode(response.data);
+          return decodedToken.user;
         } catch (error) {
           console.error("Lỗi khi đăng nhập:", (error as Error).message);
         }
@@ -50,12 +55,13 @@ const handler = NextAuth({
     },
     async jwt({ token, user, trigger, session }) {
       if (token.sub || token.providerAccountId) {
-        const res = await axios.get(
+        const response = await axios.get(
           `${process.env.API_URL}/v1/user/${
             token.sub || token.providerAccountId
           }`
         );
-        token = res.data;
+        const decodedToken: any = jwtDecode(response.data);
+        token = decodedToken.user;
       }
 
       if (trigger === "update" && session?.data) {

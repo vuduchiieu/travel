@@ -8,7 +8,6 @@ export default function TippyPostAccout({
   userId,
   postId,
   author,
-  setContentAler,
   fetData,
   fetDataUserId,
 }: any) {

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export default function ModelUpdateUser() {
   const { user, setOpenModelUpdateUser, setContentAler } = useAppContext();
@@ -41,11 +42,12 @@ export default function ModelUpdateUser() {
       if (email) {
         newUser.append("email", email);
       }
-      const res = await axios.put(
+      const response = await axios.put(
         `${process.env.API_URL}/v1/user/${user?.user._id}`,
         newUser
       );
-      update(res);
+      const decodedToken: any = jwtDecode(response.data);
+      update(decodedToken.user);
       setOpenModelUpdateUser(false);
       setIsloadingSubmit(false);
     } catch (error) {
