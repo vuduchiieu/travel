@@ -2,10 +2,11 @@
 
 import icon from "@/assets/icon/icon";
 import { useAppContext } from "../Context/Context";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TippySelectPrivatePost from "./TippySelectPrivatePost";
 import Image from "next/image";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 export default function ModelNewPosts() {
   const {
@@ -24,29 +25,27 @@ export default function ModelNewPosts() {
   };
 
   const [isLoadingSubmit, setIsloadingSubmit] = useState<boolean>(false);
-  const [image, setImage] = useState<File | any>(null);
-  const [imagePreView, setImagePreview] = useState("");
+  const [images, setImages] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [select, SetSelect] = useState<any>(true);
 
   useEffect(() => {
-    if (image) {
-      const imageURL = URL.createObjectURL(image);
-      setImagePreview(imageURL);
-      return () => {
-        URL.revokeObjectURL(imageURL);
-      };
-    }
-  }, [image]);
+    const newImagePreviews = images.map((image) => URL.createObjectURL(image));
+    setImagePreviews(newImagePreviews);
+    return () => {
+      newImagePreviews.forEach((preview) => URL.revokeObjectURL(preview));
+    };
+  }, [images]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newPost = new FormData();
     setIsloadingSubmit(true);
     try {
-      if (image) {
+      images.forEach((image) => {
         newPost.append("images", image);
-      }
+      });
       if (title) {
         newPost.append("title", title);
       }
@@ -69,13 +68,43 @@ export default function ModelNewPosts() {
     }
   };
 
+  const handleUploadImage = (e: any) => {
+    const files = Array.from(e.target.files);
+    if (files) {
+      const newImages = [...images];
+      files.forEach((file: any) => newImages.push(file));
+      setImages(newImages);
+    }
+  };
+
+  const handleRemoveImage = (i: number) => {
+    const newImages = [...images];
+    newImages.splice(i, 1);
+    setImages(newImages);
+  };
+
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const handlePrevSlide = () => {
+    if (imageContainerRef.current) {
+      imageContainerRef.current.scrollLeft -= 240;
+    }
+  };
+
+  const handleNextSlide = () => {
+    if (imageContainerRef.current) {
+      imageContainerRef.current.scrollLeft += 240;
+    }
+  };
+
+  console.log(user);
+
   return (
     <div
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
       onClick={handleCloseModelLogin}
     >
       <div className="flex flex-col items-center rounded-[16px]">
-        <div className="h-[46px] min-w">
+        <div className="h-[46px]">
           <h3 className="text-[#fff] text-[16px] font-bold">Bài viết mới</h3>
         </div>
         <form
@@ -108,43 +137,85 @@ export default function ModelNewPosts() {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
-              {imagePreView && (
-                <div className="relative inline-block mt-[12px]">
-                  <Image
-                    unoptimized
-                    width={0}
-                    height={0}
-                    className="w-auto h-[430px] object-cover p-[1px] border-[1px] border-solid boder-[#00000066] rounded-[16px]"
-                    src={imagePreView}
-                    alt=""
-                  />
-                  <button
-                    onClick={() => {
-                      setImagePreview("");
-                      setImage(null);
+              <div className="relative">
+                {imagePreviews.length > 1 && (
+                  <motion.span
+                    whileHover={{
+                      cursor: "pointer",
+                      scale: 1.2,
+                      transition: { duration: 0.5 },
                     }}
-                    className="flex justify-center items-center absolute top-[2%] right-[2%] w-[24px] h-[24px] rounded-[50%] bg-[#00000066]"
+                    className="absolute left-[-10%] top-[50%] flex items-center justify-center w-[44px] h-[44px] rounded-[50%] bg-[#f5f5f5]"
+                    onClick={handlePrevSlide}
                   >
-                    <Image
-                      width={12}
-                      height={12}
-                      style={{ filter: "var(--filter-wite)" }}
-                      src={icon.close}
-                      alt=""
-                    />
-                  </button>
+                    <Image width={16} src={icon.arrowleft} alt="" />
+                  </motion.span>
+                )}
+
+                <div
+                  style={{ overflowX: "auto", scrollBehavior: "smooth" }}
+                  className="flex"
+                  ref={imageContainerRef}
+                >
+                  {imagePreviews.map((preview: any, i: number) => (
+                    <div className="relative mr-[6px]" key={i}>
+                      <Image
+                        unoptimized
+                        width={0}
+                        height={0}
+                        style={
+                          preview.length > 1
+                            ? { width: "auto" }
+                            : { width: 430 }
+                        }
+                        className="max-w-none h-[430px] object-cover p-[1px] border-[1px] border-solid boder-[#00000066] rounded-[16px]"
+                        src={preview}
+                        alt=""
+                      />
+                      {handleRemoveImage && (
+                        <div
+                          onClick={() => handleRemoveImage(i)}
+                          className="flex justify-center items-center absolute top-[2%] right-[2%] w-[24px] h-[24px] rounded-[50%] bg-[#00000066]"
+                        >
+                          <Image
+                            width={12}
+                            height={12}
+                            style={{
+                              filter: "var(--filter-wite)",
+                              cursor: "pointer",
+                            }}
+                            src={icon.close}
+                            alt=""
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              )}
+                {imagePreviews.length > 1 && (
+                  <motion.span
+                    whileHover={{
+                      cursor: "pointer",
+                      scale: 1.2,
+                      transition: { duration: 0.5 },
+                    }}
+                    className="absolute right-[5%] top-[50%] flex items-center justify-center w-[44px] h-[44px] rounded-[50%] bg-[#f5f5f5]"
+                    onClick={handleNextSlide}
+                  >
+                    <Image width={16} src={icon.arrowright} alt="" />
+                  </motion.span>
+                )}
+              </div>
+
               <div className="flex h-[36px] mt-[4px] ">
                 <input
                   style={{ display: "none" }}
                   type="file"
                   id="image"
                   onChange={(e) => {
-                    if (e.target.files) {
-                      setImage(e.target.files[0]);
-                    }
+                    handleUploadImage(e);
                   }}
+                  multiple
                 />
                 <label className="cursor-pointer" htmlFor="image">
                   <Image width={20} height={20} src={icon.photo} alt="" />

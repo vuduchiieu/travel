@@ -94,7 +94,7 @@ export default function Search() {
               priority
               alt=""
             />
-          ) : !listUser ? (
+          ) : listUser.length === 0 ? (
             <div className="flex justify-center items-center w-[100%] h-[300px]">
               <p className="text-[#999] font-normal">Không tìm thấy ai cả</p>
             </div>

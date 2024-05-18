@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface User {
   _id: string;
@@ -110,6 +111,8 @@ export default function ModelPost() {
     }
   };
 
+  const [slide, setSlide] = useState(0);
+
   return (
     <div
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
@@ -121,19 +124,31 @@ export default function ModelPost() {
             ? {
                 flexDirection: "column",
                 justifyContent: "flex-start",
-                width: "100%",
+                maxWidth: "100%",
                 height: "100%",
               }
+            : insideModel.image.length === 0
+            ? { width: "25%" }
             : {}
         }
-        className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px] overflow-hidden"
+        className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px]"
       >
-        <button
+        <motion.button
+          whileHover={{
+            cursor: "pointer",
+            scale: 1.5,
+            transition: { duration: 0.5 },
+          }}
           onClick={() => {
             setOpenModelPosts(false);
             setInsideModel("");
           }}
-          className="absolute top-[2%] left-[2%] flex items-center justify-center h-[44px] w-[44px] rounded-[50%] bg-[#1e1e1e]  hover:scale-[1.07]"
+          style={
+            insideModel.image.length === 0
+              ? { left: "90%", backgroundColor: "#f5f5f5" }
+              : {}
+          }
+          className="absolute top-[2%] left-[2%] flex items-center justify-center h-[44px] w-[44px] rounded-[50%] bg-[#1e1e1e] z-[1]"
         >
           <Image
             width={18}
@@ -142,8 +157,8 @@ export default function ModelPost() {
             src={icon.close}
             alt=""
           />
-        </button>
-        {insideModel && (
+        </motion.button>
+        {insideModel.image.length > 0 && (
           <div
             style={
               isMobile
@@ -156,20 +171,71 @@ export default function ModelPost() {
                   }
                 : {}
             }
-            className="w-[77%] h-[100%] bg-[#000]"
+            className="flex w-[77%] h-[100%] bg-[#000] relative"
           >
-            <Image
-              width={0}
-              height={0}
-              className="mx-auto max-h-[100%] w-auto"
-              src={insideModel?.image[0]?.url}
-              alt=""
-            />
+            {insideModel.image.length > 1 && (
+              <motion.button
+                whileHover={{
+                  cursor: "pointer",
+                  scale: 1.2,
+                  transition: { duration: 0.5 },
+                }}
+                onClick={() => {
+                  if (slide === 0)
+                    return setSlide(insideModel.image.length - 1);
+                  setSlide((prev) => prev - 1);
+                }}
+                className="absolute left-[5%] top-[50%] flex items-center justify-center w-[44px] h-[44px] rounded-[50%] bg-[#1e1e1e]"
+              >
+                <Image width={16} src={icon.arrowleft} alt="" />
+              </motion.button>
+            )}
+            {insideModel.image.map((item: any, i: number) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{
+                  opacity: slide === i ? 1 : 0,
+                  scale: slide === i ? 1 : 0.9,
+                }}
+                transition={{ duration: 0.5 }}
+                style={slide === i ? { display: "block" } : { display: "none" }}
+                className="mx-auto"
+              >
+                <Image
+                  width={0}
+                  height={0}
+                  className="mx-auto max-h-[100%] w-auto"
+                  src={item.url}
+                  alt=""
+                />
+              </motion.div>
+            ))}
+            {insideModel.image.length > 1 && (
+              <motion.button
+                whileHover={{
+                  cursor: "pointer",
+                  scale: 1.2,
+                  transition: { duration: 0.5 },
+                }}
+                onClick={() => {
+                  if (slide === insideModel.image.length - 1)
+                    return setSlide(0);
+                  setSlide((prev) => prev + 1);
+                }}
+                className="absolute right-[5%] top-[50%] flex items-center justify-center w-[44px] h-[44px] rounded-[50%] bg-[#1e1e1e]"
+              >
+                <Image width={16} src={icon.arrowright} alt="" />
+              </motion.button>
+            )}
           </div>
         )}
 
         {!isMobile && (
-          <div className="w-[23%] h-[100%] p-[20px]">
+          <div
+            style={insideModel.image.length === 0 ? { width: "100%" } : {}}
+            className="w-[23%] h-[100%] p-[20px]"
+          >
             <div className=" relative w-[100%] h-[100%]">
               <div className="flex  items-center h-[72px] mb-[6px]">
                 <Link
@@ -242,7 +308,7 @@ export default function ModelPost() {
                         alt=""
                       />
                     </Link>
-                    <div className="relative min-w-[90px] px-[16px] py-[4px] min-h-[60px] bg-[#eee] ml-[6px] rounded-[12px]">
+                    <div className="max-w-[80%] px-[16px] py-[4px] min-h-[60px] bg-[#eee] ml-[6px] rounded-[12px]">
                       <Link
                         href={`/${item.user.email}`}
                         onClick={() => setOpenModelPosts(false)}
@@ -252,36 +318,36 @@ export default function ModelPost() {
                         </h3>
                       </Link>
                       <p>{item.content}</p>
-                      {(user.user._id === item.user._id ||
-                        user.user._id === item.post.author) && (
-                        <button
-                          style={
-                            isLoadingDelete[item._id]
-                              ? { pointerEvents: "none" }
-                              : { pointerEvents: "all" }
-                          }
-                          onClick={() => handleDeleTeComment(item)}
-                          className="absolute right-[3%] top-[3%] ml-[6px]"
-                        >
-                          {isLoadingDelete[item._id] ? (
-                            <Image
-                              width={18}
-                              height={18}
-                              className="animate-spin"
-                              src={icon.loading}
-                              alt=""
-                            />
-                          ) : (
-                            <Image
-                              width={16}
-                              height={16}
-                              src={icon.close}
-                              alt=""
-                            />
-                          )}
-                        </button>
-                      )}
                     </div>
+                    {(user.user._id === item.user._id ||
+                      user.user._id === item.post.author) && (
+                      <button
+                        style={
+                          isLoadingDelete[item._id]
+                            ? { pointerEvents: "none" }
+                            : { pointerEvents: "all" }
+                        }
+                        onClick={() => handleDeleTeComment(item)}
+                        className="my-auto ml-[6px]"
+                      >
+                        {isLoadingDelete[item._id] ? (
+                          <Image
+                            width={18}
+                            height={18}
+                            className="animate-spin"
+                            src={icon.loading}
+                            alt=""
+                          />
+                        ) : (
+                          <Image
+                            width={16}
+                            height={16}
+                            src={icon.iconDelete}
+                            alt=""
+                          />
+                        )}
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -330,6 +396,7 @@ export default function ModelPost() {
                         width={28}
                         height={28}
                         priority
+                        style={content ? { filter: "var(--filter-blue)" } : {}}
                         src={icon.send}
                         alt=""
                       />

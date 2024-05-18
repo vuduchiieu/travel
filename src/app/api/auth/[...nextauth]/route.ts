@@ -64,8 +64,8 @@ const handler = NextAuth({
         token = decodedToken.user;
       }
 
-      if (trigger === "update" && session?.data) {
-        token = session.data;
+      if (trigger === "update" && session) {
+        token = session;
       }
       return { ...token, ...user };
     },

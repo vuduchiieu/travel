@@ -15,6 +15,7 @@
     "@vercel/postgres": "^0.8.0",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
+    "framer-motion": "^11.2.4",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "next": "14.2.2",

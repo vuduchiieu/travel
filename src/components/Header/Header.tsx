@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 import icon from "@/assets/icon/icon";
 import Menu from "./Menu";
@@ -11,7 +12,11 @@ import NavBar from "./NavBar";
 export default function Header() {
   const { status } = useSession();
   return (
-    <header className="flex items-center justify-between fixed top-0 left-[-1%] right-0 bg-[#fff] h-[74px] max-w-[1230px] mx-auto z-[1]">
+    <motion.header
+      layout
+      layoutRoot
+      className="flex items-center justify-between fixed top-0 left-[-1%] right-0 bg-[#fff] h-[74px] max-w-[1230px] mx-auto z-[1]"
+    >
       <Link href={"/"} className="ml-[19px] ">
         <Image
           width={32}
@@ -32,6 +37,6 @@ export default function Header() {
           <p className="text-[#fff]">Đăng nhập</p>
         </Link>
       )}
-    </header>
+    </motion.header>
   );
 }
