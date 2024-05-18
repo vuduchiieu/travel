@@ -32,13 +32,10 @@ export default async function Account({ params }: any) {
       <Profile userId={userId} />
       <UpdateUser userId={userId} />
       <div className="flex justify-center items-center mb-[16px] h-[74px] w-[100%] ">
-        <button className="flex justify-center items-center h-[48px] w-[33%] border-b-[1px] border-b-solid border-[#000]">
+        <button className="flex justify-center items-center h-[48px] w-[50%] border-b-[1px] border-b-solid border-[#000]">
           <p className="text-[#000] font-semibold">Bài đăng</p>
         </button>
-        <button className="flex justify-center items-center h-[48px] w-[33%] border-b-[1px] border-b-solid border-[#00000026]">
-          <p className="text-[#999999] font-semibold">Trả lời</p>
-        </button>
-        <button className="flex justify-center items-center h-[48px] w-[33%] border-b-[1px] border-b-solid border-[#00000026]">
+        <button className="flex justify-center items-center h-[48px] w-[50%] border-b-[1px] border-b-solid border-[#00000026]">
           <p className="text-[#999999] font-semibold">Đăng lại</p>
         </button>
       </div>

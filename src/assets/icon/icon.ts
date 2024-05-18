@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 import arrow_r from "./arrow-right.svg";
 import logo from "./logo.svg";
 import home from "./home.svg";
@@ -20,7 +21,8 @@ import iconDelete from "./delete.svg";
 import background from "./background.png";
 import send from "./send.svg";
 import heartnav from "./heartnav.svg";
-import { StaticImageData } from "next/image";
+import arrowright from "./arrowright.svg";
+import arrowleft from "./arrowleft.svg";
 
 interface iconType {
   arrow_r: StaticImageData;
@@ -45,6 +47,8 @@ interface iconType {
   background: StaticImageData;
   iconDelete: StaticImageData;
   send: StaticImageData;
+  arrowright: StaticImageData;
+  arrowleft: StaticImageData;
 }
 
 const icon: iconType = {
@@ -70,6 +74,8 @@ const icon: iconType = {
   background,
   iconDelete,
   send,
+  arrowright,
+  arrowleft,
 };
 
 export default icon;
