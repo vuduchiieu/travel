@@ -131,7 +131,7 @@ export default function ModelPost() {
             ? { width: "25%" }
             : {}
         }
-        className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px]"
+        className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px] overflow-hidden"
       >
         <motion.button
           whileHover={{
@@ -193,10 +193,10 @@ export default function ModelPost() {
             {insideModel.image.map((item: any, i: number) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{
                   opacity: slide === i ? 1 : 0,
-                  scale: slide === i ? 1 : 0.9,
+                  scale: slide === i ? 1 : 0.8,
                 }}
                 transition={{ duration: 0.5 }}
                 style={slide === i ? { display: "block" } : { display: "none" }}
