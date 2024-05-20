@@ -1,13 +1,10 @@
 "use client";
-import { useSession } from "next-auth/react";
 import { useAppContext } from "../../components/Context/Context";
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import Image from "next/image";
 
 export default function NewPosts() {
-  const { user, toggleModelNewPost, isMobile } = useAppContext();
-
-  const { status } = useSession();
+  const { user, status, toggleModelNewPost, isMobile } = useAppContext();
 
   return (
     status === "authenticated" && (
@@ -27,7 +24,7 @@ export default function NewPosts() {
           style={isMobile ? { marginLeft: 6, width: "65%" } : {}}
           className="w-[80%]"
         >
-          <p className="text-[#999] text-[15px]">Bắt đầu thread...</p>
+          <p className="text-[#999] text-[15px]">Bắt đầu bài viết mới...</p>
         </div>
         <button
           style={isMobile ? { marginRight: 6 } : {}}

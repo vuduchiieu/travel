@@ -4,8 +4,9 @@ import { useAppContext } from "../Context/Context";
 import CustomAlert from "../CustomAlert/CustomAlert";
 import LoginGoogle from "./LoginGoogle";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import Image from "next/image";
 
 interface ModelLoginProps {
@@ -15,6 +16,8 @@ interface ModelLoginProps {
 export default function ModelLogin({ loginPage }: ModelLoginProps) {
   const { openModelLogin, setOpenModelLogin, contentAler, setContentAler } =
     useAppContext();
+
+  const router = useRouter();
 
   const [swapRegister, setSwapregister] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -60,7 +63,7 @@ export default function ModelLogin({ loginPage }: ModelLoginProps) {
       if (!res?.ok) {
         setContentAler("Thông tin không hợp lệ");
       } else {
-        window.location.href = "/";
+        router.push("/");
       }
     } catch (error: any) {
       setIsLoadingLogin(false);

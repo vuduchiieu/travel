@@ -3,14 +3,15 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import Menu from "./Menu";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import NavBar from "./NavBar";
+import { useAppContext } from "../Context/Context";
 
 export default function Header() {
-  const { status } = useSession();
+  const { status } = useAppContext();
+
   return (
     <motion.header
       layout
@@ -32,7 +33,7 @@ export default function Header() {
       ) : (
         <Link
           href={"/login"}
-          className="flex items-center justify-center  h-[34px] bg-[#000] rounded-[10px] text-[15px] w-[106px] "
+          className="flex items-center justify-center h-[34px] bg-[#000] rounded-[10px] text-[15px] w-[106px] "
         >
           <p className="text-[#fff]">Đăng nhập</p>
         </Link>

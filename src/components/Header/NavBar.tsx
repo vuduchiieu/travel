@@ -6,10 +6,9 @@ import ModelLogin from "../ModelLogin/ModelLogin";
 import ModelNewPosts from "../ModelNewPosts/ModelNewPosts";
 import ModelPost from "../ListPosts/ModelPost";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 
 interface NavItemProps {
   href: string;
@@ -27,12 +26,11 @@ export default function NavBar() {
     openModelLogin,
     toggleModelLogin,
     user,
+    status,
     isMobile,
   } = useAppContext();
 
   const pathname = usePathname();
-
-  const { status } = useSession();
 
   const NavItem = ({ href, iconSrc, alt, onClick }: NavItemProps) => {
     if (status === "authenticated") {

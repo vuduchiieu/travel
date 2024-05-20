@@ -1,6 +1,6 @@
 "use client";
 
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import { useAppContext } from "../Context/Context";
 import { useEffect, useRef, useState } from "react";
 import TippySelectPrivatePost from "./TippySelectPrivatePost";
@@ -12,6 +12,7 @@ export default function ModelNewPosts() {
   const {
     isMobile,
     user,
+    openModelNewPosts,
     setOpenModelNewPosts,
     setContentAler,
     fetData,
@@ -96,14 +97,20 @@ export default function ModelNewPosts() {
     }
   };
 
-  console.log(user);
-
   return (
     <div
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
       onClick={handleCloseModelLogin}
     >
-      <div className="flex flex-col items-center rounded-[16px]">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.3 }}
+        animate={{
+          opacity: openModelNewPosts ? 1 : 0,
+          scale: openModelNewPosts ? 1 : 0.8,
+        }}
+        className="flex flex-col items-center rounded-[16px]"
+      >
         <div className="h-[46px]">
           <h3 className="text-[#fff] text-[16px] font-bold">Bài viết mới</h3>
         </div>
@@ -231,6 +238,11 @@ export default function ModelNewPosts() {
             />
             <button
               type="submit"
+              style={
+                isLoadingSubmit
+                  ? { pointerEvents: "none" }
+                  : { pointerEvents: "auto" }
+              }
               className="flex justify-center items-center px-[16px] h-[36px] w-[76px] rounded-full  bg-[#000]"
             >
               {isLoadingSubmit ? (
@@ -248,7 +260,7 @@ export default function ModelNewPosts() {
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

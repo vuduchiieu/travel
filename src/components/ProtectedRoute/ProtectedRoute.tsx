@@ -3,19 +3,18 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
-import { useSession } from "next-auth/react";
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import Image from "next/image";
+import { useAppContext } from "../Context/Context";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
 };
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const { status } = useAppContext();
   const router = useRouter();
   const pathname = usePathname();
-
-  const { status } = useSession();
 
   useEffect(() => {
     if (

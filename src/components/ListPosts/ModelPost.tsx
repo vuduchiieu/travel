@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useAppContext } from "../Context/Context";
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
@@ -27,6 +27,7 @@ interface Comment {
 
 export default function ModelPost() {
   const {
+    openModelPosts,
     setOpenModelPosts,
     insideModel,
     setInsideModel,
@@ -112,13 +113,18 @@ export default function ModelPost() {
   };
 
   const [slide, setSlide] = useState(0);
-
   return (
     <div
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
       onClick={handleCloseModelLogin}
     >
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.4 }}
+        animate={{
+          opacity: openModelPosts ? 1 : 0,
+          scale: openModelPosts ? 1 : 0.8,
+        }}
         style={
           isMobile
             ? {
@@ -191,14 +197,8 @@ export default function ModelPost() {
               </motion.button>
             )}
             {insideModel.image.map((item: any, i: number) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: slide === i ? 1 : 0,
-                  scale: slide === i ? 1 : 0.8,
-                }}
-                transition={{ duration: 0.5 }}
                 style={slide === i ? { display: "block" } : { display: "none" }}
                 className="mx-auto"
               >
@@ -209,7 +209,7 @@ export default function ModelPost() {
                   src={item.url}
                   alt=""
                 />
-              </motion.div>
+              </div>
             ))}
             {insideModel.image.length > 1 && (
               <motion.button
@@ -317,7 +317,7 @@ export default function ModelPost() {
                           {item.user.name || item.user.email}
                         </h3>
                       </Link>
-                      <p>{item.content}</p>
+                      <p className="w-[90%]">{item.content}</p>
                     </div>
                     {(user.user._id === item.user._id ||
                       user.user._id === item.post.author) && (
@@ -328,7 +328,7 @@ export default function ModelPost() {
                             : { pointerEvents: "all" }
                         }
                         onClick={() => handleDeleTeComment(item)}
-                        className="my-auto ml-[6px]"
+                        className="my-auto ml-[6px] w-[10%]"
                       >
                         {isLoadingDelete[item._id] ? (
                           <Image
@@ -407,7 +407,7 @@ export default function ModelPost() {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import Header from "@/components/Header/Header";
 import Image from "next/image";
 
