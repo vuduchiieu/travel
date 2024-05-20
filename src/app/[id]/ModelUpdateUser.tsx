@@ -1,15 +1,17 @@
 "use client";
 
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import { useAppContext } from "@/components/Context/Context";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { motion } from "framer-motion";
 
 export default function ModelUpdateUser() {
-  const { user, setOpenModelUpdateUser, setContentAler } = useAppContext();
+  const { user, setOpenModelUpdateUser, setContentAler, openModelUpdateUser } =
+    useAppContext();
   const { update } = useSession();
 
   const handleCloseModelUpdateUser = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -70,7 +72,15 @@ export default function ModelUpdateUser() {
       className="flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[#000000b3] z-[1]"
       onClick={handleCloseModelUpdateUser}
     >
-      <div className="flex flex-col items-center p-[24px] w-[520px] min-h bg-[#fff] z-[1] rounded-[16px]">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.3 }}
+        animate={{
+          opacity: openModelUpdateUser ? 1 : 0,
+          scale: openModelUpdateUser ? 1 : 0.8,
+        }}
+        className="flex flex-col items-center p-[24px] w-[520px] min-h bg-[#fff] z-[1] rounded-[16px]"
+      >
         <form onSubmit={handleSubmit} className=" w-[100%]">
           <div className="flex">
             <div className=" w-[402px] pb-[16px] ">
@@ -181,7 +191,7 @@ export default function ModelUpdateUser() {
             )}
           </button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

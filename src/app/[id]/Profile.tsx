@@ -1,12 +1,12 @@
 "use client";
 
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import { useAppContext } from "@/components/Context/Context";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Profile({ userId }: any) {
-  const { setOpenModelUpdateUser } = useAppContext();
+  const { setOpenModelUpdateUser, user } = useAppContext();
 
   return (
     <div className="min-h pt-[16px] pb-[10px] ">
@@ -15,12 +15,21 @@ export default function Profile({ userId }: any) {
           <h2 className="font-bold text-[24px]">{userId.email}</h2>
           <p className="font-normal text-[15px]">{userId.name}</p>
         </div>
-        <button>
+        <button
+          style={
+            userId.email !== user?.user.email
+              ? { cursor: "default" }
+              : { cursor: "pointer" }
+          }
+        >
           <Image
             width={84}
             height={84}
             priority
-            onClick={() => setOpenModelUpdateUser(true)}
+            onClick={() => {
+              if (userId.email !== user?.user.email) return;
+              setOpenModelUpdateUser(true);
+            }}
             className="object-cover rounded-[50%]"
             src={userId.image || icon.defaultImage}
             alt=""

@@ -1,4 +1,4 @@
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import ModelLogin from "@/components/ModelLogin/ModelLogin";
 import Image from "next/image";
 

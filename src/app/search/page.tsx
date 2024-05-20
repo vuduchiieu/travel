@@ -7,7 +7,7 @@ import { MainLayout } from "@/layout/MainLayout";
 import Image from "next/image";
 import Link from "next/link";
 
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 
 type User = {
   _id: string;

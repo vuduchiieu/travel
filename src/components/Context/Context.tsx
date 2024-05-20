@@ -28,6 +28,7 @@ interface UserContextType {
   insideModel: any;
   setInsideModel: (newState: any) => void;
   user?: any;
+  status: string;
   getTimeAgo: (createdAt: string) => string;
   posts: any[];
   setPosts: (newState: any[]) => void;
@@ -82,13 +83,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (openModelLogin || openModelPosts || openModelUpdateUser) {
+    if (
+      openModelLogin ||
+      openModelPosts ||
+      openModelUpdateUser ||
+      openModelNewPosts
+    ) {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [openModelLogin, openModelPosts, openModelUpdateUser]);
+  }, [openModelLogin, openModelPosts, openModelUpdateUser, openModelNewPosts]);
 
   useEffect(() => {
     if (contentAler) {
@@ -136,6 +142,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         insideModel,
         setInsideModel,
         user: session,
+        status,
         getTimeAgo,
         posts,
         setPosts,

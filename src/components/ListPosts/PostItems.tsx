@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import TippyPostAccout from "./TippyPostAccout";
-import icon from "@/assets/icon/icon";
+import icon from "@/assets/image/icon";
 import { useAppContext } from "../Context/Context";
 
 function PostItem({ item }: any) {
@@ -49,8 +49,8 @@ function PostItem({ item }: any) {
         >
           <div className="flex justify-between items-center">
             <Link href={`/${item.author.email}`}>
-              <h3 className="font-semibold leading-[21px] text-[15px]">
-                {item.author.name}
+              <h3 className="font-semibold leading-[21px] text-[15px] cursor-pointer">
+                {item.author.name || item.author.email}
               </h3>
             </Link>
             <p className="flex-[0.95] leading-[21px] font-normal text-[#999999] text-[15px]">
@@ -69,7 +69,7 @@ function PostItem({ item }: any) {
             onClick={() => toggleModelLogin(item)}
             className="min-h-[30px] whitespace-pre-wrap"
           >
-            <p>{item.title}</p>
+            <p className="cursor-pointer">{item.title}</p>
           </button>
           <div className="relative">
             {item.image.length > 1 && (
@@ -91,7 +91,7 @@ function PostItem({ item }: any) {
               ref={imageContainerRef}
             >
               {item.image.map((image: any, i: number) => (
-                <div className="relative mr-[6px]" key={i}>
+                <div className="relative mr-[6px] mt-[8px]" key={i}>
                   <Image
                     unoptimized
                     priority
@@ -101,7 +101,7 @@ function PostItem({ item }: any) {
                       image.length > 1 ? { width: 430 } : { width: "auto" }
                     }
                     onClick={() => toggleModelLogin(item)}
-                    className="max-w-none h-[430px] object-cover rounded-[8px] mt-[8px] cursor-pointer"
+                    className="max-w-none h-[430px] object-cover rounded-[8px] cursor-pointer"
                     src={image.url}
                     alt=""
                   />

@@ -23,6 +23,7 @@ import send from "./send.svg";
 import heartnav from "./heartnav.svg";
 import arrowright from "./arrowright.svg";
 import arrowleft from "./arrowleft.svg";
+import notfound from "./notfound.gif";
 
 interface iconType {
   arrow_r: StaticImageData;
@@ -49,6 +50,7 @@ interface iconType {
   send: StaticImageData;
   arrowright: StaticImageData;
   arrowleft: StaticImageData;
+  notfound: StaticImageData;
 }
 
 const icon: iconType = {
@@ -76,6 +78,7 @@ const icon: iconType = {
   send,
   arrowright,
   arrowleft,
+  notfound,
 };
 
 export default icon;
