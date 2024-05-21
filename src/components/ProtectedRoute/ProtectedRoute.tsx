@@ -12,11 +12,12 @@ type ProtectedRouteProps = {
 };
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { status } = useAppContext();
+  const { status, setOpenModelLogin } = useAppContext();
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
+    if (status === "unauthenticated") setOpenModelLogin(false);
     if (
       (status === "unauthenticated" && pathname === "/search") ||
       (status === "unauthenticated" && pathname === "/account")
@@ -26,7 +27,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     if (status === "authenticated" && pathname === "/login") {
       router.push("/");
     }
-  }, [status, router, pathname]);
+  }, [status, pathname]);
 
   return status === "loading" ? (
     <div className="w-screen h-screen flex justify-center items-center">
