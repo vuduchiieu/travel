@@ -137,7 +137,7 @@ export default function ModelPost() {
             ? { width: "25%" }
             : {}
         }
-        className="relative flex justify-center items-center w-[85%] h-[85%] bg-[#fff] rounded-[16px] overflow-hidden"
+        className="relative flex justify-center items-center w-[95%] h-[85%] bg-[#fff] rounded-[16px] overflow-hidden"
       >
         <motion.button
           whileHover={{
@@ -317,7 +317,7 @@ export default function ModelPost() {
                           {item.user.name || item.user.email}
                         </h3>
                       </Link>
-                      <p className="w-[90%]">{item.content}</p>
+                      <p className="w-[85%]">{item.content}</p>
                     </div>
                     {(user.user._id === item.user._id ||
                       user.user._id === item.post.author) && (
@@ -328,7 +328,7 @@ export default function ModelPost() {
                             : { pointerEvents: "all" }
                         }
                         onClick={() => handleDeleTeComment(item)}
-                        className="my-auto ml-[6px] w-[10%]"
+                        className="my-auto ml-[6px] w-[15%]"
                       >
                         {isLoadingDelete[item._id] ? (
                           <Image

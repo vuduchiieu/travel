@@ -7,7 +7,6 @@ import React, {
   useState,
   ReactNode,
   useEffect,
-  useRef,
 } from "react";
 import { useMediaQuery } from "react-responsive";
 import { jwtDecode } from "jwt-decode";
