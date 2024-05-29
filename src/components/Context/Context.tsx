@@ -46,11 +46,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [posts, setPosts] = useState<any[]>([]);
   const fetData = async () => {
     const response = await axios.get(`${process.env.API_URL}/v1/post`);
-    const decodedToken: any = jwtDecode(response.data);
-    setPosts(decodedToken.data);
+    setPosts(response.data.data);
   };
   const [postsId, setPostsId] = useState<any[]>([]);
-
   const fetDataUserId = async (id: string) => {
     const response = await axios.get(`${process.env.API_URL}/v1/post/${id}`);
     const decodedToken: any = jwtDecode(response.data);
