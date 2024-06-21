@@ -3,7 +3,7 @@ import { MainLayout } from "@/layout/MainLayout";
 function Activity() {
   return (
     <MainLayout>
-      <nav className="absolute left-[50%] translate-x-[-50%] flex py-[4px] px-[16px] h-[42px] min-w ">
+      <nav className="fixed  left-[50%] translate-x-[-50%] flex justify-center items-center py-[4px] px-[16px] h-[42px] min-w-[1000px]">
         <button className="h-[34px] min-w border-[1px] bg-[#000] border-solid boder-[#00000066] px-[16px] mr-[8px] rounded-[10px] ">
           <p className="text-[#fff] font-semibold ">Tất cả</p>
         </button>
