@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import icon from "@/assets/image/icon";
+import { useAppContext } from "@/components/Context/Context";
 
 type User = {
   _id: string;
@@ -15,9 +16,11 @@ type User = {
   email?: string;
   name?: string;
   image?: string;
+  followers?: any;
 };
 
 export default function Search() {
+  const { setContentAler, user } = useAppContext();
   const [listUser, setListUser] = useState<User[]>([]);
   const [valueSearch, setValueSearch] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
@@ -123,12 +126,32 @@ export default function Search() {
                         {item.name}
                       </h3>
                     </Link>
-                    <button className="border-solid border-[1px] border-[#00000026] rounded-[10px] min-w-[104px] h-[34px] px-[16px]">
-                      <p className="font-semibold text-[15px]">Theo dõi</p>
+                    <button
+                      onClick={() => {
+                        setContentAler("Chức năng đang cập nhật");
+                      }}
+                      style={
+                        item.followers.some((i: any) => i._id === user.user._id)
+                          ? { backgroundColor: "#fff" }
+                          : {}
+                      }
+                      className="flex justify-center items-center h-[36px] min-w-[120px] py-[16px] border border-solid border-[#00000026] bg-[#000] rounded-[10px]"
+                    >
+                      {item.followers.some(
+                        (i: any) => i._id === user.user._id
+                      ) ? (
+                        <p className="font-semibold text-[#000] text-[15px]">
+                          Đang theo dõi
+                        </p>
+                      ) : (
+                        <p className="font-semibold text-[#fff] text-[15px]">
+                          Theo dõi
+                        </p>
+                      )}
                     </button>
                   </div>
                   <p className="pb-[12px] font-normal text-[15px]">
-                    40 người theo dõi
+                    {item.followers.length} người theo dõi
                   </p>
                 </div>
               </div>

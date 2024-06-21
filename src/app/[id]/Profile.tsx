@@ -41,7 +41,7 @@ export default function Profile({ userId }: any) {
       </div>
       <div className="flex justify-between items-center h-[36px] mt-[12px]">
         <p className="font-normal text-[15px] text-[#999999]">
-          4 người theo dõi
+          {userId.followers.length} người theo dõi
         </p>
         {userId.provider === "google" && (
           <Link href={"https://myaccount.google.com"} target="_blank">
