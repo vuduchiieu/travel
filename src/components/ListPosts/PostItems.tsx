@@ -69,7 +69,7 @@ function PostItem({ item }: any) {
             onClick={() => toggleModelLogin(item)}
             className="min-h-[30px] whitespace-pre-wrap"
           >
-            <p className="cursor-pointer">{item.title}</p>
+            <p className="cursor-pointer text-start">{item.title}</p>
           </button>
           <div className="relative">
             {item.image.length > 1 && (
